@@ -65,7 +65,7 @@ class SCPClient:
                     hostname=self.ip,
                     username=self.username,
                     pkey=self.ssh_key,
-                    look_for_keys=False,
+                    look_for_keys=True,
                 )
                 connected = True
             # TODO: Handle specific exceptions differently?
