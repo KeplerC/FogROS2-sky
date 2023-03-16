@@ -65,7 +65,8 @@ setup: |
     pip3 install colcon-common-extensions
     # install cloud dependencies 
     sudo apt-get install -y python3-pip wireguard unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp
-    pip3 install boto3 paramiko scp wgconfig
+    pip3 install boto3 paramiko scp wgconfig sky
+    pip3 install pyopenssl --upgrade
     ln -s ~/sky_workdir ~/fog_ws
 # Commands to run as a job.
 # Typical use: launch the main program.
