@@ -38,43 +38,6 @@ from .name_generator import get_unique_name
 from .cloud_instance import CloudInstance
 import sky
 
-sky_yaml_config = """
-name: fogros2-sky-cluster
-
-resources:
-    disk_size: 45
-
-num_nodes: 1  # Number of VMs to launch
-
-# Working directory (optional) containing the project codebase.
-# Its contents are synced to ~/sky_workdir/ on the cluster.
-workdir: ~/fog_ws
-
-# Commands to be run before executing the job.
-# Typical use: pip install -r requirements.txt, git clone, etc.
-setup: |
-    # install ROS
-    conda deactivate
-    sudo apt-get update
-    sudo apt-get install -y software-properties-common gnupg lsb-release 
-    sudo add-apt-repository universe
-    sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-    sudo apt-get update
-    sudo apt-get install -y ros-rolling-desktop
-    pip3 install colcon-common-extensions
-    # install cloud dependencies 
-    sudo apt-get install -y python3-pip wireguard unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp
-    pip3 install boto3 paramiko scp wgconfig sky
-    pip3 install pyopenssl --upgrade
-    ln -s ~/sky_workdir ~/fog_ws
-# Commands to run as a job.
-# Typical use: launch the main program.
-run: |
-    conda env list
-    source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache && . /home/ubuntu/fog_ws/install/setup.bash && export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp && export CYCLONEDDS_URI=file:///home/ubuntu/cyclonedds.xml && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py
-"""
-
 class SkyInstance(CloudInstance):
     """Sky Interface of CloudInstance."""
 
@@ -95,11 +58,9 @@ class SkyInstance(CloudInstance):
         self.type = "sky"
         self.compute_instance_disk_size = "sky"
 
-        self.create()
-
-    def create(self):
+    def create(self, config):
         self.logger.info(f"Creating new Sky cluster {self._name}")
-        self.create_sky_instance()
+        self.create_sky_instance(config)
         self.info(flush_to_disk=True)
         self.connect()
         self.install_colcon()
@@ -118,19 +79,20 @@ class SkyInstance(CloudInstance):
                 json.dump(info_dict, f)
         return info_dict
     
-    def create_sky_instance(self):
+    def create_sky_instance(self, sky_yaml_config):
         '''Create Sky Instance with skypilot'''
         user = subprocess.check_output('whoami', shell=True).decode().strip()
 
         with open("/tmp/sky.yaml", "w+") as f:
             f.write(sky_yaml_config)
 
-        # with sky.Dag() as dag:
-        #     t = sky.Task.from_yaml("/tmp/sky.yaml")
+        with sky.Dag() as dag:
+            t = sky.Task.from_yaml("/tmp/sky.yaml")
 
-        # sky.launch(dag, cluster_name = "sky-gdpmobile8", idle_minutes_to_autostop=100)
+        # sky.launch(dag, cluster_name = "sky-gdpmobile1", idle_minutes_to_autostop=100)
+        sky.exec(dag, cluster_name = "sky-gdpmobile1")
 
-        status = sky.status("sky-gdpmobile8")[0]
+        status = sky.status("sky-gdpmobile1")[0]
         # here we only need the ip address of the head node
         self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
         self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
