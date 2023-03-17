@@ -31,20 +31,24 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 import pickle
-class SkyScheduler():
+
+class SkyLauncher():
     def __init__(self) -> None:
-        self.nodes =  None
+        self.nodes = []
 
     def add(self, nodes):
         # add nodes to the scheduler
         # nodes is a list of SkyNode
-        self.nodes = nodes
+        self.nodes.append(nodes)
         print(self.nodes)
 
     def run(self):
         # run the scheduler
-        for key, value in self.nodes.items():
-            with open(f"/tmp/to_cloud_{key}", "wb+") as f:
-                print(f"{key}: to be dumped")
-                dumped_node_str = pickle.dumps(value)
-                f.write(dumped_node_str)
+        with open(f"/tmp/to_cloud", "wb+") as f:
+            print(f"to be dumped")
+            dumped_node_str = pickle.dumps(self.nodes)
+            f.write(dumped_node_str)
+
+    def benchmark(self):
+        # TODO: benchmark the scheduler
+        pass

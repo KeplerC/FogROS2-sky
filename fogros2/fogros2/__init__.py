@@ -37,4 +37,4 @@ from .sky_instance import SkyInstance  # noqa: F401
 from .kubernetes.generic import KubeInstance  # noqa: F401
 from .cloud_node import CloudNode, SkyNode  # noqa: F401
 from .launch_description import FogROSLaunchDescription  # noqa: F401
-from .sky_scheduler import SkyScheduler  # noqa: F401
+from .sky_launcher import SkyLauncher  # noqa: F401

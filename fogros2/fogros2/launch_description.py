@@ -50,7 +50,7 @@ from threading import Thread
 from time import sleep
 
 from .vpn import VPN
-from .sky_scheduler import SkyScheduler
+from .sky_launcher import SkyLauncher
 
 class FogROSLaunchDescription(LaunchDescriptionEntity):
     """
@@ -79,7 +79,7 @@ class FogROSLaunchDescription(LaunchDescriptionEntity):
         """Create a LaunchDescription."""
         self.__entities = []
         self.__to_cloud_entities = defaultdict(list)
-        self.__to_sky_entities = defaultdict(list)
+        self.__to_sky_entities = []
         self.__streamed_topics = []
         if initial_entities:
             for entity in initial_entities:
@@ -122,9 +122,9 @@ class FogROSLaunchDescription(LaunchDescriptionEntity):
             thread = Thread(target=machine.launch_cloud_node, args=[])
             thread.start()
 
-        sky_scheduler = SkyScheduler()
-        sky_scheduler.add(self.__to_sky_entities)
-        sky_scheduler.run()
+        sky_launcher = SkyLauncher()
+        sky_launcher.add(self.__to_sky_entities)
+        sky_launcher.run()
 
         if self.__deprecated_reason is not None:
             if "current_launch_file_path" in context.get_locals_as_dict():
@@ -271,7 +271,7 @@ class FogROSLaunchDescription(LaunchDescriptionEntity):
                         stream_topic[0], stream_topic[1], entity.machine
                     )
         elif entity.__class__.__name__ == "SkyNode":
-            self.__to_sky_entities[entity.unique_id].append(entity)
+            self.__to_sky_entities.append(entity)
         else:
             self.__entities.append(entity)
 

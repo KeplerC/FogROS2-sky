@@ -58,8 +58,3 @@ class SkyNode(Node):
         # workaround to make pickle not serializing self.machine
         state = self.__dict__.copy()
         return state
-
-    @property
-    def unique_id(self):
-        from .name_generator import get_unique_name
-        return get_unique_name()
