@@ -39,17 +39,15 @@ import fogros2
 def generate_launch_description():
     """Talker example that launches the listener on Google Compute Engine."""
     ld = fogros2.FogROSLaunchDescription()
-    machine1 = fogros2.SkyInstance()
 
     listener_node = Node(
         package="fogros2_examples", executable="listener", output="screen"
     )
 
-    talker_node = fogros2.CloudNode(
+    talker_node = fogros2.SkyNode(
         package="fogros2_examples",
         executable="talker",
         output="screen",
-        machine=machine1,
     )
     ld.add_action(talker_node)
     ld.add_action(listener_node)

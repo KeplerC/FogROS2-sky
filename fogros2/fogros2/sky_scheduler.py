@@ -30,36 +30,21 @@
 # PARTICULAR PURPOSE. THE SOFTWARE AND ACCOMPANYING DOCUMENTATION, IF ANY,
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+import pickle
+class SkyScheduler():
+    def __init__(self) -> None:
+        self.nodes =  None
 
-from launch_ros.actions import Node
+    def add(self, nodes):
+        # add nodes to the scheduler
+        # nodes is a list of SkyNode
+        self.nodes = nodes
+        print(self.nodes)
 
-
-class CloudNode(Node):
-    def __init__(self, machine, stream_topics=[], **kwargs):
-        super().__init__(**kwargs)
-        self.machine = machine
-        self.stream_topics = stream_topics
-
-    def __getstate__(self):
-        # workaround to make pickle not serializing self.machine
-        state = self.__dict__.copy()
-        del state["machine"]
-        return state
-
-    @property
-    def unique_id(self):
-        return self.machine.name
-
-class SkyNode(Node):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-
-    def __getstate__(self):
-        # workaround to make pickle not serializing self.machine
-        state = self.__dict__.copy()
-        return state
-
-    @property
-    def unique_id(self):
-        from .name_generator import get_unique_name
-        return get_unique_name()
+    def run(self):
+        # run the scheduler
+        for key, value in self.nodes.items():
+            with open(f"/tmp/to_cloud_{key}", "wb+") as f:
+                print(f"{key}: to be dumped")
+                dumped_node_str = pickle.dumps(value)
+                f.write(dumped_node_str)
