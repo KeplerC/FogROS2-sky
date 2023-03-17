@@ -62,10 +62,6 @@ class SkyInstance(CloudInstance):
         self.logger.info(f"Creating new Sky cluster {self._name}")
         self.create_sky_instance(config)
         self.info(flush_to_disk=True)
-        self.connect()
-        self.install_colcon()
-        self.install_cloud_dependencies()
-        self.info(flush_to_disk=True)
         self._is_created = True
 
     def info(self, flush_to_disk=True):
@@ -89,8 +85,12 @@ class SkyInstance(CloudInstance):
         with sky.Dag() as dag:
             t = sky.Task.from_yaml("/tmp/sky.yaml")
 
-        # sky.launch(dag, cluster_name = "sky-gdpmobile1", idle_minutes_to_autostop=100)
-        sky.exec(dag, cluster_name = "sky-gdpmobile1")
+        if sky.status("sky-gdpmobile1") == []:
+            # create a new cluster
+            sky.launch(dag, cluster_name = "sky-gdpmobile1", idle_minutes_to_autostop=100)
+        else:
+            # run with the same cluster
+            sky.exec(dag, cluster_name = "sky-gdpmobile1")
 
         status = sky.status("sky-gdpmobile1")[0]
         # here we only need the ip address of the head node

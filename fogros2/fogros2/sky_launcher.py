@@ -54,28 +54,31 @@ file_mounts:
 # Commands to be run before executing the job.
 # Typical use: pip install -r requirements.txt, git clone, etc.
 setup: |
-    # install ROS
+    # need to deactivate conda to install in system Python env
     conda deactivate
-    sudo apt-get update
-    sudo apt-get install -y software-properties-common gnupg lsb-release 
+    # install ROS
+    sudo apt-get update > /dev/null 2>&1
+    sudo apt-get install -y software-properties-common gnupg lsb-release > /dev/null 2>&1
     sudo add-apt-repository universe
     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
-    sudo apt-get update
-    sudo apt-get install -y ros-rolling-desktop
-    pip3 install colcon-common-extensions
+    sudo apt-get update > /dev/null 2>&1
+    sudo apt-get install -y ros-rolling-desktop > /dev/null 2>&1
+    pip3 install colcon-common-extensions > /dev/null 2>&1
     # install cloud dependencies 
-    sudo apt-get install -y python3-pip wireguard unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp
-    pip3 install boto3 paramiko scp wgconfig sky
-    pip3 install pyopenssl --upgrade
+    sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp > /dev/null 2>&1
+    pip3 install boto3 paramiko scp wgconfig sky > /dev/null 2>&1
+    pip3 install pyopenssl --upgrade > /dev/null 2>&1
     ln -s ~/sky_workdir ~/fog_ws
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
-    ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
-    sudo systemctl start docker
+    # for some reason, I need to restart the docker 
+    # ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
+    # sudo systemctl start docker
+    # run SGC 
     docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
-    source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache &&  ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py
+    source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache &&  source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py &
 """ 
     return config
 # docker run --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
