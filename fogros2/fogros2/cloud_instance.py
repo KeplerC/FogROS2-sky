@@ -59,11 +59,11 @@ class CloudInstance(abc.ABC):
         launch_foxglove=False,
     ):
         if "RMW_IMPLEMENTATION" not in os.environ:
-            raise MissingEnvironmentVariableException(
+            print(
                 "RMW_IMPLEMENTATION environment variable not set! export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp"
             )
         if "CYCLONEDDS_URI" not in os.environ:
-            raise MissingEnvironmentVariableException(
+            print(
                 "CYCLONEDDS_URI environment variable not set! export CYCLONEDDS_URI=file://$(pwd)/install/fogros2/share/fogros2/configs/cyclonedds.ubuntu.$(lsb_release -rs | sed 's/\.//').xml"
             )
 
