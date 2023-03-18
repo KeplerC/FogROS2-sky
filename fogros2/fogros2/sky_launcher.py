@@ -57,6 +57,7 @@ setup: |
     # need to deactivate conda to install in system Python env
     conda deactivate
     # install ROS
+    echo Installing ROS...
     sudo apt-get update > /dev/null 2>&1
     sudo apt-get install -y software-properties-common gnupg lsb-release > /dev/null 2>&1
     sudo add-apt-repository universe
@@ -66,10 +67,12 @@ setup: |
     sudo apt-get install -y ros-rolling-desktop > /dev/null 2>&1
     pip3 install colcon-common-extensions > /dev/null 2>&1
     # install cloud dependencies 
+    echo Installing other dependencies...
     sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp > /dev/null 2>&1
     pip3 install boto3 paramiko scp wgconfig sky > /dev/null 2>&1
     pip3 install pyopenssl --upgrade > /dev/null 2>&1
     ln -s ~/sky_workdir ~/fog_ws
+    echo cloud dependencies installed.
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
@@ -77,8 +80,8 @@ run: |
     # ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
     # sudo systemctl start docker
     # run SGC 
-    docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
-    source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache &&  source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py &
+    # docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
+    # source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache &&  source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py &
 """ 
     return config
 # docker run --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"

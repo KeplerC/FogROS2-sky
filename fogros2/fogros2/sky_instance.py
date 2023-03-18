@@ -34,6 +34,9 @@
 import json
 import os
 import subprocess
+from threading import Thread
+
+from .command_builder import BashBuilder
 from .name_generator import get_unique_name
 from .cloud_instance import CloudInstance
 import sky
@@ -58,22 +61,45 @@ class SkyInstance(CloudInstance):
         self.type = "sky"
         self.compute_instance_disk_size = "sky"
 
+    def launch_cloud_node(self):
+        # override the base class method
+        # launch cloud node with SGC network instead of VPN
+        cmd_builder = BashBuilder()
+        cmd_builder.append(f"source /opt/ros/{self.ros_distro}/setup.bash")
+        cmd_builder.append(
+            f"cd /home/{self._username}/fog_ws && /home/{self._username}/.local/bin/colcon build --cmake-clean-cache"
+        )
+        cmd_builder.append(f". /home/{self._username}/fog_ws/install/setup.bash")
+        ros_domain_id = os.environ.get("ROS_DOMAIN_ID")
+        if not ros_domain_id:
+            ros_domain_id = 0
+        cmd_builder.append(
+            f"ROS_DOMAIN_ID={ros_domain_id} "
+            "ros2 launch fogros2 cloud.launch.py"
+        )
+        self.logger.info(cmd_builder.get())
+        self.scp.execute_cmd(cmd_builder.get())
+    
+    def run_sgc(self):
+        # restart docker deamon
+        # ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
+        # sudo systemctl start docker
+        self.scp.execute_cmd("ps axf | grep docker | grep -v grep | awk '{print \"kill -9 \" $1}' | sudo sh ")
+        self.scp.execute_cmd("sudo systemctl start docker")
+        self.scp.execute_cmd("docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c 'source /opt/ros/humble/setup.bash && /gdp-router router'")
     def create(self, config):
+        # create a new Sky cluster
+        # param config: sky config file
         self.logger.info(f"Creating new Sky cluster {self._name}")
         self.create_sky_instance(config)
         self.info(flush_to_disk=True)
+        self.connect()
         self._is_created = True
-
-    def info(self, flush_to_disk=True):
-        info_dict = super().info(flush_to_disk)
-        info_dict["compute_region"] = self.zone
-        info_dict["compute_instance_type"] = self.type
-        info_dict["disk_size"] = self.compute_instance_disk_size
-        info_dict["compute_instance_id"] = self._name
-        if flush_to_disk:
-            with open(os.path.join(self._working_dir, "info"), "w+") as f:
-                json.dump(info_dict, f)
-        return info_dict
+        self.run_sgc()
+        def run_cloud_cmd_fn():
+            self.launch_cloud_node()
+        thread = Thread(target=run_cloud_cmd_fn, args=[])
+        thread.start()
     
     def create_sky_instance(self, sky_yaml_config):
         '''Create Sky Instance with skypilot'''
