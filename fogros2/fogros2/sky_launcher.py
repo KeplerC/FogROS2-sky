@@ -46,7 +46,7 @@ num_nodes: 1  # Number of VMs to launch
 
 # Working directory (optional) containing the project codebase.
 # Its contents are synced to ~/sky_workdir/ on the cluster.
-workdir: ~/fog_ws
+workdir: ~/fog_ws/install
 
 file_mounts:
     /tmp/to_cloud_nodes : /tmp/to_cloud
@@ -70,7 +70,8 @@ setup: |
     sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp > /dev/null 2>&1
     pip3 install boto3 paramiko scp wgconfig sky > /dev/null 2>&1
     pip3 install pyopenssl --upgrade > /dev/null 2>&1
-    ln -s ~/sky_workdir ~/fog_ws
+    mkdir ~/fog_ws
+    ln -s ~/sky_workdir ~/fog_ws/install
     echo cloud dependencies installed.
 # Commands to run as a job.
 # Typical use: launch the main program.

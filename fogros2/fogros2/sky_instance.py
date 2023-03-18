@@ -66,11 +66,11 @@ class SkyInstance(CloudInstance):
         # override the base class method
         # launch cloud node with SGC network instead of VPN
         cmd_builder = BashBuilder()
-        cmd_builder.append(f"source /opt/ros/{self.ros_distro}/setup.bash")
-        cmd_builder.append(
-            f"cd /home/{self._username}/fog_ws && /home/{self._username}/.local/bin/colcon build --cmake-clean-cache"
-        )
-        cmd_builder.append(f". /home/{self._username}/fog_ws/install/setup.bash")
+        # cmd_builder.append(f"source /opt/ros/{self.ros_distro}/setup.bash")
+        # cmd_builder.append(
+        #     f"cd /home/{self._username}/fog_ws && /home/{self._username}/.local/bin/colcon build --cmake-clean-cache"
+        # )
+        cmd_builder.append(f"source /home/{self._username}/fog_ws/install/setup.bash")
         ros_domain_id = os.environ.get("ROS_DOMAIN_ID")
         if not ros_domain_id:
             ros_domain_id = 0
