@@ -35,6 +35,7 @@ import json
 import os
 import subprocess
 from threading import Thread
+from time import sleep
 
 from .command_builder import BashBuilder
 from .name_generator import get_unique_name
@@ -84,8 +85,13 @@ class SkyInstance(CloudInstance):
         # restart docker deamon
         # ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
         # sudo systemctl start docker
-        self.scp.execute_cmd("ps axf | grep docker | grep -v grep | awk '{print \"kill -9 \" $1}' | sudo sh ")
+        
+        # self.scp.execute_cmd("sudo dockerd --debug")
+        #self.scp.execute_cmd("systemctl status docker.service")
+        self.scp.execute_cmd("sudo systemctl reset-failed docker")
         self.scp.execute_cmd("sudo systemctl start docker")
+        sleep(1)
+        self.scp.execute_cmd("systemctl status docker.service")
         self.scp.execute_cmd("docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c 'source /opt/ros/humble/setup.bash && /gdp-router router'")
     def create(self, config):
         # create a new Sky cluster

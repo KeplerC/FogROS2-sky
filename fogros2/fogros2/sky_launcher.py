@@ -41,7 +41,6 @@ name: fogros2-sky-cluster
 resources:
     disk_size: 45
     cloud: aws 
-    region: us-west-1
 
 num_nodes: 1  # Number of VMs to launch
 
@@ -57,10 +56,10 @@ setup: |
     # need to deactivate conda to install in system Python env
     conda deactivate
     # install ROS
-    echo Installing ROS...
+    echo Installing ROS... It takes a while... 
     sudo apt-get update > /dev/null 2>&1
     sudo apt-get install -y software-properties-common gnupg lsb-release > /dev/null 2>&1
-    sudo add-apt-repository universe
+    sudo add-apt-repository universe > /dev/null 2>&1
     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
     sudo apt-get update > /dev/null 2>&1
