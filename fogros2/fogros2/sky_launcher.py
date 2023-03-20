@@ -43,6 +43,8 @@ resources:
     cloud: aws 
     region: us-east-1
     image_id: ami-060ecc3c37683f1a2
+    # candidates:
+    # - {instance_type: t2.micro}
 
 num_nodes: 1  # Number of VMs to launch
 
@@ -72,18 +74,22 @@ setup: |
     sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp > /dev/null 2>&1
     pip3 install boto3 paramiko scp wgconfig sky > /dev/null 2>&1
     pip3 install pyopenssl --upgrade > /dev/null 2>&1
-    mkdir ~/fog_ws
+    # install sky callback
+    pip install "git+https://github.com/skypilot-org/skypilot.git#egg=sky-callback&subdirectory=sky/callbacks/" > /dev/null 2>&1
+    mkdir -p ~/fog_ws
     ln -s ~/sky_workdir ~/fog_ws/install
     echo cloud dependencies installed.
+    # Running SGC
+    echo Running SGC...
+    sudo systemctl reset-failed docker
+    sleep 1
+    sudo systemctl start docker
+    docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c 'source /opt/ros/humble/setup.bash && /gdp-router router'
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
-    # for some reason, I need to restart the docker 
-    # ps axf | grep docker | grep -v grep | awk '{print "kill -9 " $1}' | sudo sh 
-    # sudo systemctl start docker
     # run SGC 
-    # docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
-    # source /opt/ros/rolling/setup.bash && cd /home/ubuntu/fog_ws && colcon build --cmake-clean-cache &&  source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py &
+    source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
 """ 
     return config
 # docker run --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"

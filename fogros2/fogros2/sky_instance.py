@@ -99,13 +99,13 @@ class SkyInstance(CloudInstance):
         self.logger.info(f"Creating new Sky cluster {self._name}")
         self.create_sky_instance(config)
         self.info(flush_to_disk=True)
-        self.connect()
+        # self.connect()
         self._is_created = True
-        self.run_sgc()
-        def run_cloud_cmd_fn():
-            self.launch_cloud_node()
-        thread = Thread(target=run_cloud_cmd_fn, args=[])
-        thread.start()
+        # self.run_sgc()
+        # def run_cloud_cmd_fn():
+        #     self.launch_cloud_node()
+        # thread = Thread(target=run_cloud_cmd_fn, args=[])
+        # thread.start()
     
     def create_sky_instance(self, sky_yaml_config):
         '''Create Sky Instance with skypilot'''
@@ -119,13 +119,26 @@ class SkyInstance(CloudInstance):
 
         if sky.status("sky-fogros") == []:
             # create a new cluster
-            sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
+            # sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
+            pid = os.fork()
+            if pid == 0:
+                # child process, just launch the yaml cloud node
+                sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
+                exit(0)
         else:
             # run with the same cluster
             sky.exec(dag, cluster_name = "sky-fogros")
 
+
+        while (sky.status("sky-fogros") == []):
+            sleep(1)
         status = sky.status("sky-fogros")[0]
         # here we only need the ip address of the head node
-        self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
-        self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
+        try:
+            self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
+            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
+        except:
+            # TODO: placeholders
+            self._ip = None
+            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
         self._is_created = True

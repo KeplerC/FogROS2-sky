@@ -35,10 +35,11 @@ import socket
 
 import rclpy
 from std_msgs.msg import String
-
+import sky_callback
 
 def main(args=None):
     rclpy.init(args=args)
+    sky_callback.init(total_steps=500)
 
     node = rclpy.create_node("minimal_publisher")
     publisher = node.create_publisher(String, "topic", 10)
@@ -49,11 +50,13 @@ def main(args=None):
     i = 0
 
     def timer_callback():
+        sky_callback.step_begin()
         nonlocal i
         msg.data = "Hello World from %s (%s): %d" % (host_name, host_ip, i)
         i += 1
         node.get_logger().warning('Publishing: "%s"' % msg.data)
         publisher.publish(msg)
+        sky_callback.step_end()
 
     timer_period = 0.5  # seconds
     timer = node.create_timer(timer_period, timer_callback)
