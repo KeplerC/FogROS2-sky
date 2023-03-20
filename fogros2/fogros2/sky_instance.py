@@ -117,14 +117,14 @@ class SkyInstance(CloudInstance):
         with sky.Dag() as dag:
             t = sky.Task.from_yaml("/tmp/sky.yaml")
 
-        if sky.status("sky-gdpmobile1") == []:
+        if sky.status("sky-fogros") == []:
             # create a new cluster
-            sky.launch(dag, cluster_name = "sky-gdpmobile1", idle_minutes_to_autostop=100)
+            sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
         else:
             # run with the same cluster
-            sky.exec(dag, cluster_name = "sky-gdpmobile1")
+            sky.exec(dag, cluster_name = "sky-fogros")
 
-        status = sky.status("sky-gdpmobile1")[0]
+        status = sky.status("sky-fogros")[0]
         # here we only need the ip address of the head node
         self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
         self._ssh_key_path = f"/home/{user}/.ssh/sky-key"

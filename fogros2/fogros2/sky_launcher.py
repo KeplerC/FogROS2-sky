@@ -41,6 +41,8 @@ name: fogros2-sky-cluster
 resources:
     disk_size: 45
     cloud: aws 
+    region: us-east-1
+    image_id: ami-060ecc3c37683f1a2
 
 num_nodes: 1  # Number of VMs to launch
 
