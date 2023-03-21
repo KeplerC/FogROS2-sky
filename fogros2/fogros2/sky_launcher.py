@@ -39,12 +39,12 @@ def get_sky_config_yaml():
 name: fogros2-sky-cluster
 
 resources:
-    disk_size: 45
+    disk_size: 60
     cloud: aws 
     region: us-east-1
     image_id: ami-060ecc3c37683f1a2
     # candidates:
-    # - {instance_type: t2.micro}
+    # - {instance_type: m6i.2xlarge}
 
 num_nodes: 1  # Number of VMs to launch
 
@@ -88,8 +88,9 @@ setup: |
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
-    # run SGC 
-    source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
+    # source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
+    sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py
+    sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
 """ 
     return config
 # docker run --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
