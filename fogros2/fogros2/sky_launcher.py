@@ -43,6 +43,13 @@ resources:
     cloud: aws 
     region: us-east-1
     image_id: ami-060ecc3c37683f1a2
+    # disk_size: 60
+    # cloud: aws 
+    # region: us-east-1
+    # image_id: ami-060ecc3c37683f1a2
+    # disk_size: 160
+    # cloud: azure 
+
     # candidates:
     # - {instance_type: m6i.2xlarge}
 
@@ -93,7 +100,7 @@ run: |
     sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
 """ 
     return config
-# docker run --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
+# docker run  -it --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"
 class SkyLauncher():
     def __init__(self) -> None:
         self.nodes = []
