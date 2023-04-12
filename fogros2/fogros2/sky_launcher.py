@@ -95,9 +95,9 @@ setup: |
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
-    # source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
-    sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py
-    sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
+    source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
+    # sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py
+    # sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
 """ 
     return config
 # docker run  -it --net=host keplerc/fogros2-sgc:v0.1 bash -c "source /opt/ros/humble/setup.bash && /gdp-router router"

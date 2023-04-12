@@ -18,6 +18,32 @@
   - [Some Common Issues](#some-common-issues)
   - [Running Examples:](#running-examples)
 
+
+## Sky instructions 
+
+```
+source install/setup.bash
+ros2 launch fogros2_examples talker.sky.launch.py 
+```
+another terminal
+```
+docker run --net=host keplerc/fogros2-sgc:v0.1 /gdp-router router
+```
+
+check status 
+```
+sky status 
+```
+
+turn off
+```
+sky down sky-fogros
+```
+
+### hacks 
+1. IP address L95 of sky_instance.py is hardcoded with robot's IP 
+2. `benchmark` related functionality requires writing a local file
+
 ## Install
 ### Quickstart
 If you are new to ROS and Ubuntu, and want to install FogROS 2 (and ROS 2) and its requisites from scratch, follow instructions [here](https://github.com/BerkeleyAutomation/FogROS2/blob/humble/QUICKSTART.md).
