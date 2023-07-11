@@ -48,6 +48,7 @@ def generate_launch_description():
         package="fogros2_examples",
         executable="talker",
         output="screen",
+        arguments=[('--ros-args --log-level debug')]
     )
     ld.add_action(talker_node)
     ld.add_action(listener_node)
