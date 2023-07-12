@@ -1,0 +1,26 @@
+# Only shows `resources` as other fields do not change.
+resources:
+    cloud: aws  # Works as a default value for `cloud`.
+    # Added only for SkyPilot Benchmark.
+    candidates:
+    - {cpus: 2}
+    # - {cpus: 4}
+    # - {cpus: 8}
+    # - {cpus: 16}
+    # - {cpus: 32}
+    # - {cpus: 64}
+num_nodes: 1  # Number of VMs to launch
+setup: |
+    # need to deactivate conda to install in system Python env
+    conda deactivate
+    # install sky callback
+    pip install “git+https://github.com/skypilot-org/skypilot.git#egg=sky-callback&subdirectory=sky/callbacks/” > /dev/null 2>&1
+    echo Running SGC...
+    sudo systemctl reset-failed docker
+    sleep 1
+    sudo systemctl start docker
+# Commands to run as a job.
+# Typical use: launch the main program.
+run: |
+    sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py
+    sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
