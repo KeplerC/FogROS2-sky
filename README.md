@@ -52,10 +52,6 @@ sky check # to make sure aws is enabled
 source install/setup.bash
 ros2 launch fogros2_examples talker.sky.launch.py 
 ```
-another terminal
-```
-docker run --net=host keplerc/fogros2-sgc:v0.1 /gdp-router router
-```
 
 check status 
 ```
