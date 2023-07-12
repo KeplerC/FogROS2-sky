@@ -82,9 +82,6 @@ turn off
 sky down sky-fogros
 ```
 
-### hacks 
-1. IP address L95 of sky_instance.py is hardcoded with robot's IP 
-2. `benchmark` related functionality requires writing a local file
 
 ## Install
 ### Quickstart

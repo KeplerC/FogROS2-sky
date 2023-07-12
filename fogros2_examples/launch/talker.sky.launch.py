@@ -43,13 +43,44 @@ def generate_launch_description():
     listener_node = Node(
         package="fogros2_examples", executable="listener", output="screen"
     )
+    ld.add_action(listener_node)
+
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router", 
+        output="screen",
+        emulate_tty = True,
+        parameters = [
+            # find and add config file in ./sgc_launhc/configs
+            # or use the `config_path` optional parameter
+            {"config_file_name": "talker-listener.yaml"}, 
+            {"whoami": "machine_listener"},
+            {"release_mode": False}
+        ]
+    )
+    ld.add_action(sgc_router)
+
 
     talker_node = fogros2.SkyNode(
         package="fogros2_examples",
         executable="talker",
         output="screen",
-        arguments=[('--ros-args --log-level debug')]
     )
     ld.add_action(talker_node)
-    ld.add_action(listener_node)
+
+    sgc_router = fogros2.SkyNode(
+        package="sgc_launch",
+        executable="sgc_router", 
+        output="screen",
+        emulate_tty = True,
+        parameters = [
+            # find and add config file in ./sgc_launhc/configs
+            # or use the `config_path` optional parameter
+            {"config_file_name": "talker-listener.yaml"}, 
+            {"whoami": "machine_talker"},
+            {"release_mode": False}
+        ]
+    )
+    ld.add_action(sgc_router)
+    
     return ld

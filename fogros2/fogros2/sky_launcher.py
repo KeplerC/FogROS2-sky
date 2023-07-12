@@ -39,10 +39,10 @@ def get_sky_config_yaml():
 name: fogros2-sky-cluster
 
 resources:
-    disk_size: 60
+    disk_size: 128
     cloud: aws 
-    region: us-east-1
-    image_id: ami-060ecc3c37683f1a2
+    region: us-west-1
+    image_id: ami-03c44768198d7e3fe
     # disk_size: 60
     # cloud: aws 
     # region: us-east-1
@@ -57,7 +57,7 @@ num_nodes: 1  # Number of VMs to launch
 
 # Working directory (optional) containing the project codebase.
 # Its contents are synced to ~/sky_workdir/ on the cluster.
-workdir: ~/fog_ws/install
+workdir: ~/sky_ws/
 
 file_mounts:
     /tmp/to_cloud_nodes : /tmp/to_cloud
@@ -74,28 +74,31 @@ setup: |
     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
     sudo apt-get update > /dev/null 2>&1
-    sudo apt-get install -y ros-rolling-desktop > /dev/null 2>&1
+    sudo apt-get install -y ros-humble-desktop > /dev/null 2>&1
     pip3 install colcon-common-extensions > /dev/null 2>&1
     # install cloud dependencies 
     echo Installing other dependencies...
-    sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-rolling-rmw-cyclonedds-cpp > /dev/null 2>&1
-    pip3 install boto3 paramiko scp wgconfig sky > /dev/null 2>&1
-    pip3 install pyopenssl --upgrade > /dev/null 2>&1
+    sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-humble-rmw-cyclonedds-cpp #> /dev/null 2>&1
+    pip3 install boto3 paramiko scp wgconfig sky #> /dev/null 2>&1
+    pip3 install pyopenssl --upgrade # > /dev/null 2>&1
     # install sky callback
     pip install "git+https://github.com/skypilot-org/skypilot.git#egg=sky-callback&subdirectory=sky/callbacks/" > /dev/null 2>&1
     mkdir -p ~/fog_ws
-    ln -s ~/sky_workdir ~/fog_ws/install
+    ln -s ~/sky_workdir/src ~/fog_ws/src
+    ln -s ~/sky_workdir/install ~/fog_ws/install
     echo cloud dependencies installed.
+    # building remotely 
+    source /opt/ros/humble/setup.bash && cd ~/fog_ws && colcon build
     # Running SGC
-    echo Running SGC...
-    sudo systemctl reset-failed docker
-    sleep 1
-    sudo systemctl start docker
-    docker run -d --net=host -e GATEWAY_IP=128.32.37.48 keplerc/fogros2-sgc:v0.1 bash -c 'source /opt/ros/humble/setup.bash && /gdp-router router'
+    # sudo systemctl reset-failed docker
+    # sleep 1
+    # sudo systemctl start docker
+    source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py 
 # Commands to run as a job.
 # Typical use: launch the main program.
 run: |
-    source ~/fog_ws/install/setup.bash && ROS_DOMAIN_ID=0 ros2 launch fogros2 cloud.launch.py 
+    echo "hello"
+    source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py 
     # sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py
     # sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py
 """ 
