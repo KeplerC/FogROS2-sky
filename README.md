@@ -24,43 +24,28 @@
 #### Installation 
 
 ```
-pip install skypilot
-pip3 install wgconfig boto3 paramiko scp
-sudo apt install wireguard-tools # TODO: remove dependency of VPN 
-```
-
-```
 mkdir -p ~/sky_ws/src
 cd ~/sky_ws/src
 git clone https://github.com/KeplerC/FogROS2-sky.git
+git clone https://github.com/KeplerC/fogros2-sgc
 cd ~/sky_ws
 colcon build
 ```
 
 ```
+pip install skypilot
+pip3 install wgconfig boto3 paramiko scp
+sudo apt update
+sudo apt install wireguard-tools # TODO: remove dependency of VPN 
+```
+also follow the installation instruction for SGC (https://github.com/KeplerC/fogros2-sgc)
+
+then configure AWS by
+```
 aws configure
 sky check # to make sure aws is enabled
 ```
 
-
-#### Benchmark
-
-normal benchmark does not need to run the entire fogros pipeline. 
-Just run 
-```
-sky bench launch benchmark.yaml  -b BENCHMARK_NAME
-```
-
-Wait for a few minutes (10 minutes? it needs time to init dexnet) and run 
-```
-sky bench show BENCHMARK_NAME
-```
-note that this will stop logging the current benchmark (yes, I confirmed this with Sky team, their scenario is different from ours), so only do it if you are confident the numbers are generated. We should modify it and do it our way later. 
-
-To turn off everything, run 
-```
-sky bench down BENCHMARK_NAME
-```
 
 #### run 
 ```
@@ -82,6 +67,25 @@ turn off
 sky down sky-fogros
 ```
 
+#### Benchmark
+
+normal benchmark does not need to run the entire fogros pipeline. 
+Just run 
+```
+sky bench launch benchmark.yaml  -b BENCHMARK_NAME
+```
+
+Wait for a few minutes (10 minutes? it needs time to init dexnet) and run 
+```
+sky bench show BENCHMARK_NAME
+```
+note that this will stop logging the current benchmark (yes, I confirmed this with Sky team, their scenario is different from ours), so only do it if you are confident the numbers are generated. We should modify it and do it our way later. 
+
+To turn off everything, run 
+```
+sky bench down BENCHMARK_NAME
+```
+TODO: in the future, integrate this (and the algorithm) with the main FogROS pipeline. 
 
 ## Install
 ### Quickstart
