@@ -1,6 +1,6 @@
 .idea
 .vscode
-
+fogros2/scripts/*.yaml
 examples/log
 examples/build
 examples/install
