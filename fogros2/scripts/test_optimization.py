@@ -2,21 +2,32 @@ import argparse
 import os
 import yaml
 import csv
+import threading
+import subprocess
+import time
 
+# Run aws configure, and sky check beforehand
 class SkyOptimization():
     def __init__(self,yaml_file,debug):
         self.debug_ = debug
         if self.debug_:
             print("Initialize sky optimization")
+        self.SECONDS_PER_MINUTE = 60
         self.yaml_file_ = yaml_file
         self.relevant_cpu_list_ = []
+        self.benchmark_time_results_ = {}
         self.cpu_benchmark_yaml_list_ = ['benchmark_cpu_min.yaml','benchmark_cpu_mid.yaml','benchmark_cpu_max.yaml']
+        self.benchmark_name_list_ = ['cpu-min','cpu-mid','cpu-max']
+        self.benchmark_threads_ = []
         self.yaml_file_contents_ = None
         self.cpu_start_index_ = -1
         self.cpu_candiate_index_ = -1
         self.cpu_str_offset_ = 5
+        self.seconds_per_step_index_ = 8
         self.findCpuValues()
         self.createBenchmarks()
+        self.runSkyBenchmarks()
+        
         #min_yaml_contents = yaml_file_contents
         # f = open("demofile3.txt", "w")
         # file_contents = ""
@@ -70,7 +81,8 @@ class SkyOptimization():
         for i in range(len(self.cpu_benchmark_yaml_list_)):
             cpu_string = self.yaml_file_contents_[self.cpu_start_index_]
             cpu_substring = cpu_string[cpu_string.find("cpus:")+self.cpu_str_offset_:cpu_string.find("}")]
-            new_cpu_string = cpu_string.replace(cpu_substring,str(self.relevant_cpu_list_[i]))
+            cpu_replacement_substring = " " + str(self.relevant_cpu_list_[i])
+            new_cpu_string = cpu_string.replace(cpu_substring,cpu_replacement_substring)
             self.yaml_file_contents_[self.cpu_start_index_] = new_cpu_string
             f = open(self.cpu_benchmark_yaml_list_[i], "w")
             file_contents = ""
@@ -78,6 +90,92 @@ class SkyOptimization():
                 file_contents += line
             f.write(file_contents)
             f.close()
+
+    def runSkyBenchmarks(self):
+        if self.debug_:
+            print("Run Sky Benchmarks")
+        t1 = threading.Thread(target=self.skyBenchmark,args=(self.cpu_benchmark_yaml_list_[0],self.benchmark_name_list_[0],self.relevant_cpu_list_[0]))
+        t1.start()
+        t1.join()
+        #for i in range(len(self.cpu_benchmark_yaml_list_)):
+    
+    def skyBenchmark(self,yaml_file,benchmark_name,hardware_count):
+        if self.debug_:
+            print("Sky benchmark: " + yaml_file)
+        benchmark_setup_command = 'bash benchmark.sh ' + yaml_file + ' ' + benchmark_name
+        benchmark_setup=subprocess.Popen(benchmark_setup_command, shell=True, stdout=subprocess.PIPE, )
+        #output = ""
+        while True:
+            line = benchmark_setup.stdout.readline()
+            #if line == '' and process.poll() is not None:
+            #    break
+            if line:
+                line_byte = line.strip()
+                line = line_byte.decode('utf-8')
+                print(line)
+                # if(line == "To teardown the clusters:"):
+                #     print("OVER")
+                #     break
+                
+                #output += str(line.strip()) + "\n"
+                #print(line.strip())  # Optional: Print the output in real-time
+            else:
+                break
+        if self.debug_:
+            print("Cluster is setup")
+        
+        time_remaining = 5
+        while(time_remaining > 0):
+            print("Benchmarking. " + str(time_remaining) + " minutes remaining")
+            time.sleep(self.SECONDS_PER_MINUTE)
+            time_remaining -= 1
+        if self.debug_:
+            print("Check status")
+        benchmark_log_command = 'sky bench show ' + benchmark_name
+        benchmark_log=subprocess.Popen(benchmark_log_command, shell=True, stdout=subprocess.PIPE, )
+        seconds_per_step_line = ""
+        while True:
+            line = benchmark_log.stdout.readline()
+            if line:
+                line_byte = line.strip()
+                line = line_byte.decode('utf-8')
+                print(line)
+                if "sky-bench" in line:
+                    seconds_per_step_line = line
+            else:
+                break
+        seconds_per_step_array = seconds_per_step_line.split()
+        seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
+        self.benchmark_time_results_[hardware_count] = float(seconds_per_step)
+        print("Terminating cluster")
+        benchmark_down_command = 'sky bench down ' + benchmark_name + '< benchmark_input.txt'
+        benchmark_down = subprocess.Popen(benchmark_down_command, shell=True, stdout=subprocess.PIPE, )
+        while True:
+            line = benchmark_down.stdout.readline()
+            if line:
+                line_byte = line.strip()
+                line = line_byte.decode('utf-8')
+                print(line)
+            else:
+                break
+        # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
+        # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
+        # while True:
+        #     line = benchmark_delete.stdout.readline()
+        #     if line:
+        #         line_byte = line.strip()
+        #         line = line_byte.decode('utf-8')
+        #         print(line)
+        #     else:
+        #         break
+        # proc=subprocess.Popen('bash basic.sh', shell=True, stdout=subprocess.PIPE, )
+        # output=proc.communicate()[0]
+        # print("IN HERE 1")
+        # print(output)
+        # print("IN HERE 2")
+
+        
+        
         
 
 def main():
