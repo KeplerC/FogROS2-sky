@@ -50,3 +50,8 @@ RUN chmod +x /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 CMD ["bash"]
+
+COPY ./setup.sh /
+RUN chmod +x /setup.sh
+RUN cd /
+RUN bash /setup.sh
