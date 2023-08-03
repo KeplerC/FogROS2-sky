@@ -5,6 +5,7 @@ import csv
 import threading
 import subprocess
 import time
+import numpy as np
 
 # Run aws configure, and sky check beforehand
 class SkyOptimization():
@@ -24,10 +25,12 @@ class SkyOptimization():
         self.cpu_candiate_index_ = -1
         self.cpu_str_offset_ = 5
         self.seconds_per_step_index_ = 8
+        linear_coefficients = None
         self.findCpuValues()
         self.createBenchmarks()
         self.runSkyBenchmarks()
-        print(self.benchmark_time_results_)
+        self.solveTimePerHardwareConstraint()
+        print(linear_coefficients)
         
         #min_yaml_contents = yaml_file_contents
         # f = open("demofile3.txt", "w")
@@ -103,7 +106,31 @@ class SkyOptimization():
         for i in range(len(thread_list)):
             thread_list[i].join()
         if self.debug_:
-            print("Finished running sky benchmarks")
+            print("Finished running sky benchmarks. Will now terminate clusters.")
+        
+        benchmark_down_command = 'sky down --all < benchmark_input.txt'
+        benchmark_down = subprocess.Popen(benchmark_down_command, shell=True, stdout=subprocess.PIPE, )
+        while True:
+            line = benchmark_down.stdout.readline()
+            if line:
+                line_byte = line.strip()
+                line = line_byte.decode('utf-8')
+                print(line)
+            else:
+                break
+        
+        benchmark_delete_command = 'sky bench delete --all < benchmark_input.txt'
+        benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
+        while True:
+            line = benchmark_delete.stdout.readline()
+            if line:
+                line_byte = line.strip()
+                line = line_byte.decode('utf-8')
+                print(line)
+            else:
+                break
+        if self.debug_:
+            print("Successfully terminated clusters.")
         # t1 = threading.Thread(target=self.skyBenchmark,args=(self.cpu_benchmark_yaml_list_[0],self.benchmark_name_list_[0],self.relevant_cpu_list_[0]))
         # t1.start()
         # t2 = threading.Thread(target=self.skyBenchmark,args=(self.cpu_benchmark_yaml_list_[1],self.benchmark_name_list_[1],self.relevant_cpu_list_[1]))
@@ -162,30 +189,7 @@ class SkyOptimization():
         seconds_per_step_array = seconds_per_step_line.split()
         seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
         self.benchmark_time_results_[hardware_count] = float(seconds_per_step)
-        print("Hardware count " + str(hardware_count) + ": " +"Terminating cluster")
-        benchmark_down_command = 'sky bench down ' + benchmark_name + '< benchmark_input.txt'
-        benchmark_down = subprocess.Popen(benchmark_down_command, shell=True, stdout=subprocess.PIPE, )
-        while True:
-            line = benchmark_down.stdout.readline()
-            if line:
-                line_byte = line.strip()
-                line = line_byte.decode('utf-8')
-                line_output = "Hardware count " + str(hardware_count) + ": " + line 
-                print(line_output)
-            else:
-                break
         
-        benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
-        benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
-        while True:
-            line = benchmark_delete.stdout.readline()
-            if line:
-                line_byte = line.strip()
-                line = line_byte.decode('utf-8')
-                line_output = "Hardware count " + str(hardware_count) + ": " + line 
-                print(line_output)
-            else:
-                break
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
         # while True:
@@ -201,6 +205,37 @@ class SkyOptimization():
         # print("IN HERE 1")
         # print(output)
         # print("IN HERE 2")
+
+    def solveTimePerHardwareConstraint(self):
+        # Turns out that this relationship is exponential, so we will use log-linear regression to accurately map the relationship while still keeping the constraint linear
+        # TODO: Idk if we can use this across the board tho?
+        if self.debug_:
+            print("Running least squares regression to solve for time per hardware")
+        # Linear regression
+        x = np.array(list(self.benchmark_time_results_.keys()))
+        y = np.array(list(self.benchmark_time_results_.values()))
+        log_x = np.log(x)
+        log_y = np.log(y)
+        print("Linear regression: " + str(self.leastSquaresRegression(x,y)))
+        print("Logarithmic regression: " + str(self.leastSquaresRegression(log_x,log_y)))
+        print("Exponential regression: " + str(self.leastSquaresRegression(x,log_y)))
+        print("Wildcard regression: " + str(self.leastSquaresRegression(log_x,y)))
+        # A = np.vstack([x, np.ones(len(x))]).T
+        # linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
+        # y_pred = linear_coefficients[0] * x + linear_coefficients[1]
+        # rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
+        # if self.debug_:
+        #     print("R squared value: " + str(rsquared))
+
+    def leastSquaresRegression(self,x,y):
+        A = np.vstack([x, np.ones(len(x))]).T
+        linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
+        y_pred = linear_coefficients[0] * x + linear_coefficients[1]
+        rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
+        return (rsquared,linear_coefficients)
+
+
+        
 
         
         
