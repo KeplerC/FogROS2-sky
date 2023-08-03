@@ -7,7 +7,7 @@ import subprocess
 import time
 import numpy as np
 from enum import Enum
-from scipy.optimize import NonlinearConstraint
+from scipy.optimize import NonlinearConstraint, minimize
 
 class ModelType(Enum):
     LINEAR = 1
@@ -46,7 +46,8 @@ class SkyOptimization():
         self.benchmark_threads_ = []
         self.benchmark_cost_substring_1_ = "CLUSTER"
         self.benchmark_cost_substring_2_ = "CLOUD"
-        self.benchmark_cost_substring_ = "CLUSTER             CLOUD   # NODES   INSTANCE      vCPUs   Mem(GB)   ACCELERATORS   PRICE ($/hr)"
+        self.benchmark_time_substring_1_ = "CLUSTER"
+        self.benchmark_time_substring_2_ = "RESOURCES"
         self.got_cost_info_ = False
         self.benchmark_cost_substring_cpu_index_ = 8
         self.benchmark_cost_substring_cost_index_ = 11
@@ -65,6 +66,9 @@ class SkyOptimization():
         self.cost_model_info_ = self.regressionSolver(self.benchmark_cost_results_,'Cost')
         self.bounds_ = self.createBounds()
         self.constraints_ = self.createConstraints()
+        self.objective_function_ = self.createObjectiveFunction()
+        res = minimize(self.objective_function_, (1), method='SLSQP', bounds=self.bounds_)
+        print(res)
         # print(linear_coefficients)
         
         #min_yaml_contents = yaml_file_contents
@@ -236,10 +240,12 @@ class SkyOptimization():
             else:
                 break
         seconds_per_step_array = seconds_per_step_line.split()
-        seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
-        print("Initial quadratic debugging")
-        print(seconds_per_step_array)
-        print(seconds_per_step)
+        # Weird exception where if duration is exactly 5 minutes and 0 seconds, everything after is shifted by 1
+        seconds_per_step = None
+        if('s' not in seconds_per_step_array[self.seconds_per_step_index_ - 3]):
+            seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_ - 1]
+        else:
+            seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
         self.benchmark_time_results_.append((hardware_count,float(seconds_per_step)))
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
@@ -275,9 +281,9 @@ class SkyOptimization():
         regressions.append(exponential_regression)
         logarithmic_regression = self.linearRegression(log_x,y,ModelType.LOGARITHMIC)
         regressions.append(logarithmic_regression)
-        if(purpose == 'Time'):
-            quadratic_regression = self.quadraticRegression(x,y)
-            regressions.append(quadratic_regression)
+        #if(purpose == 'Time'):
+        #    quadratic_regression = self.quadraticRegression(x,y)
+        #    regressions.append(quadratic_regression)
         max_rsquared = 0
         coefficients = None
         model = None
@@ -344,34 +350,40 @@ class SkyOptimization():
         cost_upper_bound = self.max_cost_
         self.timeModel = self.makeModel(self.time_model_info_)
         self.costModel = self.makeModel(self.cost_model_info_)
-        costConstraintFn = self.costConstraint()
+        costConstraintFn = self.costFunction()
 
-        print("CPU COUNT 2")
-        print("Time (Sec/Step): " + str(self.timeModel(2)))
-        print("Cost ($/Sec): " + str(self.costModel(2)))
-        print("$/Hr: " + str(self.costModel(2) * self.SECONDS_PER_HOUR))
-        print("Total Cost: " + str(costConstraintFn(2)))
+        if (self.debug_):
+            print("CPU COUNT 2")
+            print("Time (Sec/Step): " + str(self.timeModel(2)))
+            print("Cost ($/Sec): " + str(self.costModel(2)))
+            print("$/Hr: " + str(self.costModel(2) * self.SECONDS_PER_HOUR))
+            print("Total Cost: " + str(costConstraintFn(2)))
 
-        print("CPU COUNT 16")
-        print("Time (Sec/Step): " + str(self.timeModel(16)))
-        print("Cost ($/Sec): " + str(self.costModel(16)))
-        print("$/Hr: " + str(self.costModel(16) * self.SECONDS_PER_HOUR))
-        print("Total Cost: " + str(costConstraintFn(16)))
+            print("CPU COUNT 16")
+            print("Time (Sec/Step): " + str(self.timeModel(16)))
+            print("Cost ($/Sec): " + str(self.costModel(16)))
+            print("$/Hr: " + str(self.costModel(16) * self.SECONDS_PER_HOUR))
+            print("Total Cost: " + str(costConstraintFn(16)))
 
-        print("CPU COUNT 64")
-        print("Time (Sec/Step): " + str(self.timeModel(64)))
-        print("Cost ($/Sec): " + str(self.costModel(64)))
-        print("$/Hr: " + str(self.costModel(64) * self.SECONDS_PER_HOUR))
-        print("Total Cost: " + str(costConstraintFn(64)))
+            print("CPU COUNT 64")
+            print("Time (Sec/Step): " + str(self.timeModel(64)))
+            print("Cost ($/Sec): " + str(self.costModel(64)))
+            print("$/Hr: " + str(self.costModel(64) * self.SECONDS_PER_HOUR))
+            print("Total Cost: " + str(costConstraintFn(64)))
         cost_constraint = NonlinearConstraint(costConstraintFn,cost_lower_bound,cost_upper_bound)
         constraints.append(cost_constraint)
 
-    def costConstraint(self):
-        def costConstraintFunction(x):
+    def createObjectiveFunction(self):
+        if(self.debug_):
+            print("Creating objective function for optimization problem")
+        return self.costFunction()
+
+    def costFunction(self):
+        def costFn(x):
             seconds_per_step = self.timeModel(x)
             dollars_per_second = self.costModel(x)
             return dollars_per_second * seconds_per_step * self.steps_
-        return costConstraintFunction
+        return costFn
 
     def makeModel(self,model_info):
         match model_info[1]:
