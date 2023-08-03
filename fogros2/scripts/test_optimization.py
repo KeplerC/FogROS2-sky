@@ -6,6 +6,13 @@ import threading
 import subprocess
 import time
 import numpy as np
+from enum import Enum
+
+class ConstraintType(Enum):
+    LINEAR = 1
+    POWER = 2
+    EXPONENTIAL = 3
+    LOGARITHMIC = 4
 
 # Run aws configure, and sky check beforehand
 class SkyOptimization():
@@ -14,23 +21,33 @@ class SkyOptimization():
         if self.debug_:
             print("Initialize sky optimization")
         self.SECONDS_PER_MINUTE = 60
+        self.MINUTES_PER_HOUR = 60
+        self.SECONDS_PER_HOUR = self.SECONDS_PER_MINUTE * self.MINUTES_PER_HOUR
         self.yaml_file_ = yaml_file
         self.relevant_cpu_list_ = []
-        self.benchmark_time_results_ = {}
+        self.benchmark_time_results_ = []
         self.cpu_benchmark_yaml_list_ = ['benchmark_cpu_min.yaml','benchmark_cpu_mid.yaml','benchmark_cpu_max.yaml']
         self.benchmark_name_list_ = ['cpu-min','cpu-mid','cpu-max']
         self.benchmark_threads_ = []
+        self.benchmark_cost_substring_1_ = "CLUSTER"
+        self.benchmark_cost_substring_2_ = "CLOUD"
+        self.benchmark_cost_substring_ = "CLUSTER             CLOUD   # NODES   INSTANCE      vCPUs   Mem(GB)   ACCELERATORS   PRICE ($/hr)"
+        self.got_cost_info_ = False
+        self.benchmark_cost_substring_cpu_index_ = 8
+        self.benchmark_cost_substring_cost_index_ = 11
+        self.benchmark_cost_results_ = []
         self.yaml_file_contents_ = None
         self.cpu_start_index_ = -1
         self.cpu_candiate_index_ = -1
         self.cpu_str_offset_ = 5
         self.seconds_per_step_index_ = 8
-        linear_coefficients = None
+        self.time_constraint_coefficients_ = None
+        self.time_constraint_model_ = None
         self.findCpuValues()
         self.createBenchmarks()
         self.runSkyBenchmarks()
-        self.solveTimePerHardwareConstraint()
-        print(linear_coefficients)
+        print(self.solveTimePerHardwareModel(self.benchmark_time_results_))
+        # print(linear_coefficients)
         
         #min_yaml_contents = yaml_file_contents
         # f = open("demofile3.txt", "w")
@@ -145,6 +162,7 @@ class SkyOptimization():
         benchmark_setup_command = 'bash benchmark.sh ' + yaml_file + ' ' + benchmark_name
         benchmark_setup=subprocess.Popen(benchmark_setup_command, shell=True, stdout=subprocess.PIPE, )
         #output = ""
+        num_lines_to_cost_data = 2
         while True:
             line = benchmark_setup.stdout.readline()
             #if line == '' and process.poll() is not None:
@@ -154,6 +172,19 @@ class SkyOptimization():
                 line = line_byte.decode('utf-8')
                 line_output = "Hardware count " + str(hardware_count) + ": " + line 
                 print(line_output)
+                if(self.got_cost_info_):
+                    if(num_lines_to_cost_data == 0):
+                        num_lines_to_cost_data = 2
+                        self.got_cost_info_ = False
+                        line_array = line.split()
+                        self.benchmark_cost_results_.append((int(line_array[self.benchmark_cost_substring_cpu_index_]),float(line_array[self.benchmark_cost_substring_cost_index_]) / self.SECONDS_PER_HOUR))
+                    else:
+                        num_lines_to_cost_data -= 1
+                if(self.benchmark_cost_substring_1_ in line and self.benchmark_cost_substring_2_ in line):
+                    self.got_cost_info_ = True
+                    num_lines_to_cost_data -= 1
+                    
+                    
                 # if(line == "To teardown the clusters:"):
                 #     print("OVER")
                 #     break
@@ -163,6 +194,7 @@ class SkyOptimization():
             else:
                 break
         if self.debug_:
+            print("Cost data: " + str(self.benchmark_cost_results_))
             print("Hardware count " + str(hardware_count) + ": " +"Cluster is setup")
         
         time_remaining = 5
@@ -188,7 +220,7 @@ class SkyOptimization():
                 break
         seconds_per_step_array = seconds_per_step_line.split()
         seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
-        self.benchmark_time_results_[hardware_count] = float(seconds_per_step)
+        self.benchmark_time_results_.append((hardware_count,float(seconds_per_step)))
         
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
@@ -206,20 +238,40 @@ class SkyOptimization():
         # print(output)
         # print("IN HERE 2")
 
-    def solveTimePerHardwareConstraint(self):
-        # Turns out that this relationship is exponential, so we will use log-linear regression to accurately map the relationship while still keeping the constraint linear
-        # TODO: Idk if we can use this across the board tho?
+    def solveTimePerHardwareModel(self,data):
         if self.debug_:
             print("Running least squares regression to solve for time per hardware")
+        data_np = np.array(data)
         # Linear regression
-        x = np.array(list(self.benchmark_time_results_.keys()))
-        y = np.array(list(self.benchmark_time_results_.values()))
+        x = data_np[:,0]#np.array(list(self.benchmark_time_results_.keys()))
+        y = data_np[:,1]#np.array(list(self.benchmark_time_results_.values()))
         log_x = np.log(x)
         log_y = np.log(y)
-        print("Linear regression: " + str(self.leastSquaresRegression(x,y)))
-        print("Logarithmic regression: " + str(self.leastSquaresRegression(log_x,log_y)))
-        print("Exponential regression: " + str(self.leastSquaresRegression(x,log_y)))
-        print("Wildcard regression: " + str(self.leastSquaresRegression(log_x,y)))
+        regressions = []
+        linear_regression = self.leastSquaresRegression(x,y,ConstraintType.LINEAR)
+        regressions.append(linear_regression)
+        power_regression = self.leastSquaresRegression(log_x,log_y,ConstraintType.POWER)
+        regressions.append(power_regression)
+        exponential_regression = self.leastSquaresRegression(x,log_y,ConstraintType.EXPONENTIAL)
+        regressions.append(exponential_regression)
+        logarithmic_regression = self.leastSquaresRegression(log_x,y,ConstraintType.LOGARITHMIC)
+        regressions.append(logarithmic_regression)
+        max_rsquared = 0
+        coefficients = None
+        model = None
+        for regression in regressions:
+            (rsquared,linear_coefficients,constraint_type) = regression
+            if(abs(rsquared) > max_rsquared):
+                max_rsquared = abs(rsquared)
+                coefficients = linear_coefficients
+                model = constraint_type
+        if self.debug_:
+            pass
+            #print("Linear regression: " + str(linear_regression))
+            #print("Power regression: " + str(power_regression))
+            #print("Exponential regression: " + str(exponential_regression))
+            #print("Logarithmic regression: " + str(logarithmic_regression))
+        return (coefficients,model)
         # A = np.vstack([x, np.ones(len(x))]).T
         # linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         # y_pred = linear_coefficients[0] * x + linear_coefficients[1]
@@ -227,12 +279,17 @@ class SkyOptimization():
         # if self.debug_:
         #     print("R squared value: " + str(rsquared))
 
-    def leastSquaresRegression(self,x,y):
+    # def solveCostPerHardwareModel(self):
+    #     if self.debug_:
+    #         print("Running least squares regression to solve for cost per hardware")
+    #     cost_data = np.array()
+
+    def leastSquaresRegression(self,x,y,constraint_type):
         A = np.vstack([x, np.ones(len(x))]).T
         linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         y_pred = linear_coefficients[0] * x + linear_coefficients[1]
         rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
-        return (rsquared,linear_coefficients)
+        return (rsquared,linear_coefficients,constraint_type)
 
 
         
