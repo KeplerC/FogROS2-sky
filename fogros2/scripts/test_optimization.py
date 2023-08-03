@@ -7,23 +7,38 @@ import subprocess
 import time
 import numpy as np
 from enum import Enum
+from scipy.optimize import NonlinearConstraint
 
-class ConstraintType(Enum):
+class ModelType(Enum):
     LINEAR = 1
     POWER = 2
     EXPONENTIAL = 3
     LOGARITHMIC = 4
+    QUADRATIC = 5
 
 # Run aws configure, and sky check beforehand
 class SkyOptimization():
-    def __init__(self,yaml_file,debug):
+    def __init__(self,yaml_file,steps,max_cost,debug):
         self.debug_ = debug
+        self.steps_ = steps
+        self.max_cost_ = max_cost
         if self.debug_:
             print("Initialize sky optimization")
+        if self.steps_ <= 0:
+            print("Please enter a positive step number")
+            print("Program now exiting")
+            exit()
+        if self.max_cost_ <= 0:
+            print("Please enter a positive cost")
+            print("Program now exiting")
+            exit()
         self.SECONDS_PER_MINUTE = 60
         self.MINUTES_PER_HOUR = 60
         self.SECONDS_PER_HOUR = self.SECONDS_PER_MINUTE * self.MINUTES_PER_HOUR
+        self.ZERO_EPSILON = 1e-10
         self.yaml_file_ = yaml_file
+        self.timeModel = None
+        self.costModel = None
         self.relevant_cpu_list_ = []
         self.benchmark_time_results_ = []
         self.cpu_benchmark_yaml_list_ = ['benchmark_cpu_min.yaml','benchmark_cpu_mid.yaml','benchmark_cpu_max.yaml']
@@ -46,7 +61,10 @@ class SkyOptimization():
         self.findCpuValues()
         self.createBenchmarks()
         self.runSkyBenchmarks()
-        print(self.solveTimePerHardwareModel(self.benchmark_time_results_))
+        self.time_model_info_ = self.regressionSolver(self.benchmark_time_results_,'Time')
+        self.cost_model_info_ = self.regressionSolver(self.benchmark_cost_results_,'Cost')
+        self.bounds_ = self.createBounds()
+        self.constraints_ = self.createConstraints()
         # print(linear_coefficients)
         
         #min_yaml_contents = yaml_file_contents
@@ -194,7 +212,6 @@ class SkyOptimization():
             else:
                 break
         if self.debug_:
-            print("Cost data: " + str(self.benchmark_cost_results_))
             print("Hardware count " + str(hardware_count) + ": " +"Cluster is setup")
         
         time_remaining = 5
@@ -220,8 +237,10 @@ class SkyOptimization():
                 break
         seconds_per_step_array = seconds_per_step_line.split()
         seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
+        print("Initial quadratic debugging")
+        print(seconds_per_step_array)
+        print(seconds_per_step)
         self.benchmark_time_results_.append((hardware_count,float(seconds_per_step)))
-        
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
         # while True:
@@ -238,9 +257,9 @@ class SkyOptimization():
         # print(output)
         # print("IN HERE 2")
 
-    def solveTimePerHardwareModel(self,data):
+    def regressionSolver(self,data,purpose):
         if self.debug_:
-            print("Running least squares regression to solve for time per hardware")
+            print("Running least squares regression to solve for " + purpose +" per hardware")
         data_np = np.array(data)
         # Linear regression
         x = data_np[:,0]#np.array(list(self.benchmark_time_results_.keys()))
@@ -248,14 +267,17 @@ class SkyOptimization():
         log_x = np.log(x)
         log_y = np.log(y)
         regressions = []
-        linear_regression = self.leastSquaresRegression(x,y,ConstraintType.LINEAR)
+        linear_regression = self.linearRegression(x,y,ModelType.LINEAR)
         regressions.append(linear_regression)
-        power_regression = self.leastSquaresRegression(log_x,log_y,ConstraintType.POWER)
+        power_regression = self.linearRegression(log_x,log_y,ModelType.POWER)
         regressions.append(power_regression)
-        exponential_regression = self.leastSquaresRegression(x,log_y,ConstraintType.EXPONENTIAL)
+        exponential_regression = self.linearRegression(x,log_y,ModelType.EXPONENTIAL)
         regressions.append(exponential_regression)
-        logarithmic_regression = self.leastSquaresRegression(log_x,y,ConstraintType.LOGARITHMIC)
+        logarithmic_regression = self.linearRegression(log_x,y,ModelType.LOGARITHMIC)
         regressions.append(logarithmic_regression)
+        if(purpose == 'Time'):
+            quadratic_regression = self.quadraticRegression(x,y)
+            regressions.append(quadratic_regression)
         max_rsquared = 0
         coefficients = None
         model = None
@@ -266,7 +288,9 @@ class SkyOptimization():
                 coefficients = linear_coefficients
                 model = constraint_type
         if self.debug_:
-            pass
+            print(purpose + " Model R^2: " + str(max_rsquared))
+            print(purpose + " Model Coefficients: " + str(coefficients))
+            print(purpose + " Model Type: " + str(model))
             #print("Linear regression: " + str(linear_regression))
             #print("Power regression: " + str(power_regression))
             #print("Exponential regression: " + str(exponential_regression))
@@ -284,24 +308,112 @@ class SkyOptimization():
     #         print("Running least squares regression to solve for cost per hardware")
     #     cost_data = np.array()
 
-    def leastSquaresRegression(self,x,y,constraint_type):
+    def linearRegression(self,x,y,constraint_type):
         A = np.vstack([x, np.ones(len(x))]).T
         linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         y_pred = linear_coefficients[0] * x + linear_coefficients[1]
         rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
         return (rsquared,linear_coefficients,constraint_type)
 
+    def quadraticRegression(self,x,y,constraint_type=ModelType.QUADRATIC):
+        A = np.vstack([x**2,x, np.ones(len(x))]).T
+        print("Quad debugging")
+        print(A)
+        print(y)
+        linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
+        print(linear_coefficients)
+        y_pred = linear_coefficients[0] * (x ** 2) + linear_coefficients[1] * x + linear_coefficients[2]
+        rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
+        return (rsquared,linear_coefficients,constraint_type)
 
-        
+    def createBounds(self):
+        if(self.debug_):
+            print("Creating bounds for optimization problem")
+        low_cpu = self.ZERO_EPSILON
+        high_cpu = self.relevant_cpu_list_[2]
+        if(self.debug_):
+            print("Low CPU bound: " + str(low_cpu))
+            print("High CPU bound: " + str(high_cpu))
+        return [(low_cpu,high_cpu)]
 
-        
-        
-        
+    def createConstraints(self):
+        if(self.debug_):
+            print("Creating bounds for optimization problem")
+        constraints = []
+        cost_lower_bound = 0
+        cost_upper_bound = self.max_cost_
+        self.timeModel = self.makeModel(self.time_model_info_)
+        self.costModel = self.makeModel(self.cost_model_info_)
+        costConstraintFn = self.costConstraint()
+
+        print("CPU COUNT 2")
+        print("Time (Sec/Step): " + str(self.timeModel(2)))
+        print("Cost ($/Sec): " + str(self.costModel(2)))
+        print("$/Hr: " + str(self.costModel(2) * self.SECONDS_PER_HOUR))
+        print("Total Cost: " + str(costConstraintFn(2)))
+
+        print("CPU COUNT 16")
+        print("Time (Sec/Step): " + str(self.timeModel(16)))
+        print("Cost ($/Sec): " + str(self.costModel(16)))
+        print("$/Hr: " + str(self.costModel(16) * self.SECONDS_PER_HOUR))
+        print("Total Cost: " + str(costConstraintFn(16)))
+
+        print("CPU COUNT 64")
+        print("Time (Sec/Step): " + str(self.timeModel(64)))
+        print("Cost ($/Sec): " + str(self.costModel(64)))
+        print("$/Hr: " + str(self.costModel(64) * self.SECONDS_PER_HOUR))
+        print("Total Cost: " + str(costConstraintFn(64)))
+        cost_constraint = NonlinearConstraint(costConstraintFn,cost_lower_bound,cost_upper_bound)
+        constraints.append(cost_constraint)
+
+    def costConstraint(self):
+        def costConstraintFunction(x):
+            seconds_per_step = self.timeModel(x)
+            dollars_per_second = self.costModel(x)
+            return dollars_per_second * seconds_per_step * self.steps_
+        return costConstraintFunction
+
+    def makeModel(self,model_info):
+        match model_info[1]:
+            case ModelType.LINEAR:
+                def model(x):
+                    x = np.array(x)
+                    y = model_info[0][0] * x + model_info[0][1]
+                    return y
+                return model
+            case ModelType.POWER:
+                def model(x):
+                    x = np.array(x)
+                    log_y = model_info[0][0] * np.log(x) + model_info[0][1]
+                    y = np.exp(log_y)
+                    return y
+                return model
+            case ModelType.EXPONENTIAL:
+                def model(x):
+                    x = np.array(x)
+                    log_y = model_info[0][0] * x + model_info[0][1]
+                    y = np.exp(log_y)
+                    return y
+                return model
+            case ModelType.LOGARITHMIC:
+                def model(x):
+                    x = np.array(x)
+                    y = model_info[0][0] * np.log(x) + model_info[0][1]
+                    return y
+                return model
+            case ModelType.QUADRATIC:
+                def model(x):
+                    x = np.array(x)
+                    y = model_info[0][0] * (x ** 2) + model_info[0][1] * x + model_info[0][2]
+                    return y
+                return model
 
 def main():
     print("Hello World!")
     parser = argparse.ArgumentParser()
     parser.add_argument('-y', '--yaml_file', required=True)
+    parser.add_argument('-s','--steps',required=True,type=int)
+    parser.add_argument('-c','--max_cost',required=True,type=float)
     parser.add_argument('-d','--debug', action='store_true')
     parser.add_argument
     args = parser.parse_args()
