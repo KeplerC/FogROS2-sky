@@ -9,6 +9,7 @@ import numpy as np
 from enum import Enum
 from scipy.optimize import NonlinearConstraint, minimize
 import math
+from itertools import product
 
 
 class ModelType(Enum):
@@ -596,7 +597,9 @@ class SkyOptimization:
             bounds=bounds,
             constraints=constraints,
         )
+        hardware_result = None
         if not optimization_result.success:
+            hardware_result = optimization_result.x
             print(str(objective_function_type)[25:] + " Optimization Failed")
             match objective_function_type:
                 case OptimizationFunctionType.COST:
@@ -611,15 +614,17 @@ class SkyOptimization:
                     print(
                         "Cost constraint upper bound is too low. To gauge the lowest cost, look at the cost optimization under an infinite time constraint"
                     )
-
-        hardware_result = optimization_result.x
-        match objective_function_type:
-            case OptimizationFunctionType.COST:
-                for i in range(len(hardware_result)):
-                    hardware_result[i] = math.floor(hardware_result[i])
-            case OptimizationFunctionType.TIME:
-                for i in range(len(hardware_result)):
-                    hardware_result[i] = math.ceil(hardware_result[i])
+        else:
+            hardware_result = self.hardwareIntegerResults(
+                optimization_result.x, objective_function_type
+            )
+        # match objective_function_type:
+        #     case OptimizationFunctionType.COST:
+        #         for i in range(len(hardware_result)):
+        #             hardware_result[i] = math.floor(hardware_result[i])
+        #     case OptimizationFunctionType.TIME:
+        #         for i in range(len(hardware_result)):
+        #             hardware_result[i] = math.ceil(hardware_result[i])
         if (
             self.costFunction()(hardware_result) <= self.max_cost_
             and self.timeFunction()(hardware_result) <= self.max_time_
@@ -645,6 +650,35 @@ class SkyOptimization:
         #     case OptimizationFunctionType.TIME:
         #         return "Time not implemented yet"
 
+    def hardwareIntegerResults(self, optimization_result, objective_function_type):
+        floor_and_ceiling = [
+            (math.floor(num), math.ceil(num)) for num in optimization_result
+        ]
+        permutations = list(product(*floor_and_ceiling))
+        successful_permutations = []
+        for permutation in permutations:
+            if (
+                self.costFunction()(permutation) <= self.max_cost_
+                and self.timeFunction()(permutation) <= self.max_time_
+            ):
+                successful_permutations.append(permutation)
+        if(self.debug_):
+            print("Before sort")
+            print(successful_permutations)
+        sorted_successful_permutations = successful_permutations
+        if objective_function_type == OptimizationFunctionType.COST:
+            sorted_successful_permutations = sorted(
+                successful_permutations, key=self.costFunction()
+            )
+        elif objective_function_type == OptimizationFunctionType.TIME:
+            sorted_successful_permutations = sorted(
+                successful_permutations, key=self.timeFunction()
+            )
+        if(self.debug_):
+            print("After sort")
+            print(sorted_successful_permutations)
+        return sorted_successful_permutations[0]
+
     def displayResults(self):
         success_count = len(self.solutions_in_constraints_)
         fail_count = len(self.solutions_outside_constraints_)
@@ -663,21 +697,24 @@ class SkyOptimization:
             )
             print("------------------------------------")
             print("Optimal hardware: " + str(solution[1][0]) + " CPUs")
-            print("Total Cost: $" + str(self.costModel_(solution[1])[0]))
-            print("Total Time: " + str(self.timeModel_(solution[1])[0]) + " seconds")
+            print("Total Cost: $" + str(self.costFunction()(solution[1])[0]))
+            print(
+                "Total Time: " + str(self.timeFunction()(solution[1])[0]) + " seconds"
+            )
             print("\n")
         for solution in self.solutions_outside_constraints_:
             print(
                 "Failed "
-                + str(solution[0])[
-                    self.optimization_function_type_length_ :
-                ].lower()
+                + str(solution[0])[self.optimization_function_type_length_ :].lower()
                 + " optimization results"
             )
             print("------------------------------------")
             print("Optimal hardware: " + str(solution[1][0]) + " CPUs")
             print("Total Cost: $" + str(self.costFunction()(solution[1])[0]))
-            print("Total Time: " + str(self.timeFunction()(solution[1])[0]) + " seconds")
+            print(
+                "Total Time: " + str(self.timeFunction()(solution[1])[0]) + " seconds"
+            )
+
 
 def main():
     print("Hello World!")
