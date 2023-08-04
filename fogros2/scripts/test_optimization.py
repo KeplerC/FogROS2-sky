@@ -16,12 +16,17 @@ class ModelType(Enum):
     LOGARITHMIC = 4
     QUADRATIC = 5
 
+class OptimizationFunctionType(Enum):
+    TIME = 1
+    COST = 2
+
 # Run aws configure, and sky check beforehand
 class SkyOptimization():
-    def __init__(self,yaml_file,steps,max_cost,debug):
+    def __init__(self,yaml_file,steps,max_cost,max_time,debug):
         self.debug_ = debug
         self.steps_ = steps
         self.max_cost_ = max_cost
+        self.max_time_ = max_time
         if self.debug_:
             print("Initialize sky optimization")
         if self.steps_ <= 0:
@@ -30,6 +35,10 @@ class SkyOptimization():
             exit()
         if self.max_cost_ <= 0:
             print("Please enter a positive cost")
+            print("Program now exiting")
+            exit()
+        if self.max_time_ <= 0:
+            print("Please enter a positive time")
             print("Program now exiting")
             exit()
         self.SECONDS_PER_MINUTE = 60
@@ -67,8 +76,10 @@ class SkyOptimization():
         self.bounds_ = self.createBounds()
         self.constraints_ = self.createConstraints()
         self.objective_function_ = self.createObjectiveFunction()
-        res = minimize(self.objective_function_, (1), method='SLSQP', bounds=self.bounds_)
+        res = minimize(self.objective_function_, (1), method='SLSQP', bounds=self.bounds_,constraints=self.constraints_)
         print(res)
+        if(not res.success):
+            print("Time constraint was too harsh. Given that you have max " + str(self.relevant_cpu_list_[2]) + " CPUs. The fastest time you can do is " + str(self.timeConstraintFn(self.relevant_cpu_list_[2])) + " seconds.") 
         # print(linear_coefficients)
         
         #min_yaml_contents = yaml_file_contents
@@ -348,30 +359,40 @@ class SkyOptimization():
         constraints = []
         cost_lower_bound = 0
         cost_upper_bound = self.max_cost_
+
+        time_lower_bound = 0
+        time_upper_bound = self.max_time_
+
         self.timeModel = self.makeModel(self.time_model_info_)
         self.costModel = self.makeModel(self.cost_model_info_)
-        costConstraintFn = self.costFunction()
+        self.costConstraintFn = self.costFunction()
+        self.timeConstraintFn = self.timeFunction()
 
         if (self.debug_):
             print("CPU COUNT 2")
             print("Time (Sec/Step): " + str(self.timeModel(2)))
             print("Cost ($/Sec): " + str(self.costModel(2)))
             print("$/Hr: " + str(self.costModel(2) * self.SECONDS_PER_HOUR))
-            print("Total Cost: " + str(costConstraintFn(2)))
+            print("Total Cost: " + str(self.costConstraintFn(2)))
+            print("Total Time: " + str(self.timeConstraintFn(2)))
 
             print("CPU COUNT 16")
             print("Time (Sec/Step): " + str(self.timeModel(16)))
             print("Cost ($/Sec): " + str(self.costModel(16)))
             print("$/Hr: " + str(self.costModel(16) * self.SECONDS_PER_HOUR))
-            print("Total Cost: " + str(costConstraintFn(16)))
+            print("Total Cost: " + str(self.costConstraintFn(16)))
+            print("Total Time: " + str(self.timeConstraintFn(16)))
 
             print("CPU COUNT 64")
             print("Time (Sec/Step): " + str(self.timeModel(64)))
             print("Cost ($/Sec): " + str(self.costModel(64)))
             print("$/Hr: " + str(self.costModel(64) * self.SECONDS_PER_HOUR))
-            print("Total Cost: " + str(costConstraintFn(64)))
-        cost_constraint = NonlinearConstraint(costConstraintFn,cost_lower_bound,cost_upper_bound)
-        constraints.append(cost_constraint)
+            print("Total Cost: " + str(self.costConstraintFn(64)))
+            print("Total Time: " + str(self.timeConstraintFn(64)))
+        #cost_constraint = NonlinearConstraint(self.costConstraintFn,cost_lower_bound,cost_upper_bound)
+        time_constraint = NonlinearConstraint(self.timeConstraintFn,time_lower_bound,time_upper_bound)
+        constraints.append(time_constraint)
+        return constraints
 
     def createObjectiveFunction(self):
         if(self.debug_):
@@ -384,6 +405,12 @@ class SkyOptimization():
             dollars_per_second = self.costModel(x)
             return dollars_per_second * seconds_per_step * self.steps_
         return costFn
+
+    def timeFunction(self):
+        def timeFn(x):
+            seconds_per_step = self.timeModel(x)
+            return seconds_per_step * self.steps_
+        return timeFn
 
     def makeModel(self,model_info):
         match model_info[1]:
@@ -420,12 +447,21 @@ class SkyOptimization():
                     return y
                 return model
 
+    def solveOptimization(self,objective_function_type):
+        match objective_function_type:
+            case OptimizationFunctionType.COST:
+                return "COST"
+            case OptimizationFunctionType.TIME:
+                return "Time not implemented yet"
+
+
 def main():
     print("Hello World!")
     parser = argparse.ArgumentParser()
     parser.add_argument('-y', '--yaml_file', required=True)
     parser.add_argument('-s','--steps',required=True,type=int)
     parser.add_argument('-c','--max_cost',required=True,type=float)
+    parser.add_argument('-t','--max_time',required=True,type=float)
     parser.add_argument('-d','--debug', action='store_true')
     parser.add_argument
     args = parser.parse_args()
