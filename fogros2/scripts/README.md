@@ -19,5 +19,5 @@ sky check
 
 ## Sample Run
 ```
-python3 test_optimization.py -y ./path/to/benchmark.yaml -s 1000 -c 10 -t 2000 -d
+python3 test_optimization.py -y ./path/to/benchmark.yaml -s 1000 -c 1.30 -t 2000 -d
 ```

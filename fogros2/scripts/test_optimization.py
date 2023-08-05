@@ -65,6 +65,8 @@ class SkyOptimization:
         self.benchmark_cost_substring_2_ = "CLOUD"
         self.benchmark_time_substring_1_ = "CLUSTER"
         self.benchmark_time_substring_2_ = "RESOURCES"
+        self.num_steps_and_duration_ = []
+        self.average_setup_time_ = 0
         self.got_cost_info_ = False
         self.benchmark_cost_substring_cpu_index_ = 8
         self.benchmark_cost_substring_cost_index_ = 11
@@ -74,6 +76,9 @@ class SkyOptimization:
         self.cpu_candiate_index_ = -1
         self.cpu_str_offset_ = 5
         self.seconds_per_step_index_ = 8
+        self.num_steps_index_ = 7
+        self.duration_min_index_ = 4
+        self.duration_sec_index_ = 5
         self.time_constraint_coefficients_ = None
         self.time_constraint_model_ = None
         self.solutions_in_constraints_ = []
@@ -87,8 +92,10 @@ class SkyOptimization:
         self.cost_model_info_ = self.regressionSolver(
             self.benchmark_cost_results_, "Cost"
         )
+        self.findSetupTime()
         self.timeModel_ = self.makeModel(self.time_model_info_)
         self.costModel_ = self.makeModel(self.cost_model_info_)
+        
         if self.debug_:
             self.displayRelevantOptimizationInfo()
         self.solveOptimization(
@@ -329,13 +336,22 @@ class SkyOptimization:
             else:
                 break
         seconds_per_step_array = seconds_per_step_line.split()
+        if(self.debug_):
+            print(seconds_per_step_array)
         # Weird exception where if duration is exactly 5 minutes and 0 seconds, everything after is shifted by 1
         seconds_per_step = None
+        duration = 0
+        num_steps = 0
         if "s" not in seconds_per_step_array[self.seconds_per_step_index_ - 3]:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_ - 1]
+            duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE
+            num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 1])
         else:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
+            duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE + int(seconds_per_step_array[self.duration_sec_index_][:-1])
+            num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 1])
         self.benchmark_time_results_.append((hardware_count, float(seconds_per_step)))
+        self.num_steps_and_duration_.append((num_steps,duration,hardware_count,float(seconds_per_step)))
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
         # while True:
@@ -352,6 +368,22 @@ class SkyOptimization:
         # print(output)
         # print("IN HERE 2")
 
+    def findSetupTime(self):
+        if self.debug_:
+            print("Finding the average setup time to get everything on the cloud")
+            print(self.num_steps_and_duration_)
+        setup_times = []
+        for item in self.num_steps_and_duration_:
+            (num_steps,duration,hardware_count,seconds_per_step) = item
+            setup_time = duration - (seconds_per_step * num_steps)
+            setup_times.append(setup_time)
+        self.average_setup_time_ = sum(setup_times) / len(setup_times)
+        if self.debug_:
+            print("Setup times: " + str(setup_times))
+            print("Average setup time: " + str(self.average_setup_time_))
+        
+        
+
     def regressionSolver(self, data, purpose):
         if self.debug_:
             print(
@@ -363,6 +395,9 @@ class SkyOptimization:
         # Linear regression
         x = data_np[:, 0]  # np.array(list(self.benchmark_time_results_.keys()))
         y = data_np[:, 1]  # np.array(list(self.benchmark_time_results_.values()))
+        if self.debug_:
+            print("Input data: " + str(x))
+            print("Output data: " + str(y))
         log_x = np.log(x)
         log_y = np.log(y)
         regressions = []
@@ -519,15 +554,18 @@ class SkyOptimization:
     def costFunction(self):
         def costFn(x):
             seconds_per_step = self.timeModel_(x)
+            total_time_in_seconds = (seconds_per_step * self.steps_) + self.average_setup_time_
             dollars_per_second = self.costModel_(x)
-            return dollars_per_second * seconds_per_step * self.steps_
+            cost = dollars_per_second * total_time_in_seconds
+            return cost
 
         return costFn
 
     def timeFunction(self):
         def timeFn(x):
             seconds_per_step = self.timeModel_(x)
-            return seconds_per_step * self.steps_
+            total_time_in_seconds = (seconds_per_step * self.steps_) + self.average_setup_time_
+            return total_time_in_seconds
 
         return timeFn
 
@@ -607,7 +645,7 @@ class SkyOptimization:
                         "Time constraint upper bound is too low. Given that you have max "
                         + str(self.relevant_cpu_list_[2])
                         + " CPUs. The fastest time you can do is "
-                        + str(self.timeConstraintFn(self.relevant_cpu_list_[2]))
+                        + str(self.timeFunction()(self.relevant_cpu_list_[2]))
                         + " seconds."
                     )
                 case OptimizationFunctionType.TIME:
@@ -687,7 +725,7 @@ class SkyOptimization:
             + str(success_count)
             + " successful optimization(s) and "
             + str(fail_count)
-            + " failed optimization(s)."
+            + " failed optimization(s).\n"
         )
         for solution in self.solutions_in_constraints_:
             print(
