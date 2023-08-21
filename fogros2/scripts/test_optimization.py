@@ -345,7 +345,7 @@ class SkyOptimization:
         if "s" not in seconds_per_step_array[self.seconds_per_step_index_ - 3]:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_ - 1]
             duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE
-            num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 1])
+            num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 2])
         else:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
             duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE + int(seconds_per_step_array[self.duration_sec_index_][:-1])
@@ -446,6 +446,10 @@ class SkyOptimization:
         A = np.vstack([x, np.ones(len(x))]).T
         linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         y_pred = linear_coefficients[0] * x + linear_coefficients[1]
+        rsquared = None
+        if(constraint_type == ModelType.POWER or constraint_type == ModelType.EXPONENTIAL):
+            y = np.exp(y)
+            y_pred = np.exp(y_pred)
         rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
         return (rsquared, linear_coefficients, constraint_type)
 
