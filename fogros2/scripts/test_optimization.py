@@ -10,6 +10,7 @@ from enum import Enum
 from scipy.optimize import NonlinearConstraint, minimize
 import math
 from itertools import product
+from scipy.optimize import curve_fit
 
 
 class ModelType(Enum):
@@ -18,6 +19,7 @@ class ModelType(Enum):
     EXPONENTIAL = 3
     LOGARITHMIC = 4
     QUADRATIC = 5
+    HYPERBOLIC = 6
 
 
 class OptimizationFunctionType(Enum):
@@ -409,6 +411,8 @@ class SkyOptimization:
         regressions.append(exponential_regression)
         logarithmic_regression = self.linearRegression(log_x, y, ModelType.LOGARITHMIC)
         regressions.append(logarithmic_regression)
+        hyperbolic_regression = self.hyperbolicRegression(x,y)
+        regressions.append(hyperbolic_regression)
         # if(purpose == 'Time'):
         #    quadratic_regression = self.quadraticRegression(x,y)
         #    regressions.append(quadratic_regression)
@@ -441,6 +445,16 @@ class SkyOptimization:
     #     if self.debug_:
     #         print("Running least squares regression to solve for cost per hardware")
     #     cost_data = np.array()
+
+    def hyperbolic_model(self,x, A, B):
+        return A + B / x
+    
+    def hyperbolicRegression(self,x,y,constraint_type=ModelType.HYPERBOLIC):
+        coefficients, _ = curve_fit(self.hyperbolic_model, x, y)
+        y_pred = self.hyperbolic_model(x, coefficients[0], coefficients[1])
+        rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
+        return (rsquared,coefficients,constraint_type)
+
 
     def linearRegression(self, x, y, constraint_type):
         A = np.vstack([x, np.ones(len(x))]).T
@@ -619,7 +633,14 @@ class SkyOptimization:
                         + model_info[0][2]
                     )
                     return y
+            
+            case ModelType.HYPERBOLIC:
 
+                def model(x):
+                    x = np.array(x)
+                    y = self.hyperbolic_model(x,model_info[0][0],model_info[0][1])
+                    return y
+                
                 return model
 
     def solveOptimization(self, objective_function_type, constraint_function_type):
@@ -678,6 +699,8 @@ class SkyOptimization:
             self.solutions_outside_constraints_.append(
                 (objective_function_type, hardware_result)
             )
+        if self.debug_:
+            print("Optimization results: " + str(optimization_result))
         # match objective_function_type:
         #     case OptimizationFunctionType.COST:
         #     bounds = self.createBounds()
