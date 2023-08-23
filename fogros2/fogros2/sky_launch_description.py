@@ -31,7 +31,9 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 import pickle
-
+from threading import Thread
+from rclpy.node import Node
+from rclpy import logging
 def get_sky_config_yaml():
     config = """
 name: fogros2-sky-cluster
@@ -76,7 +78,7 @@ setup: |
     pip3 install colcon-common-extensions > /dev/null 2>&1
     # install cloud dependencies 
     echo Installing other dependencies...
-    sudo apt-get install -y python3-pip unzip docker.io python3-pip ros-humble-rmw-cyclonedds-cpp #> /dev/null 2>&1
+    sudo apt-get install -y python3-pip unzip python3-pip ros-humble-rmw-cyclonedds-cpp #> /dev/null 2>&1
     pip3 install boto3 paramiko scp wgconfig sky #> /dev/null 2>&1
     pip3 install pyopenssl --upgrade # > /dev/null 2>&1
     # install sky callback
@@ -107,14 +109,25 @@ class SkyLaunchDescription():
     def __init__(self, 
                  nodes, 
                  mode):
+        self.logger = logging.get_logger(__name__)
         self.nodes = nodes
         self.mode = mode
         self._generate_to_cloud_nodes()
-        self.cluster = SkyCluster(get_sky_config_yaml())
+        
+        self.cluster = SkyCluster(get_sky_config_yaml(), self.logger)
+
+        if self.mode == "launch":
+            thread = Thread(target=self.launch, args=[])
+            thread.start()
+        elif self.mode == "benchmark":
+            thread = Thread(target=self.benchmark, args=[])
+            thread.start()
+        else:
+            pass
 
     def _generate_to_cloud_nodes(self):
         with open(f"/tmp/to_cloud", "wb+") as f:
-            print(f"to be dumped")
+            self.logger.info(f"dumping {self.nodes} to /tmp/to_cloud")
             dumped_node_str = pickle.dumps(self.nodes)
             f.write(dumped_node_str)
         
@@ -122,6 +135,7 @@ class SkyLaunchDescription():
 
     def launch(self):
         #TODO: create a separate thread for it
+        self.logger.info(f"launching the Sky cluster")
         self.cluster.init_cluster()
 
     def benchmark(self):
@@ -135,26 +149,20 @@ import sky
 import subprocess
 from time import sleep
 import os 
+from .name_generator import get_unique_name
 class SkyCluster():
-    def __init__(self, sky_yaml_config) -> None:
+    def __init__(self, sky_yaml_config, logger) -> None:
         self.sky_yaml_config = sky_yaml_config
+        self.logger = logger
+        self._name = get_unique_name()
 
     def init_cluster(self):
         self.create(self.sky_yaml_config)
 
     def create(self, config):
-        # create a new Sky cluster
-        # param config: sky config file
         self.logger.info(f"Creating new Sky cluster {self._name}")
         self.create_sky_instance(config)
-        self.info(flush_to_disk=True)
-        # self.connect()
         self._is_created = True
-        # self.run_sgc()
-        # def run_cloud_cmd_fn():
-        #     self.launch_cloud_node()
-        # thread = Thread(target=run_cloud_cmd_fn, args=[])
-        # thread.start()
     
     def create_sky_instance(self, sky_yaml_config):
         '''Create Sky Instance with skypilot'''
