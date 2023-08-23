@@ -34,7 +34,7 @@
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
-import fogros2.SkyLaunchDescription
+import fogros2
 
 def generate_launch_description():
     """Talker example that launches everything locally."""
@@ -44,7 +44,7 @@ def generate_launch_description():
         package="fogros2_examples", executable="talker", output="screen"
     )
 
-    SkyLaunchDescription(
+    fogros2.SkyLaunchDescription(
         nodes=[talker_node],
         mode = "launch", # launch, benchmark
     )
