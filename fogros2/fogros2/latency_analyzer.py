@@ -130,15 +130,23 @@ class HeuristicPubSub(rclpy.node.Node):
         # float64 = Float64()
         # float64.data = (time.time() - self.last_request_time)
         # self.latency_publisher.publish(float64)
-        if self.first_request_after_last_responded_time == None:
-            return 
-        
-        self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
 
-        self._step_begins.append(self.first_request_after_last_responded_time)
+        # heuristic #1 
+        # if self.first_request_after_last_responded_time == None:
+        #     return 
+        # self._step_begins.append(self.first_request_after_last_responded_time)
+        # now = time.time()
+        # self._step_ends.append(now)
+        # self.first_request_after_last_responded_time = None
+        # self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
+
+        # heuristic #2
+        
         now = time.time()
         self._step_ends.append(now)
-        self.first_request_after_last_responded_time = None
+        self._step_begins.append(now)
+        self.logger.info(f"response: {time.time()}, {(now - self.first_request_after_last_responded_time)}")
+        self.first_request_after_last_responded_time = now
 
 
 # following code borrowed from https://github.com/KeplerC/skypilot/blob/7a53e0c0a66dbf2ca5df413b9b9206a9beceaf92/sky/callbacks/sky_callback/base.py#L73
