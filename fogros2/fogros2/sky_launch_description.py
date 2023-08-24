@@ -36,31 +36,49 @@ from rclpy.node import Node
 from rclpy import logging
 from .sky_yaml_builder import get_sky_config_yaml
 
+resource_str = '''
+resources:
+    cloud: aws 
+    disk_size: 128
+    region: us-west-1
+    image_id: ami-03c44768198d7e3fe
+'''
+
+benchmark_resource_str = '''
+resources:
+    cloud: aws 
+    candidates:
+    - {cpus: 8}
+'''
 class SkyLaunchDescription():
     def __init__(self, 
-                 nodes, 
-                 mode):
+                 workdir = "~/sky_ws/",
+                 nodes = [], 
+                 containers = [],
+                 mode = "launch"):
         self.logger = logging.get_logger(__name__)
-        self.nodes = nodes
-        self.mode = mode
-        self._generate_to_cloud_nodes()
         
-        # self.cluster = SkyCluster(get_sky_config_yaml(
-        #         workdir="~/sky_ws/", 
-        #         docker_cmd=[
-        #         "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py",
-        #         "sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py"]
-        # ), self.logger)
+        self.mode = mode
 
-        self.cluster = SkyCluster(get_sky_config_yaml(
-                workdir="~/sky_ws/", 
-                docker_cmd=[]
-        ), self.logger)
+        self.nodes = nodes
+        if self.nodes:
+            self._generate_to_cloud_nodes()
 
         if self.mode == "launch":
+            self.cluster = SkyCluster(get_sky_config_yaml(
+                    workdir=workdir, 
+                    docker_cmd=containers,
+                    resource_str = resource_str,
+            ), self.logger)
+
             thread = Thread(target=self.launch, args=[])
             thread.start()
         elif self.mode == "benchmark":
+            self.cluster = SkyCluster(get_sky_config_yaml(
+                    workdir=workdir, 
+                    docker_cmd=containers,
+                    benchmark_resource_str=benchmark_resource_str,
+            ), self.logger)
             thread = Thread(target=self.benchmark, args=[])
             thread.start()
         else:
@@ -96,21 +114,18 @@ class SkyCluster():
         self.sky_yaml_config = sky_yaml_config
         self.logger = logger
         self._name = get_unique_name()
-
-    def init_cluster(self):
-        self.create(self.sky_yaml_config)
-
-    def create(self, config):
-        self.logger.info(f"Creating new Sky cluster {self._name}")
-        self.create_sky_instance(config)
-        self._is_created = True
-    
-    def create_sky_instance(self, sky_yaml_config):
-        '''Create Sky Instance with skypilot'''
-        user = subprocess.check_output('whoami', shell=True).decode().strip()
-
         with open("/tmp/sky.yaml", "w+") as f:
             f.write(sky_yaml_config)
+        self.logger.info(f"Creating new Sky cluster {self._name} with config: {self.sky_yaml_config}")
+
+    def init_cluster(self):
+        self.logger.info(f"Creating new Sky cluster {self._name}")
+        self.create_sky_instance(self.sky_yaml_config)
+        self._is_created = True
+
+    def create_sky_instance(self):
+        '''Create Sky Instance with skypilot'''
+        user = subprocess.check_output('whoami', shell=True).decode().strip()
 
         with sky.Dag() as dag:
             t = sky.Task.from_yaml("/tmp/sky.yaml")

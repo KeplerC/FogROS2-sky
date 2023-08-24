@@ -45,7 +45,9 @@ setup: |
 
 def get_sky_config_yaml(
     workdir,
-    docker_cmd = []
+    docker_cmd = [],
+    resource_str = "",
+    benchmark_resource_str = "",
 ):
     config = """
 name: fogros2-sky-cluster
@@ -59,17 +61,12 @@ num_nodes: 1  # Number of VMs to launch
         config += "run: |\n"
         for cmd in docker_cmd:
             config += "    " + cmd + "\n"
-    else:
+    else: #TODO: need to handle the cast that both nodes and containers exist
         config += setup_command_ros_node + "\n"
         config += execute_command_ros_node + "\n"
     
-    config += """
-resources:
-    disk_size: 128
-    cloud: aws 
-    region: us-west-1
-    image_id: ami-03c44768198d7e3fe
-""" 
+    config += resource_str
+    config += benchmark_resource_str
     return config 
 
 

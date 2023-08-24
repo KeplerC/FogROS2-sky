@@ -37,17 +37,19 @@ from launch_ros.actions import Node
 import fogros2
 
 def generate_launch_description():
-    """Talker example that launches everything locally."""
 
     fogros2.SkyLaunchDescription(
-        nodes=[],
-        dockers = [
-                "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py",
-                "sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py"
+        workdir = "", # do not upload the current workspace
+        containers = [
+                "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency",
+                "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros client.launch.py",
+                "sudo docker run --net=host --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros planner.launch.py"
                 ],
         mode = "benchmark", # launch, benchmark
     )
 
+    # this is to prevent the launch description from exiting 
+    # TODO: a better way 
     return LaunchDescription([
         Node(
             package="fogros2_examples", executable="listener", output="screen", # listener
