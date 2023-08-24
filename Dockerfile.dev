@@ -26,9 +26,14 @@ RUN apt update && DEBIAN_FRONTEND=noninteractive apt install -y \
   wireguard
 RUN rm -rf /var/lib/apt/lists/*
 
+# Install AWS dep
+RUN curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+RUN unzip awscliv2.zip && rm awscliv2.zip
+RUN ./aws/install
+
 # Install python deps
-RUN python3 -m pip install --no-cache-dir -U boto3 paramiko scp wgconfig skypilot
-# RUN pip install "git+https://github.com/skypilot-org/skypilot.git#egg=sky-callback&subdirectory=sky/callbacks/"
+RUN python3 -m pip install --no-cache-dir -U boto3 paramiko scp wgconfig
+
 # Create FogROS2 worspace and build it
 ENV ROS_WS=/home/root/fog_ws
 RUN mkdir -p ${ROS_WS}/src
@@ -45,3 +50,8 @@ RUN chmod +x /ros_entrypoint.sh
 
 ENTRYPOINT [ "/ros_entrypoint.sh" ]
 CMD ["bash"]
+
+COPY ./setup.sh /
+RUN chmod +x /setup.sh
+RUN cd /
+RUN bash /setup.sh

@@ -11,10 +11,6 @@ import time
 import rclpy
 import rclpy.node
 import psutil
-import matplotlib.pyplot as plt
-import pandas as pd 
-import seaborn as sns
-import numpy as np 
 from rcl_interfaces.msg import SetParametersResult
 from typing import List, Optional
 from std_msgs.msg import Float64
@@ -108,6 +104,7 @@ class HeuristicPubSub(rclpy.node.Node):
         self._worker = _AsyncSummaryWriter(log_dir, total_steps, 1,
                                            self._step_begins, self._step_ends)
         self._worker.start()
+        self.logger.info("Latency analyzer started.")
 
         # The writer thread is a daemon thread, which is automatically killed
         # when the main process exits. The problem is, the training process
@@ -133,6 +130,9 @@ class HeuristicPubSub(rclpy.node.Node):
         # float64 = Float64()
         # float64.data = (time.time() - self.last_request_time)
         # self.latency_publisher.publish(float64)
+        if self.first_request_after_last_responded_time == None:
+            return 
+        
         self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
 
         self._step_begins.append(self.first_request_after_last_responded_time)

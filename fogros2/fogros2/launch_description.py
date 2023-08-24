@@ -50,7 +50,6 @@ from threading import Thread
 from time import sleep
 
 from .vpn import VPN
-from .sky_launcher import SkyLauncher
 
 class FogROSLaunchDescription(LaunchDescriptionEntity):
     """
@@ -122,9 +121,9 @@ class FogROSLaunchDescription(LaunchDescriptionEntity):
             thread = Thread(target=machine.launch_cloud_node, args=[])
             thread.start()
 
-        sky_launcher = SkyLauncher()
-        sky_launcher.add(self.__to_sky_entities)
-        sky_launcher.run()
+        # sky_launcher = SkyLauncher()
+        # sky_launcher.add(self.__to_sky_entities)
+        # sky_launcher.run()
 
         if self.__deprecated_reason is not None:
             if "current_launch_file_path" in context.get_locals_as_dict():
