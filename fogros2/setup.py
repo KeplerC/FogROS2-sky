@@ -64,5 +64,8 @@ setup(
             "connect = fogros2.verb.ssh:SSHVerb",
             "image = fogros2.verb.image:ImageVerb",
         ],
+        "console_scripts": [
+            "latency = fogros2.latency_analyzer:main",
+        ],
     },
 )

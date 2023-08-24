@@ -31,9 +31,27 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-from .aws_cloud_instance import AWSCloudInstance  # noqa: F401
-from .gcp_cloud_instance import GCPCloudInstance  # noqa: F401
-from .kubernetes.generic import KubeInstance  # noqa: F401
-from .cloud_node import CloudNode, SkyNode  # noqa: F401
-from .launch_description import FogROSLaunchDescription  # noqa: F401
-from .sky_launch_description import SkyLaunchDescription
+from launch import LaunchDescription
+from launch_ros.actions import Node
+
+import fogros2
+
+def generate_launch_description():
+
+    fogros2.SkyLaunchDescription(
+        workdir = "", # do not upload the current workspace
+        containers = [
+                "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency",
+                "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros client.launch.py",
+                "sudo docker run --net=host --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros planner.launch.py"
+                ],
+        mode = "benchmark", # launch, benchmark
+    )
+
+    # this is to prevent the launch description from exiting 
+    # TODO: a better way 
+    return LaunchDescription([
+        Node(
+            package="fogros2_examples", executable="listener", output="screen", # listener
+        ), 
+    ])
