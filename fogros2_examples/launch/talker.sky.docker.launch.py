@@ -39,13 +39,12 @@ import fogros2
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
-
-    talker_node = Node(
-        package="fogros2_examples", executable="talker", output="screen"
-    )
-
     fogros2.SkyLaunchDescription(
-        nodes=[talker_node],
+        nodes=[],
+        dockers = [
+                "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py",
+                "sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py"
+                ],
         mode = "benchmark", # launch, benchmark
     )
 
