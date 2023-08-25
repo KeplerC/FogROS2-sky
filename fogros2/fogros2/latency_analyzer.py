@@ -72,15 +72,24 @@ class HeuristicPubSub(rclpy.node.Node):
 
         # topic to subscribe to know the start and end of the benchmark
         self.declare_parameter("request_topic_name", "/gqcnn/image_compressed")
+        # self.declare_parameter("request_topic_name", "/camera/color/image")
         request_topic = self.get_parameter("request_topic_name").value
         self.declare_parameter("request_topic_type", "sensor_msgs/msg/Image")
         request_topic_type = self.get_parameter("request_topic_type").value
         self.declare_parameter("response_topic_name", "/gqcnn/grasp_pose")
+        # self.declare_parameter("response_topic_name", "/RGBD/pose")
         response_topic = self.get_parameter("response_topic_name").value
         self.declare_parameter("response_topic_type", "geometry_msgs/msg/PoseStamped")
         response_topic_type = self.get_parameter("response_topic_type").value
         self.declare_parameter("total_steps", 1000)
         total_steps = self.get_parameter("total_steps").value
+
+        # last_response: use the time of the last response as the start time of the next step (dexnet, continuous)
+        # first_request: use the time of the first request as the start time of the next step (slam, discrete)
+        # user_define: user publish a timestamp to the topic /sky/latency
+        self.declare_parameter("heuristic_mode", "last_response")
+        # self.declare_parameter("heuristic_mode", "first_request")
+        self.heuristic_mode = self.get_parameter("heuristic_mode").value        
 
         self.logger = self.get_logger()
 
@@ -123,30 +132,30 @@ class HeuristicPubSub(rclpy.node.Node):
         if self.first_request_after_last_responded_time == None:
             self.first_request_after_last_responded_time = time.time()
 
-
-
     # calculate latency based on heuristics
     def response_topic_callback(self, msg):
         # float64 = Float64()
         # float64.data = (time.time() - self.last_request_time)
         # self.latency_publisher.publish(float64)
 
-        # heuristic #1 
-        # if self.first_request_after_last_responded_time == None:
-        #     return 
-        # self._step_begins.append(self.first_request_after_last_responded_time)
-        # now = time.time()
-        # self._step_ends.append(now)
-        # self.first_request_after_last_responded_time = None
-        # self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
-
-        # heuristic #2
-        
-        now = time.time()
-        self._step_ends.append(now)
-        self._step_begins.append(now)
-        self.logger.info(f"response: {time.time()}, {(now - self.first_request_after_last_responded_time)}")
-        self.first_request_after_last_responded_time = now
+        if self.heuristic_mode == "first_request":
+        # heuristic: use the time of the first request as the start time of the next step (slam, discrete)
+            if self.first_request_after_last_responded_time == None:
+                return 
+            self._step_begins.append(self.first_request_after_last_responded_time)
+            now = time.time()
+            self._step_ends.append(now)
+            self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
+            self.first_request_after_last_responded_time = None
+        # heuristic: use the time of the last response as the start time of the next step (dexnet, continuous)
+        elif self.heuristic_mode == "last_response":
+            now = time.time()
+            self._step_ends.append(now)
+            self._step_begins.append(now)
+            self.logger.info(f"response: {time.time()}, {(now - self.first_request_after_last_responded_time)}")
+            self.first_request_after_last_responded_time = now
+        else:
+            self.logger.error("not implemented yet")
 
 
 # following code borrowed from https://github.com/KeplerC/skypilot/blob/7a53e0c0a66dbf2ca5df413b9b9206a9beceaf92/sky/callbacks/sky_callback/base.py#L73

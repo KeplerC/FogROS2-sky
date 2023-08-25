@@ -120,7 +120,7 @@ class SkyCluster():
 
     def init_cluster(self):
         self.logger.info(f"Creating new Sky cluster {self._name}")
-        self.create_sky_instance(self.sky_yaml_config)
+        self.create_sky_instance()
         self._is_created = True
 
     def create_sky_instance(self):
