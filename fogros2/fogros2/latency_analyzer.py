@@ -108,10 +108,11 @@ class HeuristicPubSub(rclpy.node.Node):
         # TODO(woosuk): Do not store the entire timestamps.
         self._step_begins = []
         self._step_ends = []
+        self._step_latency = []
 
         # Create a writer thread.
         self._worker = _AsyncSummaryWriter(log_dir, total_steps, 1,
-                                           self._step_begins, self._step_ends)
+                                           self._step_begins, self._step_ends, self._step_latency)
         self._worker.start()
         self.logger.info("Latency analyzer started.")
 
@@ -145,14 +146,18 @@ class HeuristicPubSub(rclpy.node.Node):
             self._step_begins.append(self.first_request_after_last_responded_time)
             now = time.time()
             self._step_ends.append(now)
-            self.logger.info(f"response: {time.time()}, {(time.time() - self.first_request_after_last_responded_time)}")
+            latency = now - self.first_request_after_last_responded_time
+            self._step_latency.append(latency)
+            self.logger.info(f"response: {time.time()}, {latency}")
             self.first_request_after_last_responded_time = None
         # heuristic: use the time of the last response as the start time of the next step (dexnet, continuous)
         elif self.heuristic_mode == "last_response":
             now = time.time()
             self._step_ends.append(now)
             self._step_begins.append(now)
-            self.logger.info(f"response: {time.time()}, {(now - self.first_request_after_last_responded_time)}")
+            latency = (now - self.first_request_after_last_responded_time)
+            self._step_latency.append(latency)
+            self.logger.info(f"response: {time.time()}, {latency}")
             self.first_request_after_last_responded_time = now
         else:
             self.logger.error("not implemented yet")
@@ -191,6 +196,7 @@ class _AsyncSummaryWriter(threading.Thread):
                  warmup_steps: int,
                  step_begins: List[float],
                  step_ends: List[float],
+                 step_latency: List[float],
                  write_interval_seconds: float = 5) -> None:
         threading.Thread.__init__(self, daemon=True)
         self._log_path = os.path.join(log_dir, _BENCHMARK_SUMMARY)
@@ -202,6 +208,7 @@ class _AsyncSummaryWriter(threading.Thread):
         )
         self._step_begins = step_begins
         self._step_ends = step_ends
+        self._step_latency = step_latency
         self._write_interval_seconds = write_interval_seconds
 
         # The thread will receive a stop signal when the main process exits,
@@ -233,7 +240,7 @@ class _AsyncSummaryWriter(threading.Thread):
         if num_steps > summary.warmup_steps:
             time_after_warmup = last_step_time - summary.warmup_end_time
             steps_after_warmup = num_steps - summary.warmup_steps
-            time_per_step = time_after_warmup / steps_after_warmup
+            time_per_step = sum(self._step_latency) / len(self._step_latency) #time_after_warmup / steps_after_warmup
             summary.time_per_step = time_per_step
 
             if summary.total_steps is not None:
@@ -241,7 +248,7 @@ class _AsyncSummaryWriter(threading.Thread):
                 # between booting and the process creation.
                 time_until_warmup = summary.warmup_end_time - summary.create_time
                 steps_after_warmup = summary.total_steps - summary.warmup_steps
-                total_time = time_until_warmup + time_per_step * steps_after_warmup
+                total_time = time_until_warmup + time_after_warmup
                 summary.estimated_total_time = total_time
 
     def _write_summary(self) -> None:
