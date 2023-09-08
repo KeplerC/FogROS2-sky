@@ -120,6 +120,7 @@ class SkyOptimization:
         self.solveOptimization(
             OptimizationFunctionType.TIME, OptimizationFunctionType.COST
         )
+        exit()
         self.displayResults()
         # self.bounds_ = self.createBounds()
         # self.constraints_ = self.createConstraints()
@@ -754,10 +755,18 @@ class SkyOptimization:
             method=optimization_method,
             bounds=bounds,
             constraints=constraints,
+            tol=1e-5,
+            options={'maxiter': 10000}
         )
-        print("I GOT TO OPTIMIZATION RESULT")
+        match objective_function_type:
+            case OptimizationFunctionType.COST:
+                print("I GOT THE COST OPTIMIZATION RESULT")
+            case OptimizationFunctionType.TIME:
+                print("I GOT THE TIME OPTIMIZATION RESULT")
         print(optimization_result)
-        exit()
+        print("Time: " + str(self.timeFunction()(optimization_result.x)))
+        print("Cost: " + str(self.costFunction()(optimization_result.x)))
+        return
         hardware_result = None
         if not optimization_result.success:
             hardware_result = optimization_result.x
