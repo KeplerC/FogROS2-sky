@@ -7,10 +7,11 @@ import subprocess
 import time
 import numpy as np
 from enum import Enum
-from scipy.optimize import NonlinearConstraint, minimize
+from scipy.optimize import NonlinearConstraint, minimize, Bounds
 import math
 from itertools import product
 from scipy.optimize import curve_fit
+from models import Model
 
 
 class ModelType(Enum):
@@ -54,13 +55,18 @@ class SkyOptimization:
         self.ZERO_EPSILON = 1e-10
         self.yaml_file_ = yaml_file
         self.optimization_function_type_length_ = 25
+        self.max_cpu_ = 0
+        self.max_memory_ = 0
         self.relevant_cpu_list_ = []
+        self.relevant_hardware_list_ = []
         self.benchmark_time_results_ = []
+        self.benchmark_yaml_list_ = []
         self.cpu_benchmark_yaml_list_ = [
-            "benchmark_cpu_min.yaml",
-            "benchmark_cpu_mid.yaml",
-            "benchmark_cpu_max.yaml",
+            "benchmark_cpu_min",
+            "benchmark_cpu_mid",
+            "benchmark_cpu_max",
         ]
+        self.benchmark_range_ = 3
         self.benchmark_name_list_ = ["cpu-min", "cpu-mid", "cpu-max"]
         self.benchmark_threads_ = []
         self.benchmark_cost_substring_1_ = "CLUSTER"
@@ -95,9 +101,17 @@ class SkyOptimization:
             self.benchmark_cost_results_, "Cost"
         )
         self.findSetupTime()
-        self.timeModel_ = self.makeModel(self.time_model_info_)
-        self.costModel_ = self.makeModel(self.cost_model_info_)
-        
+        self.timeModel_ = self.time_model_info_[0]
+        self.time_model_coefficients_ = self.time_model_info_[1]
+        print(self.timeModel_)
+        print(self.time_model_coefficients_)
+        self.costModel_ = self.cost_model_info_[0]
+        self.cost_model_coefficients_ = self.cost_model_info_[1]
+        print(self.costModel_)
+        print(self.cost_model_coefficients_)
+        #self.timeModel_ = self.makeModel(self.time_model_info_)
+        #self.costModel_ = self.makeModel(self.cost_model_info_)
+
         if self.debug_:
             self.displayRelevantOptimizationInfo()
         self.solveOptimization(
@@ -158,6 +172,8 @@ class SkyOptimization:
         cpu_min = cpu_list[0]
         cpu_max = cpu_list[len(cpu_list) - 1]
         cpu_mid = cpu_list[int(len(cpu_list) / 2)]
+        self.max_cpu_ = cpu_max
+        self.max_memory_ = cpu_max * 8
         self.relevant_cpu_list_.append(cpu_min)
         self.relevant_cpu_list_.append(cpu_mid)
         self.relevant_cpu_list_.append(cpu_max)
@@ -169,34 +185,43 @@ class SkyOptimization:
     def createBenchmarks(self):
         if self.debug_:
             print("Creating benchmarks")
-        for i in range(len(self.cpu_benchmark_yaml_list_)):
+        for i in range(self.benchmark_range_):
             cpu_string = self.yaml_file_contents_[self.cpu_start_index_]
             cpu_substring = cpu_string[
                 cpu_string.find("cpus:") + self.cpu_str_offset_ : cpu_string.find("}")
             ]
-            cpu_replacement_substring = " " + str(self.relevant_cpu_list_[i])
-            new_cpu_string = cpu_string.replace(
-                cpu_substring, cpu_replacement_substring
-            )
-            self.yaml_file_contents_[self.cpu_start_index_] = new_cpu_string
-            f = open(self.cpu_benchmark_yaml_list_[i], "w")
-            file_contents = ""
-            for line in self.yaml_file_contents_:
-                file_contents += line
-            f.write(file_contents)
-            f.close()
+            for j in range(self.benchmark_range_):
+                memory = self.relevant_cpu_list_[i] * (2 ** (j + 1))
+                cpu_replacement_substring = (
+                    " " + str(self.relevant_cpu_list_[i]) + ", memory: " + str(memory)
+                )
+                new_cpu_string = cpu_string.replace(
+                    cpu_substring, cpu_replacement_substring
+                )
+                self.yaml_file_contents_[self.cpu_start_index_] = new_cpu_string
+                filename = "cpu_"+str(i) + "_mem" + str(j) + ".yaml"
+                self.benchmark_yaml_list_.append(filename)
+                self.relevant_hardware_list_.append((self.relevant_cpu_list_[i],memory))
+                f = open(filename, "w")
+                file_contents = ""
+                for line in self.yaml_file_contents_:
+                    file_contents += line
+                f.write(file_contents)
+                f.close()
 
     def runSkyBenchmarks(self):
         if self.debug_:
             print("Run Sky Benchmarks")
         thread_list = []
-        for i in range(len(self.relevant_cpu_list_)):
+        for i in range(len(self.relevant_hardware_list_)):
+            benchmark_name = "benchmark"+str(i)
+            print(benchmark_name)
             t = threading.Thread(
                 target=self.skyBenchmark,
                 args=(
-                    self.cpu_benchmark_yaml_list_[i],
-                    self.benchmark_name_list_[i],
-                    self.relevant_cpu_list_[i],
+                    self.benchmark_yaml_list_[i],
+                    benchmark_name,
+                    self.relevant_hardware_list_[i],
                 ),
             )
             t.start()
@@ -237,6 +262,7 @@ class SkyOptimization:
                 break
         if self.debug_:
             print("Successfully terminated clusters.")
+
         # t1 = threading.Thread(target=self.skyBenchmark,args=(self.cpu_benchmark_yaml_list_[0],self.benchmark_name_list_[0],self.relevant_cpu_list_[0]))
         # t1.start()
         # t2 = threading.Thread(target=self.skyBenchmark,args=(self.cpu_benchmark_yaml_list_[1],self.benchmark_name_list_[1],self.relevant_cpu_list_[1]))
@@ -272,19 +298,25 @@ class SkyOptimization:
                         num_lines_to_cost_data = 2
                         self.got_cost_info_ = False
                         line_array = line.split()
-                        self.benchmark_cost_results_.append(
-                            (
-                                int(
-                                    line_array[self.benchmark_cost_substring_cpu_index_]
-                                ),
-                                float(
+                        self.benchmark_cost_results_.append((hardware_count,float(
                                     line_array[
                                         self.benchmark_cost_substring_cost_index_
                                     ]
                                 )
-                                / self.SECONDS_PER_HOUR,
-                            )
-                        )
+                                / self.SECONDS_PER_HOUR))
+                        # self.benchmark_cost_results_.append(
+                        #     (
+                        #         int(
+                        #             line_array[self.benchmark_cost_substring_cpu_index_]
+                        #         ),
+                        #         float(
+                        #             line_array[
+                        #                 self.benchmark_cost_substring_cost_index_
+                        #             ]
+                        #         )
+                        #         / self.SECONDS_PER_HOUR,
+                        #     )
+                        # )
                     else:
                         num_lines_to_cost_data -= 1
                 if (
@@ -338,7 +370,7 @@ class SkyOptimization:
             else:
                 break
         seconds_per_step_array = seconds_per_step_line.split()
-        if(self.debug_):
+        if self.debug_:
             print(seconds_per_step_array)
         # Weird exception where if duration is exactly 5 minutes and 0 seconds, everything after is shifted by 1
         seconds_per_step = None
@@ -346,14 +378,23 @@ class SkyOptimization:
         num_steps = 0
         if "s" not in seconds_per_step_array[self.seconds_per_step_index_ - 3]:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_ - 1]
-            duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE
+            duration = (
+                int(seconds_per_step_array[self.duration_min_index_][:-1])
+                * self.SECONDS_PER_MINUTE
+            )
             num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 2])
         else:
             seconds_per_step = seconds_per_step_array[self.seconds_per_step_index_]
-            duration = int(seconds_per_step_array[self.duration_min_index_][:-1]) * self.SECONDS_PER_MINUTE + int(seconds_per_step_array[self.duration_sec_index_][:-1])
+            duration = int(
+                seconds_per_step_array[self.duration_min_index_][:-1]
+            ) * self.SECONDS_PER_MINUTE + int(
+                seconds_per_step_array[self.duration_sec_index_][:-1]
+            )
             num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 1])
         self.benchmark_time_results_.append((hardware_count, float(seconds_per_step)))
-        self.num_steps_and_duration_.append((num_steps,duration,hardware_count,float(seconds_per_step)))
+        self.num_steps_and_duration_.append(
+            (num_steps, duration, hardware_count, float(seconds_per_step))
+        )
         # benchmark_delete_command = 'sky bench delete ' + benchmark_name + '< benchmark_input.txt'
         # benchmark_delete = subprocess.Popen(benchmark_delete_command, shell=True, stdout=subprocess.PIPE, )
         # while True:
@@ -376,15 +417,13 @@ class SkyOptimization:
             print(self.num_steps_and_duration_)
         setup_times = []
         for item in self.num_steps_and_duration_:
-            (num_steps,duration,hardware_count,seconds_per_step) = item
+            (num_steps, duration, hardware_count, seconds_per_step) = item
             setup_time = duration - (seconds_per_step * num_steps)
             setup_times.append(setup_time)
         self.average_setup_time_ = sum(setup_times) / len(setup_times)
         if self.debug_:
             print("Setup times: " + str(setup_times))
             print("Average setup time: " + str(self.average_setup_time_))
-        
-        
 
     def regressionSolver(self, data, purpose):
         if self.debug_:
@@ -397,9 +436,29 @@ class SkyOptimization:
         # Linear regression
         x = data_np[:, 0]  # np.array(list(self.benchmark_time_results_.keys()))
         y = data_np[:, 1]  # np.array(list(self.benchmark_time_results_.values()))
+        x_np = None
+        y_np = None
+        print("X type: " + str(type(x[0])))
+        print("Y type: " + str(type(y[0])))
+        if(type(x[0]) is tuple):
+            x_np = np.array([list(item) for item in x])
+            
+        else:
+            x_np = np.array(x)
+            
+        if(type(y[0]) is tuple):
+            y_np = np.array([list(item) for item in y])
+        else:
+            y_np = np.array(y)
+
         if self.debug_:
-            print("Input data: " + str(x))
-            print("Output data: " + str(y))
+            print("Input data: " + str(x_np))
+            print("Output data: " + str(y_np))
+        potential_model_object = Model(x_np,y_np)
+        potential_model = potential_model_object.getModel()
+        if self.debug_:
+            print("Model for " + str(purpose) + ": " + str(potential_model))
+        return potential_model
         log_x = np.log(x)
         log_y = np.log(y)
         regressions = []
@@ -411,7 +470,7 @@ class SkyOptimization:
         regressions.append(exponential_regression)
         logarithmic_regression = self.linearRegression(log_x, y, ModelType.LOGARITHMIC)
         regressions.append(logarithmic_regression)
-        hyperbolic_regression = self.hyperbolicRegression(x,y)
+        hyperbolic_regression = self.hyperbolicRegression(x, y)
         regressions.append(hyperbolic_regression)
         # if(purpose == 'Time'):
         #    quadratic_regression = self.quadraticRegression(x,y)
@@ -446,22 +505,24 @@ class SkyOptimization:
     #         print("Running least squares regression to solve for cost per hardware")
     #     cost_data = np.array()
 
-    def hyperbolic_model(self,x, A, B):
+    def hyperbolic_model(self, x, A, B):
         return A + B / x
-    
-    def hyperbolicRegression(self,x,y,constraint_type=ModelType.HYPERBOLIC):
+
+    def hyperbolicRegression(self, x, y, constraint_type=ModelType.HYPERBOLIC):
         coefficients, _ = curve_fit(self.hyperbolic_model, x, y)
         y_pred = self.hyperbolic_model(x, coefficients[0], coefficients[1])
         rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
-        return (rsquared,coefficients,constraint_type)
-
+        return (rsquared, coefficients, constraint_type)
 
     def linearRegression(self, x, y, constraint_type):
         A = np.vstack([x, np.ones(len(x))]).T
         linear_coefficients = np.linalg.lstsq(A, y, rcond=None)[0]
         y_pred = linear_coefficients[0] * x + linear_coefficients[1]
         rsquared = None
-        if(constraint_type == ModelType.POWER or constraint_type == ModelType.EXPONENTIAL):
+        if (
+            constraint_type == ModelType.POWER
+            or constraint_type == ModelType.EXPONENTIAL
+        ):
             y = np.exp(y)
             y_pred = np.exp(y_pred)
         rsquared = 1.0 - np.sum((y - y_pred) ** 2) / np.sum((y - np.mean(y)) ** 2)
@@ -487,24 +548,49 @@ class SkyOptimization:
             print("Creating bounds for optimization problem")
         low_cpu = self.ZERO_EPSILON
         high_cpu = self.relevant_cpu_list_[2]
+        low_mem = self.ZERO_EPSILON
+        high_mem = self.max_memory_
         if self.debug_:
             print("Low CPU bound: " + str(low_cpu))
             print("High CPU bound: " + str(high_cpu))
-        return [(low_cpu, high_cpu)]
+            print("Low Memory bound: " + str(low_mem))
+            print("High Memory bound: " + str(high_mem))
+        return Bounds([low_cpu, low_mem], [high_cpu, high_mem]) #[(low_cpu, high_cpu)]
 
     def displayRelevantOptimizationInfo(self):
-        for cpu_count in self.relevant_cpu_list_:
-            print("CPU Count: " + str(cpu_count))
-            print("Time (Sec/Step): " + str(self.timeModel_(cpu_count)))
-            print("Cost ($/Sec): " + str(self.costModel_(cpu_count)))
-            print("$/Hr: " + str(self.costModel_(cpu_count) * self.SECONDS_PER_HOUR))
-            print("Total Cost: " + str(self.costFunction()(cpu_count)))
-            print("Total Time: " + str(self.timeFunction()(cpu_count)))
+        # for cpu_count in self.relevant_cpu_list_:
+        #     print("CPU Count: " + str(cpu_count))
+        #     print("Time (Sec/Step): " + str(self.timeModel_(cpu_count)))
+        #     print("Cost ($/Sec): " + str(self.costModel_(cpu_count)))
+        #     print("$/Hr: " + str(self.costModel_(cpu_count) * self.SECONDS_PER_HOUR))
+        #     print("Total Cost: " + str(self.costFunction()(cpu_count)))
+        #     print("Total Time: " + str(self.timeFunction()(cpu_count)))
+        
+        for relevant_hardware in self.relevant_hardware_list_:
+            relevant_hardware = np.array(relevant_hardware)
+            print("Hardware Count: " + str(relevant_hardware))
+            print("Hardware type: " + str(type(relevant_hardware)))
+            print("Hardware shape: " + str(relevant_hardware.shape))
+            print("Time model coefficients: " + str(self.time_model_coefficients_))
+            print("Type coefficients: " + str(type(self.time_model_coefficients_)))
+            print("Time shape: "+ str(self.time_model_coefficients_.shape))
+            print(relevant_hardware[0])
+            print(relevant_hardware[1])
+            print(self.time_model_coefficients_[0])
+            print(self.time_model_coefficients_[1])
+            print(self.time_model_coefficients_[2])
+            print(self.time_model_coefficients_[3])
+            print("Time (Sec/Step): " + str(self.timeModel_(relevant_hardware,self.time_model_coefficients_,predict=False,single=True)))
+            print("Cost ($/Sec): " + str(self.costModel_(relevant_hardware,self.cost_model_coefficients_,predict=False,single=True)))
 
     def createConstraints(self, constraint_function_type):
         if self.debug_:
-            print("Creating bounds for optimization problem")
+            print("Creating constraints for optimization problem")
         constraints = []
+        mem_cpu_ratio_lower_bound = 2
+        mem_cpu_ratio_upper_bound = 8
+        memory_constraint = NonlinearConstraint(self.memoryFunction(),mem_cpu_ratio_lower_bound,mem_cpu_ratio_upper_bound)
+        constraints.append(memory_constraint)
         match (constraint_function_type):
             case OptimizationFunctionType.COST:
                 cost_lower_bound = 0
@@ -569,11 +655,18 @@ class SkyOptimization:
             case OptimizationFunctionType.TIME:
                 return self.timeFunction()
 
+    def memoryFunction(self):
+        def memFn(x):
+            return x[1] / x[0]
+        return memFn
+
     def costFunction(self):
         def costFn(x):
-            seconds_per_step = self.timeModel_(x)
-            total_time_in_seconds = (seconds_per_step * self.steps_) + self.average_setup_time_
-            dollars_per_second = self.costModel_(x)
+            seconds_per_step = self.timeModel_(x,self.time_model_coefficients_,predict = False,single = True)
+            total_time_in_seconds = (
+                seconds_per_step * self.steps_
+            ) + self.average_setup_time_
+            dollars_per_second = self.costModel_(x,self.cost_model_coefficients_,predict=False,single=True)
             cost = dollars_per_second * total_time_in_seconds
             return cost
 
@@ -581,8 +674,10 @@ class SkyOptimization:
 
     def timeFunction(self):
         def timeFn(x):
-            seconds_per_step = self.timeModel_(x)
-            total_time_in_seconds = (seconds_per_step * self.steps_) + self.average_setup_time_
+            seconds_per_step = self.timeModel_(x,self.time_model_coefficients_,predict = False,single = True)
+            total_time_in_seconds = (
+                seconds_per_step * self.steps_
+            ) + self.average_setup_time_
             return total_time_in_seconds
 
         return timeFn
@@ -633,14 +728,14 @@ class SkyOptimization:
                         + model_info[0][2]
                     )
                     return y
-            
+
             case ModelType.HYPERBOLIC:
 
                 def model(x):
                     x = np.array(x)
-                    y = self.hyperbolic_model(x,model_info[0][0],model_info[0][1])
+                    y = self.hyperbolic_model(x, model_info[0][0], model_info[0][1])
                     return y
-                
+
                 return model
 
     def solveOptimization(self, objective_function_type, constraint_function_type):
@@ -651,7 +746,7 @@ class SkyOptimization:
         bounds = self.createBounds()
         constraints = self.createConstraints(constraint_function_type)
         objective_function = self.createObjectiveFunction(objective_function_type)
-        initial_guess = 1
+        initial_guess = np.array([1,1])
         optimization_method = "SLSQP"
         optimization_result = minimize(
             objective_function,
@@ -660,6 +755,9 @@ class SkyOptimization:
             bounds=bounds,
             constraints=constraints,
         )
+        print("I GOT TO OPTIMIZATION RESULT")
+        print(optimization_result)
+        exit()
         hardware_result = None
         if not optimization_result.success:
             hardware_result = optimization_result.x
@@ -727,7 +825,7 @@ class SkyOptimization:
                 and self.timeFunction()(permutation) <= self.max_time_
             ):
                 successful_permutations.append(permutation)
-        if(self.debug_):
+        if self.debug_:
             print("Before sort")
             print(successful_permutations)
         sorted_successful_permutations = successful_permutations
@@ -739,7 +837,7 @@ class SkyOptimization:
             sorted_successful_permutations = sorted(
                 successful_permutations, key=self.timeFunction()
             )
-        if(self.debug_):
+        if self.debug_:
             print("After sort")
             print(sorted_successful_permutations)
         return sorted_successful_permutations[0]
