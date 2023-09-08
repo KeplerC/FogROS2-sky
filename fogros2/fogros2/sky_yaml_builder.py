@@ -37,7 +37,7 @@ run: |
 
 setup_command_docker = """
 setup: |
-    sudo apt-get install -y docker.io
+    sudo apt-get update && apt-get install -y docker.io
     sudo systemctl reset-failed docker
     sleep 1
     sudo systemctl start docker
