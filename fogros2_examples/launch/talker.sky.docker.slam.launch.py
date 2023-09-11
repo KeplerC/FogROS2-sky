@@ -43,7 +43,7 @@ def generate_launch_description():
         containers = [
                 "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/camera/color/image -p response_topic_name:=/RGBD/pose -p heuristic_mode:=first_request",
                 "sudo docker run -d --net=host --rm -it -v /home/ubuntu/sky_workdir:/dataset -v $(pwd)/output:/output simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_client_launch.py dataset:=/dataset compress:=0 fps:=1",
-                "sudo docker run --net=host --rm simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_launch.py compress:=0"
+                "sudo docker run -d --net=host --rm simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_launch.py compress:=0"
                 ],
         mode = "benchmark", # launch, benchmark
     )

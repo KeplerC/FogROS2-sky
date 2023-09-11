@@ -37,10 +37,10 @@ run: |
 
 setup_command_docker = """
 setup: |
-    sudo apt-get update && apt-get install -y docker.io
-    sudo systemctl reset-failed docker
-    sleep 1
-    sudo systemctl start docker
+    # sudo apt-get update && sudo apt-get install -y docker.io
+    # sudo systemctl reset-failed docker
+    # sleep 20
+    # sudo systemctl start docker
 """
 
 def get_sky_config_yaml(

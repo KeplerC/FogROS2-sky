@@ -43,7 +43,7 @@ def generate_launch_description():
         containers = [
                 "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/robot_mesh -p request_topic_type:=std_msgs/msg/UInt8MultiArray -p response_topic_name:=/motion_plan -p response_topic_type:=std_msgs/msg/Float64MultiArray  -p heuristic_mode:=first_request",
                 "sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros node",
-                "sleep 15 && sudo docker run --net=host -ti keplerc/mpt:latest ros2 run mpt_ros client"
+                "sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros client"
                 ],
         mode = "benchmark", # launch, benchmark
     )
