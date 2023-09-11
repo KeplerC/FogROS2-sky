@@ -43,7 +43,7 @@ def generate_launch_description():
         containers = [
                 "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency",
                 "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros client.launch.py",
-                "sudo docker run --net=host --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros planner.launch.py"
+                "sudo docker run -d --net=host --rm keplerc/gqcnn_ros:pj ros2 launch gqcnn_ros planner.launch.py"
                 ],
         mode = "benchmark", # launch, benchmark
     )
