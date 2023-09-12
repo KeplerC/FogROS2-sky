@@ -1,6 +1,169 @@
 import numpy as np
 from scipy.optimize import curve_fit
 
+class GPUModel:
+    def __init__(self,x,y):
+        print("Hello world")
+        self.x_ = x
+        self.y_ = y
+        self.r_squared_threshold_ = 0.93
+        model_list = [
+            (self.linear_model,2,"Linear"),
+            (self.log_model,2,"Log"),
+            (self.exp_model,2,"Exp"),
+            (self.power_model,2,"Power"),
+            (self.hyper_model,2,"Hyper")
+        ]
+        
+        self.max_rsquared_ = 0
+        self.model_ = None
+        self.is_const_model_ = False
+        for (model,coef_len,name) in model_list:
+            rsquared = None
+            try:
+                #print("I'm trying")
+                
+                rsquared,coefficients = self.regression(model,coef_len)
+                if(rsquared > self.max_rsquared_ and rsquared <= 1):
+                    self.max_rsquared_ = rsquared
+                    self.model_ = (model,coefficients)
+                print(name + ": " + str(rsquared))
+            except:
+                continue
+
+        if(self.max_rsquared_ < self.r_squared_threshold_):
+            coefficients = [np.mean(self.y_)]
+            self.model_ = (self.const_model,coefficients)
+
+
+    def getModel(self):
+        if(not self.is_const_model_):
+            print(self.max_rsquared_)
+        print(self.model_)
+        return self.model_
+    
+    def regression(self,model,coeff_len):
+        #print("Starting")
+        #print((self.x_[:,0],self.x_[:,1]))
+        #print(self.y_)
+        coefficients, _ = curve_fit(model, self.x_, self.y_,p0=np.zeros(coeff_len),maxfev=100000)
+        #print("Coefficients: ",coefficients)
+        y_pred = model(np.array(self.x_),coefficients,predict=True)
+        #print("Y pred: ",y_pred)
+        #y_pred = model(self.x_, coefficients)
+        rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
+        #print("Rsquared: ",rsquared)
+        return (rsquared, coefficients)
+    
+    def const_model(self,x,*coefficients,predict=False,single=False):
+        if(single):
+            return coefficients[0][0]
+        elif(predict):
+            return coefficients[0][0]
+        else:
+            return coefficients[0]
+        
+    def linear_model(self,x,*coefficients,predict=False,single=False):
+        #print("HI GUYS")
+        #print(x[0])
+        #print(x[1])
+        #print(coefficients[0])
+        #print(coefficients[1])
+        #print(coefficients[2])
+        if(single):
+            return coefficients[0][0] + coefficients[0][1] * x[0]
+        elif(predict):
+            return coefficients[0][0] + coefficients[0][1] * x
+        else:
+            return coefficients[0] + coefficients[1] * x
+        # if single:
+        #     coefficients = coefficients[0] 
+        # if predict:
+        #     return coefficients[0][0] + coefficients[0][1] * x[:,0]
+        # else:
+        #     return coefficients[0] + coefficients[1] * x[0]
+        
+    def log_model(self,x,*coefficients,predict=False,single=False):
+        #print("HI GUYS")
+        #print(x[0])
+        #print(x[1])
+        #print(coefficients[0])
+        #print(coefficients[1])
+        #print(coefficients[2])
+        if(single):
+            return coefficients[0][0] + coefficients[0][1] * np.log(x[0])
+        elif(predict):
+            return coefficients[0][0] + coefficients[0][1] * np.log(x)
+        else:
+            return coefficients[0] + coefficients[1] * np.log(x)
+        # if single:
+        #     coefficients = coefficients[0] 
+        # if predict:
+        #     return coefficients[0][0] + coefficients[0][1] * np.log(x[:,0])
+        # else:
+        #     return coefficients[0] + coefficients[1] * np.log(x[0])
+    
+    def exp_model(self,x,*coefficients,predict=False,single=False):
+        #print("HI GUYS")
+        #print(x[0])
+        #print(x[1])
+        #print(coefficients[0])
+        #print(coefficients[1])
+        #print(coefficients[2])
+        #print(coefficients[3])
+        if(single):
+            return coefficients[0][0] * np.exp(coefficients[0][1] * x[0])
+        elif(predict):
+            return coefficients[0][0] * np.exp(coefficients[0][1] * x)
+        else:
+            return coefficients[0] * np.exp(coefficients[1] * x)
+        # if single:
+        #     coefficients = coefficients[0] 
+        # if predict:
+        #     return coefficients[0][0] * np.exp(coefficients[0][1] * x[:,0])
+        # else:
+        #     return coefficients[0] * np.exp(coefficients[1] * x[0])
+        
+    def power_model(self,x,*coefficients,predict=False,single=False):
+        #print("HI GUYS")
+        #print(x[0])
+        #print(x[1])
+        #print(coefficients[0])
+        #print(coefficients[1])
+        #print(coefficients[2])
+        if(single):
+            return coefficients[0][0] * (x[0] ** coefficients[0][1])
+        elif(predict):
+            return coefficients[0][0] * (x ** coefficients[0][1])
+        else:
+            return coefficients[0] * (x ** coefficients[1])
+        # if single:
+        #     coefficients = coefficients[0] 
+        # if predict:
+        #     return coefficients[0][0] * (x[:,0] ** coefficients[0][1])
+        # else:
+        #     return coefficients[0] * (x[0] ** coefficients[1])
+    
+    def hyper_model(self,x,*coefficients,predict=False,single=False):
+        #print("HI GUYS")
+        #print(x[0])
+        #print(x[1])
+        #print(coefficients[0])
+        #print(coefficients[1])
+        #print(coefficients[2])
+        #print(coefficients[3])
+        if(single):
+            return coefficients[0][0] + (coefficients[0][1] / x[0])
+        elif(predict):
+            return coefficients[0][0] + (coefficients[0][1] / x)
+        else:
+            return coefficients[0] + (coefficients[1] / x)
+        # if single:
+        #     coefficients = coefficients[0] 
+        # if predict:
+        #     return coefficients[0][0] + (coefficients[0][1] / x[:,0])
+        # else:
+        #     return coefficients[0] + (coefficients[1] / x[0])
 
 class Model:
     def __init__(self,x,y):
@@ -45,6 +208,10 @@ class Model:
             try:
                 #print("I'm trying")
                 rsquared,coefficients = self.regression(model,coef_len)
+                print("NEW")
+                print(rsquared)
+                print(coefficients)
+        
                 if(rsquared > self.max_rsquared_ and rsquared <= 1):
                     self.max_rsquared_ = rsquared
                     self.model_ = (model,coefficients)
@@ -59,6 +226,18 @@ class Model:
         print(self.model_)
         return self.model_
 
+    def regression(self,model,coeff_len):
+        #print("Starting")
+        #print((self.x_[:,0],self.x_[:,1]))
+        #print(self.y_)
+        coefficients, _ = curve_fit(model, (self.x_[:,0],self.x_[:,1]), self.y_,p0=np.zeros(coeff_len),maxfev=100000)
+        #print("Coefficients: ",coefficients)
+        y_pred = model(np.array(self.x_),coefficients,predict=True)
+        #print("Y pred: ",y_pred)
+        #y_pred = model(self.x_, coefficients)
+        rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
+        #print("Rsquared: ",rsquared)
+        return (rsquared, coefficients)
         # rsquared = self.regression(self.linear_linear_model,3)
         # print("Linear linear: " + str(rsquared))
         # rsquared = self.regression(self.linear_log_model,3)
@@ -502,9 +681,10 @@ class Model:
 
 
 def main():
-    x = np.array([(64, 256), (64, 512) ,(64, 128), (16, 64) ,(16, 32) ,(16, 128) ,(2, 8) ,(2, 16),(2, 4)])
-    y = np.array([1.9994, 1.9961, 1.9961, 2.3098, 2.3416 ,2.3698, 16.8036, 15.7978, 17.4908])
-    model = Model(x,y)
+    x = np.array([16,8,4])
+    y = np.array([0.00040156885322586446, 0.0002504992190434765, 0.0001752593280693606])
+    model = GPUModel(x,y)
+    print(model.getModel())
     
 
 
