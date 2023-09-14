@@ -1,0 +1,32 @@
+name: fogros2-sky-cluster
+num_nodes: 1 # Number of VMs to launch
+setup: |
+    # sudo apt-get update && sudo apt-get install -y docker.io
+    # sudo systemctl reset-failed docker
+    # sleep 20
+    # sudo systemctl start docker
+run: |
+    sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/robot_mesh -p request_topic_type:=std_msgs/msg/UInt8MultiArray -p response_topic_name:=/motion_plan -p response_topic_type:=std_msgs/msg/Float64MultiArray -p heuristic_mode:=first_request
+    sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros node
+    sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros client --ros-args -p scenario:=cubicles -p experiment:=latency
+resources:
+    cloud: aws
+    candidates:
+    # - {cpus: 2, memory: 4}
+    # - {cpus: 2, memory: 8}
+    # - {cpus: 2, memory: 16}
+    # - {cpus: 4, memory: 8}
+    # - {cpus: 4, memory: 16}
+    # - {cpus: 4, memory: 32}
+    - {cpus: 16, memory: 32}
+    # - {cpus: 16, memory: 64}
+    # - {cpus: 16, memory: 128}
+    # - {cpus: 32, memory: 64}
+    # - {cpus: 32, memory: 128}
+    # - {cpus: 32, memory: 256}
+    # - {cpus: 48, memory: 96}
+    # - {cpus: 48, memory: 192}
+    # - {cpus: 48, memory: 384}
+    # - {cpus: 64, memory: 128}
+    # - {cpus: 64, memory: 256}
+    # - {cpus: 64, memory: 512}

@@ -1322,17 +1322,17 @@ def main():
             )
     t1.start()
     thread_list.append(t1)
-
-    for gpu_type in gpu_list:
-        args.gpu_type = gpu_type
-        args.count += 1
-        print("ARG COUNT: " + str(args.count))
-        print(args.gpu_type)
-        sky_optimization_gpu = SkyOptimization(**vars(args))
-        sky_optimization_list.append(sky_optimization_gpu)
-        t = threading.Thread(target=sky_optimization_gpu.fullOptimization)
-        t.start()
-        thread_list.append(t)
+    if(not sky_optimization_no_gpu.is_slam_):
+        for gpu_type in gpu_list:
+            args.gpu_type = gpu_type
+            args.count += 1
+            print("ARG COUNT: " + str(args.count))
+            print(args.gpu_type)
+            sky_optimization_gpu = SkyOptimization(**vars(args))
+            sky_optimization_list.append(sky_optimization_gpu)
+            t = threading.Thread(target=sky_optimization_gpu.fullOptimization)
+            t.start()
+            thread_list.append(t)
 
     for thread in thread_list:
         thread.join()
