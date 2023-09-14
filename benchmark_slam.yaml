@@ -1,0 +1,21 @@
+name: fogros2-sky-cluster
+num_nodes: 1  # Number of VMs to launch
+workdir: ~/rgbd_dataset_freiburg1_xyz
+setup: |
+    # sudo apt-get update && sudo apt-get install -y docker.io
+    # sudo systemctl reset-failed docker
+    # sleep 20
+    # sudo systemctl start dockerrun: |
+    sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/camera/color/image -p response_topic_name:=/RGBD/pose -p heuristic_mode:=first_request
+    sudo docker run -d --net=host --rm -it -v /home/ubuntu/sky_workdir:/dataset -v $(pwd)/output:/output simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_client_launch.py dataset:=/dataset compress:=0 fps:=1
+    sudo docker run -d --net=host --rm simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_launch.py compress:=0
+# multiple cpu x2,x4,x8 and get the values
+resources:
+    cloud: aws
+    candidates:
+    - {cpus: 2}
+    # - {cpus: 4}
+    # - {cpus: 8}
+    # - {cpus: 16}
+    # - {cpus: 32}
+    # - {cpus: 64}

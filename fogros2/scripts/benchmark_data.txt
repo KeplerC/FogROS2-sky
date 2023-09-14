@@ -1,0 +1,4 @@
+CLUSTER                RESOURCES                        STATUS   DURATION  SPENT($)  #STEPS  SEC/STEP  $/STEP    EST(hr)  EST($)
+sky-bench-benchmark11  1x AWS(g4dn.4xlarge, {'T4': 1})  RUNNING  5m        0.1206    62      1.7151    0.000688  -        -
+sky-bench-benchmark10  1x AWS(g4dn.2xlarge, {'T4': 1})  RUNNING  5m 1s     0.0756    57      1.7005    0.000426  -        -
+sky-bench-benchmark9  1x AWS(g4dn.xlarge, {'T4': 1})  RUNNING  4m 59s    0.0524    62      1.7162    0.000301  -        -
