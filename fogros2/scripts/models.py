@@ -208,10 +208,7 @@ class Model:
             try:
                 #print("I'm trying")
                 rsquared,coefficients = self.regression(model,coef_len)
-                print("NEW")
-                print(rsquared)
-                print(coefficients)
-        
+                print("Name: " + str(rsquared))        
                 if(rsquared > self.max_rsquared_ and rsquared <= 1):
                     self.max_rsquared_ = rsquared
                     self.model_ = (model,coefficients)

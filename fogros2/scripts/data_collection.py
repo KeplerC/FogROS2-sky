@@ -1,5 +1,6 @@
 import argparse
 import os
+import json
 import yaml
 import csv
 import threading
@@ -88,6 +89,7 @@ class SkyOptimization:
         self.benchmark_cost_substring_cpu_index_ = 8
         self.benchmark_cost_substring_cost_index_ = 11
         self.benchmark_cost_results_ = []
+        self.benchmark_objective_cost_results_ = []
         self.yaml_file_contents_ = None
         self.cpu_start_index_ = -1
         self.cpu_candiate_index_ = -1
@@ -169,13 +171,17 @@ class SkyOptimization:
         print(self.benchmark_time_results_)
         print("Cost benchmark results")
         print(self.benchmark_cost_results_)
+        print("Objective cost benchmark results")
+        print(self.benchmark_objective_cost_results_)
         print("DONEZO DONEZO")
-        #exit()
         self.time_model_info_ = self.regressionSolver(
             self.benchmark_time_results_, "Time"
         )
         self.cost_model_info_ = self.regressionSolver(
             self.benchmark_cost_results_, "Cost"
+        )
+        self.objective_cost_model_info_ = self.regressionSolver(
+            self.benchmark_objective_cost_results_,"Objective Cost"
         )
         #self.findSetupTime()
         self.timeModel_ = self.time_model_info_[0]
@@ -186,10 +192,17 @@ class SkyOptimization:
         self.cost_model_coefficients_ = self.cost_model_info_[1]
         print(self.costModel_)
         print(self.cost_model_coefficients_)
+        self.objectiveCostModel_ = self.objective_cost_model_info_[0]
+        self.objective_cost_model_coefficients_ = self.objective_cost_model_info_[1]
+        print("OBJECTIVE COST FUNCTION")
+        print(self.objectiveCostModel_)
+        print(self.objective_cost_model_coefficients_)
         self.result_queue_.append(str(self.timeModel_))
         self.result_queue_.append(str(self.time_model_coefficients_))
         self.result_queue_.append(str(self.costModel_))
         self.result_queue_.append(str(self.cost_model_coefficients_))
+        self.result_queue_.append(str(self.objectiveCostModel_))
+        self.result_queue_.append(str(self.objective_cost_model_coefficients_))
         #self.timeModel_ = self.makeModel(self.time_model_info_)
         #self.costModel_ = self.makeModel(self.cost_model_info_)
 
@@ -214,6 +227,20 @@ class SkyOptimization:
         with open(self.data_file_name_, "w") as file:
             file.write(self.data_file_)
         return [self.cost_optimization_results_,self.time_optimization_results_]
+
+    def get_objective_cost(self,machine_name): # sky-bench-apartment-full-0
+        #benchmark_name = "-".join(machine_name.strip("sky-bench-").split("-")[:-1])
+        benchmark_name = machine_name[10:]
+        # expand_path = 
+        path = os.path.expanduser("~") +  "/.sky/benchmarks/" + benchmark_name + "/" + machine_name + "/" # + "/summary.json"
+        # find the directory under path that start with sky-callback
+        objective_cost = None
+        for calbback in (os.listdir(path)):
+            if calbback.startswith("sky-callback"):
+                with open(path + calbback + "/summary.json", "r") as f:
+                    objective_cost = str(json.loads(f.read())["objective_cost"])
+        print("Objective cost method: " + str(objective_cost))
+        return float(objective_cost)
 
     def findInstance(self,optimization_results,optimization_type):
         print("Start find instance")
@@ -561,8 +588,13 @@ class SkyOptimization:
     def skyBenchmark(self, yaml_file, benchmark_name, hardware_count):
         if self.debug_:
             print("Sky benchmark: " + yaml_file)
+        
         benchmark_setup_command = (
             "bash benchmark.sh " + yaml_file + " " + benchmark_name
+        )
+        if(self.is_motion_planning_):
+            benchmark_setup_command = (
+            "bash benchmark_apartment.sh " + yaml_file + " " + benchmark_name
         )
         benchmark_setup = subprocess.Popen(
             benchmark_setup_command,
@@ -580,8 +612,6 @@ class SkyOptimization:
                 line = line_byte.decode("utf-8")
                 line_output = "Hardware count " + str(hardware_count) + ": " + line
                 print(line_output)
-                # import pdb
-                # pdb.set_trace()
                 if(self.gpu_type_ == ""):
                     if self.got_cost_info_:
                         if num_lines_to_cost_data == 0:
@@ -617,7 +647,7 @@ class SkyOptimization:
         if self.debug_:
             print("Hardware count " + str(hardware_count) + ": " + "Cluster is setup")
 
-        time_remaining = 5
+        time_remaining = 10
         if(self.is_slam_):
             time_remaining = 1
         while time_remaining > 0:
@@ -703,14 +733,15 @@ class SkyOptimization:
             print(self.seconds_per_step_index_)
             num_steps = int(seconds_per_step_array[self.seconds_per_step_index_ - 1])
             print(num_steps)
-            # import pdb
-            # pdb.set_trace()
             if(self.gpu_type_ != ""):
                 dollars_per_step = seconds_per_step_array[self.seconds_per_step_index_ + 1]
                 print(dollars_per_step)
                 dollars_per_second = float(dollars_per_step) / float(seconds_per_step)
                 print(dollars_per_second)
         self.benchmark_time_results_.append((hardware_count, float(seconds_per_step)))
+        if(self.is_motion_planning_):
+            objective_cost = self.get_objective_cost(seconds_per_step_array[0])
+            self.benchmark_objective_cost_results_.append((hardware_count,objective_cost))
         if(self.gpu_type_ != ""):
             self.benchmark_cost_results_.append((hardware_count, dollars_per_second))
         #self.num_steps_and_duration_.append(
@@ -1315,14 +1346,13 @@ def main():
     args.gpu_type = ""
     args.count = count
     sky_optimization_no_gpu = SkyOptimization(**vars(args))
-    sky_optimization_no_gpu.fullOptimization()
     sky_optimization_list.append(sky_optimization_no_gpu)
     t1 = threading.Thread(
                 target=sky_optimization_no_gpu.fullOptimization,
             )
     t1.start()
     thread_list.append(t1)
-    if(not sky_optimization_no_gpu.is_slam_):
+    if(not sky_optimization_no_gpu.is_slam_ and not sky_optimization_no_gpu.is_motion_planning_):
         for gpu_type in gpu_list:
             args.gpu_type = gpu_type
             args.count += 1

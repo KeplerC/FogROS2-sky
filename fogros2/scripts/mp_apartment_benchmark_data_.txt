@@ -1,0 +1,20 @@
+CLUSTER                RESOURCES                        STATUS   DURATION  SPENT($)  #STEPS  SEC/STEP  $/STEP    EST(hr)  EST($)
+sky-bench-benchmark7  1x AWS(m6i.16xlarge)  RUNNING  1m 31s    0.0783    26      5.9904    0.005112  0.15     0.47
+sky-bench-benchmark5  1x AWS(r6i.4xlarge)  RUNNING  1m 31s    0.0255    26      8.0439    0.002252  0.16     0.16
+sky-bench-benchmark6  1x AWS(c6i.16xlarge)  RUNNING  1m 39s    0.0755    26      6.5550    0.004953  0.15     0.42
+sky-bench-benchmark8  1x AWS(r6i.16xlarge)  RUNNING  1m 33s    0.1052    27      6.1710    0.006912  0.16     0.64
+sky-bench-benchmark4  1x AWS(m6i.4xlarge)  RUNNING  1m 35s    0.0203    24      9.2771    0.001979  0.16     0.12
+sky-bench-benchmark3  1x AWS(c6i.4xlarge)  RUNNING  1m 29s    0.0169    25      8.5037    0.001606  0.16     0.11
+sky-bench-benchmark1  1x AWS(m6i.large)  RUNNING  1m 48s    0.0029    11      37.7009   0.001005  0.16     0.02
+sky-bench-benchmark0  1x AWS(c6i.large)  RUNNING  1m 46s    0.0025    21      17.0568   0.000403  0.15     0.01
+sky-bench-benchmark2  1x AWS(r6i.large)  RUNNING  1m 51s    0.0039    18      19.6791   0.000689  0.15     0.02
+<bound method Model.hyper_power_model of <models.Model object at 0x7f02d01960b0>>
+[ 5.61430668e+00  4.61825965e+01 -2.56445734e+12 -1.88398585e+01]
+<bound method Model.exp_linear_model of <models.Model object at 0x7f02d01965c0>>
+[-3.21276663e+01  3.21276674e+01  3.02028003e-07  9.61408900e-07]
+<bound method Model.power_hyper_model of <models.Model object at 0x7f02d0196620>>
+[ 6.86971989e+02 -8.97721690e+00  5.07166038e-01  9.56664682e+01]
+(array([2., 4.]), 17057.09403769727, 0.41411956199072153)
+c6i.large
+(array([2., 4.]), 17057.09403769727, 0.41411956199072153)
+c6i.large
