@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sky Optimization &mdash; FogROS2-Sky  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Models" href="../Models/summary.html" />
+    <link rel="prev" title="FogROS2-Sky Optimization" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            FogROS2-Sky
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Sky Optimization</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#sky_optimization"><code class="docutils literal notranslate"><span class="pre">sky_optimization</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#sky_optimization.terminateClusters"><code class="docutils literal notranslate"><span class="pre">sky_optimization.terminateClusters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sky_optimization.main"><code class="docutils literal notranslate"><span class="pre">sky_optimization.main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sky_optimization.TIME"><code class="docutils literal notranslate"><span class="pre">sky_optimization.TIME</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sky_optimization.COST"><code class="docutils literal notranslate"><span class="pre">sky_optimization.COST</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sky_optimization.OBJECTIVE_COST"><code class="docutils literal notranslate"><span class="pre">sky_optimization.OBJECTIVE_COST</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#SkyOptimization"><code class="docutils literal notranslate"><span class="pre">SkyOptimization</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.__init__"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.__init__()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.fullOptimization"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.fullOptimization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.getObjectiveCost"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.getObjectiveCost()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.findInstance"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.findInstance()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.binarySearchRounding"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.binarySearchRounding()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.findGpuValues"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.findGpuValues()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.findCpuValues"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.findCpuValues()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.createBenchmarks"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.createBenchmarks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.runSkyBenchmarks"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.runSkyBenchmarks()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.skyBenchmark"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.skyBenchmark()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.regressionSolver"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.regressionSolver()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.createBounds"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.createBounds()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.createConstraints"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.createConstraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.getTimeOptimization"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.getTimeOptimization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.getCostOptimization"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.getCostOptimization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.createObjectiveFunction"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.createObjectiveFunction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.memoryFunction"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.memoryFunction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.costFunction"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.costFunction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.timeFunction"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.timeFunction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.objectiveCostFunction"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.objectiveCostFunction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.solveOptimization"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.solveOptimization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.debug_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.debug_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.steps_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.steps_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.max_cost_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.max_cost_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.max_time_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.max_time_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.max_objective_cost_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.max_objective_cost_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.gpu_type_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.gpu_type_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.count_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.count_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.SECONDS_PER_MINUTE"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.SECONDS_PER_MINUTE</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.MINUTES_PER_HOUR"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.MINUTES_PER_HOUR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.SECONDS_PER_HOUR"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.SECONDS_PER_HOUR</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.ZERO_EPSILON"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.ZERO_EPSILON</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.yaml_file_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.yaml_file_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.gpu_yaml_file_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.gpu_yaml_file_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.is_slam_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.is_slam_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.is_motion_planning_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.is_motion_planning_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.is_dexnet_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.is_dexnet_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.optimization_function_type_length_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.optimization_function_type_length_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.max_cpu_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.max_cpu_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.max_memory_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.max_memory_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.relevant_cpu_list_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.relevant_cpu_list_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.relevant_hardware_list_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.relevant_hardware_list_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_time_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_time_results_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_yaml_list_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_yaml_list_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_range_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_range_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_threads_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_threads_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_cost_substring_1_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_cost_substring_1_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_cost_substring_2_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_cost_substring_2_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_time_substring_1_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_time_substring_1_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_time_substring_2_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_time_substring_2_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.min_gpu_substring_1_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.min_gpu_substring_1_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.min_gpu_substring_2_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.min_gpu_substring_2_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.mem_to_cpu_ratio_for_gpu_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.mem_to_cpu_ratio_for_gpu_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.num_steps_and_duration_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.num_steps_and_duration_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.average_setup_time_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.average_setup_time_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.got_cost_info_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.got_cost_info_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_cost_substring_cpu_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_cost_substring_cpu_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_cost_substring_cost_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_cost_substring_cost_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_cost_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_cost_results_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.benchmark_objective_cost_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.benchmark_objective_cost_results_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.yaml_file_contents_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.yaml_file_contents_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cpu_start_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cpu_start_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cpu_candiate_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cpu_candiate_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cpu_str_offset_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cpu_str_offset_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.seconds_per_step_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.seconds_per_step_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.num_steps_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.num_steps_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.duration_min_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.duration_min_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.duration_sec_index_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.duration_sec_index_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.solutions_in_constraints_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.solutions_in_constraints_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.solutions_outside_constraints_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.solutions_outside_constraints_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.data_file_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.data_file_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.data_file_name_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.data_file_name_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.result_queue_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.result_queue_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.possible_cpus_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.possible_cpus_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.optimal_cost_instance_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.optimal_cost_instance_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.optimal_time_instance_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.optimal_time_instance_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.optimal_objective_cost_instance_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.optimal_objective_cost_instance_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.t4_map_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.t4_map_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.no_gpu_map_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.no_gpu_map_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.time_model_info_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.time_model_info_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cost_model_info_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cost_model_info_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.objective_cost_model_info_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.objective_cost_model_info_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.timeModel_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.timeModel_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.time_model_coefficients_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.time_model_coefficients_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.costModel_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.costModel_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cost_model_coefficients_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cost_model_coefficients_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.objectiveCostModel_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.objectiveCostModel_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.objective_cost_model_coefficients_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.objective_cost_model_coefficients_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.cost_optimization_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.cost_optimization_results_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.time_optimization_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.time_optimization_results_</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#SkyOptimization.objective_cost_optimization_results_"><code class="docutils literal notranslate"><span class="pre">SkyOptimization.objective_cost_optimization_results_</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Models/summary.html">Models</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FogROS2-Sky</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Sky Optimization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/SkyOptimization/summary.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sky-optimization">
+<h1>Sky Optimization<a class="headerlink" href="#sky-optimization" title="Permalink to this heading"></a></h1>
+<p>Contains documentation about the optimization code used in FogROS2-Sky</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="sky_optimization">
+<span class="target" id="namespacesky__optimization"></span><em class="property"><span class="pre">module</span> </em><span class="sig-name descname"><span class="pre">sky_optimization</span></span><a class="headerlink" href="#sky_optimization" title="Permalink to this definition"></a></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-functions">Functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="sky_optimization.terminateClusters">
+<span class="target" id="sky__optimization_8py_1add99e5375da4a11344b892515c11cf6b"></span><span class="sig-name descname"><span class="pre">terminateClusters</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sky_optimization.terminateClusters" title="Permalink to this definition"></a></dt>
+<dd><p>Terminates all Sky benchmarking instances. </p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="sky_optimization.main">
+<span class="target" id="sky__optimization_8py_1a61b4524928c190cdd00b7cf70f35bb37"></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#sky_optimization.main" title="Permalink to this definition"></a></dt>
+<dd><p>Main Method containing user interface command parser. </p>
+</dd></dl>
+
+</div>
+<dl class="py class">
+<dt class="sig sig-object py">
+<span class="target" id="classsky__optimization_1_1OptimizationFunctionType"></span><span class="sig-name descname"><span class="pre">OptimizationFunctionType</span> <span class="pre">:</span> <span class="pre">public</span> <span class="pre">Enum</span></span></dt>
+<dd><p>Specifies whether the optimization problem will be solving for time or cost. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sky_optimization.TIME">
+<span class="target" id="classsky__optimization_1_1OptimizationFunctionType_1a7c5407f39e4a09c49c7c0a46628e8bba"></span><span class="sig-name descname"><span class="pre">TIME</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#sky_optimization.TIME" title="Permalink to this definition"></a></dt>
+<dd><p>Time Optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sky_optimization.COST">
+<span class="target" id="classsky__optimization_1_1OptimizationFunctionType_1afd5e9e85b47495dffccdbdfb77771a51"></span><span class="sig-name descname"><span class="pre">COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">2</span></em><a class="headerlink" href="#sky_optimization.COST" title="Permalink to this definition"></a></dt>
+<dd><p>Cost Optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="sky_optimization.OBJECTIVE_COST">
+<span class="target" id="classsky__optimization_1_1OptimizationFunctionType_1aa511b95f475612659dd133fff54c8f98"></span><span class="sig-name descname"><span class="pre">OBJECTIVE_COST</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">3</span></em><a class="headerlink" href="#sky_optimization.OBJECTIVE_COST" title="Permalink to this definition"></a></dt>
+<dd><p>Objective Cost Optimization (Motion Planning) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="SkyOptimization">
+<span class="target" id="classsky__optimization_1_1SkyOptimization"></span><em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">SkyOptimization</span></span><a class="headerlink" href="#SkyOptimization" title="Permalink to this definition"></a></dt>
+<dd><p>Sky Optimizer responsible for performing the cost and time optimizations based on problem type (Dexnet, VSLAM, Motion Planning) and GPU type (No GPU, T4, etc) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.__init__">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a39a8f8caf861f46106c0a7aae4f7e2cd"></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_yaml_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">steps</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_cost</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_objective_cost</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Sky Optimization Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_file</strong> – YAML file specifying Sky benchmarking setup for no GPU </p></li>
+<li><p><strong>gpu_yaml_file</strong> – YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) </p></li>
+<li><p><strong>steps</strong> – Number of steps the Sky benchmarking should run </p></li>
+<li><p><strong>max_cost</strong> – User provided cost constraint </p></li>
+<li><p><strong>max_time</strong> – User provided time constraint </p></li>
+<li><p><strong>max_objective_cost</strong> – User provided objective cost constraint </p></li>
+<li><p><strong>debug</strong> – Debug Mode (Lots of print statements) </p></li>
+<li><p><strong>gpu_type</strong> – The GPU type used in the Sky benchmarking (only tested on No GPU, T4) </p></li>
+<li><p><strong>count</strong> – Index in list of <a class="reference internal" href="#classsky__optimization_1_1SkyOptimization"><span class="std std-ref">SkyOptimization</span></a> Problems being run (helps coordinate the multithreading) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.fullOptimization">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a267b44e102db28ce95c71e3015c2f60f"></span><span class="sig-name descname"><span class="pre">fullOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.fullOptimization" title="Permalink to this definition"></a></dt>
+<dd><p>Full Sky Optimization Function. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing Time and Cost Optimizations </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.getObjectiveCost">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ab49a020cbddd3b21b5910da3e8abcb43"></span><span class="sig-name descname"><span class="pre">getObjectiveCost</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machine_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.getObjectiveCost" title="Permalink to this definition"></a></dt>
+<dd><p>Parses Sky benchmarking to get objective cost for given machine instance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>machine_name</strong> – Name of benchmarking machine instance </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Objective cost from instance </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.findInstance">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ae2e79639f37155ca1ea96e0fbe10cb7a"></span><span class="sig-name descname"><span class="pre">findInstance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_results</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimization_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.findInstance" title="Permalink to this definition"></a></dt>
+<dd><p>Given results of optimization, this will find the closest feasible hardware setup and its corresponding AWS Instance (Future Work: Build out to other cloud providers) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>optimization_results</strong> – Scipy Output from optimization </p></li>
+<li><p><strong>optimization_type</strong> – Optimization Type (Cost or Time) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.binarySearchRounding">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ac56fe7d2cba6776d09ed8aceb83a325e"></span><span class="sig-name descname"><span class="pre">binarySearchRounding</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimal_cpu_count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.binarySearchRounding" title="Permalink to this definition"></a></dt>
+<dd><p>Rounds CPU output of optimization to nearest feasible CPU amount allowed in cloud instance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>optimal_cpu_count</strong> – CPU output from optimization </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Feasible CPU amount closest to the optimal CPU amount </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.findGpuValues">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aed0a897dd9d70289da9627c5f522a01f"></span><span class="sig-name descname"><span class="pre">findGpuValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.findGpuValues" title="Permalink to this definition"></a></dt>
+<dd><p>Parses provided GPU benchmark file to determine possible hardware setups for given GPU. </p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.findCpuValues">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1abb929a2946778610f5fd2a5063fe9a71"></span><span class="sig-name descname"><span class="pre">findCpuValues</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.findCpuValues" title="Permalink to this definition"></a></dt>
+<dd><p>Parses provided CPU benchmark file to determine edge case hardware setups. </p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.createBenchmarks">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a13f369d90ce3347bc1bd704ec2dfc5b0"></span><span class="sig-name descname"><span class="pre">createBenchmarks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gpu_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.createBenchmarks" title="Permalink to this definition"></a></dt>
+<dd><p>Creates Yaml files for each benchmarking instance that will be run. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>gpu_type</strong> – The GPU type of this optimization instance (only tested on T4 and No GPU) </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.runSkyBenchmarks">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a38deae1f7984a52a487d6dfbe9fc7562"></span><span class="sig-name descname"><span class="pre">runSkyBenchmarks</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.runSkyBenchmarks" title="Permalink to this definition"></a></dt>
+<dd><p>Multithreads (Python-style) sky benchmarking instances. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>count</strong> – Global count relative to other <a class="reference internal" href="#classsky__optimization_1_1SkyOptimization"><span class="std std-ref">SkyOptimization</span></a> instances to make sure each Sky benchmarking instance name is unique </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.skyBenchmark">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aa4f19dace05127352c5bf66ced3540a6"></span><span class="sig-name descname"><span class="pre">skyBenchmark</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">yaml_file</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">benchmark_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hardware_count</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.skyBenchmark" title="Permalink to this definition"></a></dt>
+<dd><p>Runs sky benchmarking instance from bash script. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yaml_file</strong> – Yaml configuration file for benchmarking instance </p></li>
+<li><p><strong>benchmark_name</strong> – Name of Sky benchmarking instance </p></li>
+<li><p><strong>hardware_count</strong> – Tuple containing (CPU, Memory) </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.regressionSolver">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1abda685964081b0ca76af9a1a6e501f86"></span><span class="sig-name descname"><span class="pre">regressionSolver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">purpose</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.regressionSolver" title="Permalink to this definition"></a></dt>
+<dd><p>Finds best fitting model given benchmarking data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – Benchmarking data for either time, cost, or objective cost </p></li>
+<li><p><strong>purpose</strong> – Time, Cost, or Objective Cost </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Best fit model and its coefficients </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.createBounds">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a133ced3a3b28b15b9ec884106324976a"></span><span class="sig-name descname"><span class="pre">createBounds</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.createBounds" title="Permalink to this definition"></a></dt>
+<dd><p>Bounds for CPU and Memory for optimization problem. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>SciPy Bounds object for optimization problem </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.createConstraints">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a43161ffa0faa9da8f154608cf3fa9d47"></span><span class="sig-name descname"><span class="pre">createConstraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_function_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.createConstraints" title="Permalink to this definition"></a></dt>
+<dd><p>Constraints for Optimization Problem (includes time/cost along with memory/CPU ratio) </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>constraint_function_type</strong> – Constraint function type, which is opposite of the optimization problem (Time Optimization -&gt; Cost Constraint and Cost Optimization -&gt; Time Constraint) </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>SciPy Constraints object for optimization problem </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.getTimeOptimization">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1afcd54cc614b0ef5b91c479f415dd11f0"></span><span class="sig-name descname"><span class="pre">getTimeOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.getTimeOptimization" title="Permalink to this definition"></a></dt>
+<dd><p>Gets Time Optimization Results. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Time Optimization Results </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.getCostOptimization">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ad74297d3b060c7506c3822e94c8af3bc"></span><span class="sig-name descname"><span class="pre">getCostOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.getCostOptimization" title="Permalink to this definition"></a></dt>
+<dd><p>Gets Cost Optimization Results. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Cost Optimization Results </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.createObjectiveFunction">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a65212da61b559b4eda7273f7dc76fc60"></span><span class="sig-name descname"><span class="pre">createObjectiveFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_function_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.createObjectiveFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Optimization Loss Function. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>objective_function_type</strong> – Time or Cost </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimization Loss Function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.memoryFunction">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a292af0b8fc00695722a2dc2c87ccc629"></span><span class="sig-name descname"><span class="pre">memoryFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.memoryFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Function for memory/CPU ratio constraint. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Memory:CPU Constraint Function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.costFunction">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a9bae6ff64842af75b23394e1c6ad8074"></span><span class="sig-name descname"><span class="pre">costFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.costFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Cost Function = $/second * seconds/step * # steps. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Function object for the Cost Function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.timeFunction">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a78ea3c762086394f44a5e6ab6f23e10a"></span><span class="sig-name descname"><span class="pre">timeFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.timeFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Time Function = seconds/step * # steps. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Function object for the Time Function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.objectiveCostFunction">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ab1987bf7c8175c834941f86a24d33c57"></span><span class="sig-name descname"><span class="pre">objectiveCostFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.objectiveCostFunction" title="Permalink to this definition"></a></dt>
+<dd><p>Objective Cost Function. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Function object for the Objective Cost Function </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="SkyOptimization.solveOptimization">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a2f45c1ac884c2446cc67144adb8adc8a"></span><span class="sig-name descname"><span class="pre">solveOptimization</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">objective_function_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint_function_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#SkyOptimization.solveOptimization" title="Permalink to this definition"></a></dt>
+<dd><p>Optimization Problem Setup and Solver. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>objective_function_type</strong> – Time or Cost </p></li>
+<li><p><strong>constraint_function_type</strong> – Opposite of objective_function_type </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Optimization Result, Time Model Result, Cost Model Result </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.debug_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a49d85a35ddb0203bd65e5934ee8f1416"></span><span class="sig-name descname"><span class="pre">debug_</span></span><a class="headerlink" href="#SkyOptimization.debug_" title="Permalink to this definition"></a></dt>
+<dd><p>Debug Mode (Lots of print statements) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.steps_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a0f868e7a0735257eb2ec31a5a8e7a464"></span><span class="sig-name descname"><span class="pre">steps_</span></span><a class="headerlink" href="#SkyOptimization.steps_" title="Permalink to this definition"></a></dt>
+<dd><p>Number of steps the Sky benchmarking should run. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.max_cost_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1acefe65e600bb09fcb2c4d3e69dd76f11"></span><span class="sig-name descname"><span class="pre">max_cost_</span></span><a class="headerlink" href="#SkyOptimization.max_cost_" title="Permalink to this definition"></a></dt>
+<dd><p>User provided cost constraint. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.max_time_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a50d798eb763489929afd39b12d1949a0"></span><span class="sig-name descname"><span class="pre">max_time_</span></span><a class="headerlink" href="#SkyOptimization.max_time_" title="Permalink to this definition"></a></dt>
+<dd><p>User provided time constraint. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.max_objective_cost_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1af2a885293ef2d18424926fc5ce2c5053"></span><span class="sig-name descname"><span class="pre">max_objective_cost_</span></span><a class="headerlink" href="#SkyOptimization.max_objective_cost_" title="Permalink to this definition"></a></dt>
+<dd><p>User provided objective cost constraint. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.gpu_type_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a34f4213616e8090576b333b24bddbaad"></span><span class="sig-name descname"><span class="pre">gpu_type_</span></span><a class="headerlink" href="#SkyOptimization.gpu_type_" title="Permalink to this definition"></a></dt>
+<dd><p>The GPU type used in the Sky benchmarking (only tested on No GPU, T4) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.count_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a045b07f0297cfa3e6c099a354c71a750"></span><span class="sig-name descname"><span class="pre">count_</span></span><a class="headerlink" href="#SkyOptimization.count_" title="Permalink to this definition"></a></dt>
+<dd><p>Index in list of <a class="reference internal" href="#classsky__optimization_1_1SkyOptimization"><span class="std std-ref">SkyOptimization</span></a> Problems being run (helps coordinate the multithreading) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.SECONDS_PER_MINUTE">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a35ecd4c7647030cde04a8a0c946b8c7e"></span><span class="sig-name descname"><span class="pre">SECONDS_PER_MINUTE</span></span><a class="headerlink" href="#SkyOptimization.SECONDS_PER_MINUTE" title="Permalink to this definition"></a></dt>
+<dd><p>Number of seconds in a minute. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.MINUTES_PER_HOUR">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aa44cefc98e2a66fdf588216a1321ecac"></span><span class="sig-name descname"><span class="pre">MINUTES_PER_HOUR</span></span><a class="headerlink" href="#SkyOptimization.MINUTES_PER_HOUR" title="Permalink to this definition"></a></dt>
+<dd><p>Number of minutes in an hour. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.SECONDS_PER_HOUR">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1abce54906722787cd57c5471fbc57c1aa"></span><span class="sig-name descname"><span class="pre">SECONDS_PER_HOUR</span></span><a class="headerlink" href="#SkyOptimization.SECONDS_PER_HOUR" title="Permalink to this definition"></a></dt>
+<dd><p>Number of seconds in an hour. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.ZERO_EPSILON">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a17169c5c1e85810c5f3dc75dd59a738c"></span><span class="sig-name descname"><span class="pre">ZERO_EPSILON</span></span><a class="headerlink" href="#SkyOptimization.ZERO_EPSILON" title="Permalink to this definition"></a></dt>
+<dd><p>Positive zero approximation. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.yaml_file_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aeee01f861ccbc6de5f213b60238ef20c"></span><span class="sig-name descname"><span class="pre">yaml_file_</span></span><a class="headerlink" href="#SkyOptimization.yaml_file_" title="Permalink to this definition"></a></dt>
+<dd><p>YAML file specifying Sky benchmarking setup for no GPU. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.gpu_yaml_file_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a5efe23f6440de54800a26aeb4d68cf7b"></span><span class="sig-name descname"><span class="pre">gpu_yaml_file_</span></span><a class="headerlink" href="#SkyOptimization.gpu_yaml_file_" title="Permalink to this definition"></a></dt>
+<dd><p>YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.is_slam_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1add496d9356567dd5e3d4cea5c85cc995"></span><span class="sig-name descname"><span class="pre">is_slam_</span></span><a class="headerlink" href="#SkyOptimization.is_slam_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean indicating if the task is V-SLAM. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.is_motion_planning_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a1b3a8d2a6ed4e848a4e1b6478c88477b"></span><span class="sig-name descname"><span class="pre">is_motion_planning_</span></span><a class="headerlink" href="#SkyOptimization.is_motion_planning_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean indicating if the task is motion planning. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.is_dexnet_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a68219ed58fc2c0257712429299f644e1"></span><span class="sig-name descname"><span class="pre">is_dexnet_</span></span><a class="headerlink" href="#SkyOptimization.is_dexnet_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean indicating if the task is Dexnet. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.optimization_function_type_length_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1acc9b57033573a885212186b97dc99207"></span><span class="sig-name descname"><span class="pre">optimization_function_type_length_</span></span><a class="headerlink" href="#SkyOptimization.optimization_function_type_length_" title="Permalink to this definition"></a></dt>
+<dd><p>Index in solution string specifying optimization function type. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.max_cpu_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a52a45c1c4260aa9f2f394d1f4c356815"></span><span class="sig-name descname"><span class="pre">max_cpu_</span></span><a class="headerlink" href="#SkyOptimization.max_cpu_" title="Permalink to this definition"></a></dt>
+<dd><p>Initialzation of maximum CPU constraint. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.max_memory_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a40511625171cbc420bb30661c61ee476"></span><span class="sig-name descname"><span class="pre">max_memory_</span></span><a class="headerlink" href="#SkyOptimization.max_memory_" title="Permalink to this definition"></a></dt>
+<dd><p>Initialization of maximum memory constraint. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.relevant_cpu_list_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a72e4c451abbfc42b4c2849afdc69e616"></span><span class="sig-name descname"><span class="pre">relevant_cpu_list_</span></span><a class="headerlink" href="#SkyOptimization.relevant_cpu_list_" title="Permalink to this definition"></a></dt>
+<dd><p>List of realistic CPU setups for the cloud (similar to relevant hardware list without memory, rememant of prototype version that just looked for optimal CPU) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.relevant_hardware_list_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1abd2ae81e4be03e4a8a94b315ba0d2e45"></span><span class="sig-name descname"><span class="pre">relevant_hardware_list_</span></span><a class="headerlink" href="#SkyOptimization.relevant_hardware_list_" title="Permalink to this definition"></a></dt>
+<dd><p>List of realistic CPU and memory setups for the cloud. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_time_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a2bccc848e89dd687f17b5c7fc8e1d4af"></span><span class="sig-name descname"><span class="pre">benchmark_time_results_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_time_results_" title="Permalink to this definition"></a></dt>
+<dd><p>List storing results from time benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_yaml_list_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aa235e18513ab01cfc9e10ba16ef9f7ea"></span><span class="sig-name descname"><span class="pre">benchmark_yaml_list_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_yaml_list_" title="Permalink to this definition"></a></dt>
+<dd><p>List of YAML files generated that will be used for Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_range_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aff7a271a0d938814ddd80e81e4f434c2"></span><span class="sig-name descname"><span class="pre">benchmark_range_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_range_" title="Permalink to this definition"></a></dt>
+<dd><p>Number of benchmarks performed per feature (i.e we only do benchmarking for minimum CPU amount, maximum CPU amount, and middle CPU amount) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_threads_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a8a78a143f3bbf921caee7a8c7df6cafd"></span><span class="sig-name descname"><span class="pre">benchmark_threads_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_threads_" title="Permalink to this definition"></a></dt>
+<dd><p>List of different threads running Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_cost_substring_1_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1af3d4713dd960e0b81364d2e462e72828"></span><span class="sig-name descname"><span class="pre">benchmark_cost_substring_1_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_cost_substring_1_" title="Permalink to this definition"></a></dt>
+<dd><p>First identifier substring for cost benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_cost_substring_2_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ae06bd5d1e4dfbb7b0b054ab0e4a2b78d"></span><span class="sig-name descname"><span class="pre">benchmark_cost_substring_2_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_cost_substring_2_" title="Permalink to this definition"></a></dt>
+<dd><p>Second identifier substring for cost benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_time_substring_1_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aca7b765b1d8f05bd3302c7afae7aa5be"></span><span class="sig-name descname"><span class="pre">benchmark_time_substring_1_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_time_substring_1_" title="Permalink to this definition"></a></dt>
+<dd><p>First identifier substring for time benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_time_substring_2_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a2eb84795b7dff16671b7131b7564edaf"></span><span class="sig-name descname"><span class="pre">benchmark_time_substring_2_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_time_substring_2_" title="Permalink to this definition"></a></dt>
+<dd><p>Second identifier substring for time benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.min_gpu_substring_1_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ab9a547f76d882c185b085cd1ec103bed"></span><span class="sig-name descname"><span class="pre">min_gpu_substring_1_</span></span><a class="headerlink" href="#SkyOptimization.min_gpu_substring_1_" title="Permalink to this definition"></a></dt>
+<dd><p>First identifier substring for GPU identification. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.min_gpu_substring_2_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a94504e90ae5fac73038d270cab17ba82"></span><span class="sig-name descname"><span class="pre">min_gpu_substring_2_</span></span><a class="headerlink" href="#SkyOptimization.min_gpu_substring_2_" title="Permalink to this definition"></a></dt>
+<dd><p>Second identifier substring for GPU identification. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.mem_to_cpu_ratio_for_gpu_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aaec9bf157fa5a0e40b76770d0536a10c"></span><span class="sig-name descname"><span class="pre">mem_to_cpu_ratio_for_gpu_</span></span><a class="headerlink" href="#SkyOptimization.mem_to_cpu_ratio_for_gpu_" title="Permalink to this definition"></a></dt>
+<dd><p>Initialization for memory:CPU ratio (used only when GPU type isn’t None) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.num_steps_and_duration_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a538af45488bdf1a6114b5cbb38f09279"></span><span class="sig-name descname"><span class="pre">num_steps_and_duration_</span></span><a class="headerlink" href="#SkyOptimization.num_steps_and_duration_" title="Permalink to this definition"></a></dt>
+<dd><p>List containing step and startup time results for benchmarking (remmanat of prototype version where we tried to account for startup time. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.average_setup_time_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a89cd90eb183761bd867f7563a2d93b2a"></span><span class="sig-name descname"><span class="pre">average_setup_time_</span></span><a class="headerlink" href="#SkyOptimization.average_setup_time_" title="Permalink to this definition"></a></dt>
+<dd><p>Average setup time for cloud instance (remmenant of prototype version: see self.num_steps_and_duration_ for explanation) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.got_cost_info_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aaf9a95af2f39d4d94783736c8290c82c"></span><span class="sig-name descname"><span class="pre">got_cost_info_</span></span><a class="headerlink" href="#SkyOptimization.got_cost_info_" title="Permalink to this definition"></a></dt>
+<dd><p>Boolean indicating if we have receieved cost information from benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_cost_substring_cpu_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a020b2f2f2db34c9f80743631ed7e1685"></span><span class="sig-name descname"><span class="pre">benchmark_cost_substring_cpu_index_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_cost_substring_cpu_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Indiex where CPU information is located in benchmark cost string. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_cost_substring_cost_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a85fc9d5ae09d457a2f85352b3c930574"></span><span class="sig-name descname"><span class="pre">benchmark_cost_substring_cost_index_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_cost_substring_cost_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index where Cost information is located in benchmark cost string. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_cost_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a9c73c23a186529f9eccf043acac62560"></span><span class="sig-name descname"><span class="pre">benchmark_cost_results_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_cost_results_" title="Permalink to this definition"></a></dt>
+<dd><p>List containng cost results from Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.benchmark_objective_cost_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a054927efdf3272841445d020727ddf30"></span><span class="sig-name descname"><span class="pre">benchmark_objective_cost_results_</span></span><a class="headerlink" href="#SkyOptimization.benchmark_objective_cost_results_" title="Permalink to this definition"></a></dt>
+<dd><p>List containing objective cost results for Sky benchmarking (only relevant for Motion Planning) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.yaml_file_contents_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ad95886624b53afd9d435d8491584b184"></span><span class="sig-name descname"><span class="pre">yaml_file_contents_</span></span><a class="headerlink" href="#SkyOptimization.yaml_file_contents_" title="Permalink to this definition"></a></dt>
+<dd><p>String containing YAML file contents for Sky benchmark YAML. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cpu_start_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a7f044a3da11dc7c692c5d6b6cd6fac8b"></span><span class="sig-name descname"><span class="pre">cpu_start_index_</span></span><a class="headerlink" href="#SkyOptimization.cpu_start_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing information about where CPU information starts in YAML file. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cpu_candiate_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a7898ef8cbb1f7321cac96d983c1835b5"></span><span class="sig-name descname"><span class="pre">cpu_candiate_index_</span></span><a class="headerlink" href="#SkyOptimization.cpu_candiate_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing information about where CPU candidate information starts in YAML file. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cpu_str_offset_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a2e3b191fc23c2b66fc2133d4b641aec1"></span><span class="sig-name descname"><span class="pre">cpu_str_offset_</span></span><a class="headerlink" href="#SkyOptimization.cpu_str_offset_" title="Permalink to this definition"></a></dt>
+<dd><p>Offset for index where we insert CPU information into the YAML file. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.seconds_per_step_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a21f9f708df7b2680238b6c9e21aa55cd"></span><span class="sig-name descname"><span class="pre">seconds_per_step_index_</span></span><a class="headerlink" href="#SkyOptimization.seconds_per_step_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing seconds per step information during Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.num_steps_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a19c2c066028c03bccf80ee9b1cd35776"></span><span class="sig-name descname"><span class="pre">num_steps_index_</span></span><a class="headerlink" href="#SkyOptimization.num_steps_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing number of steps information during Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.duration_min_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a9870a41b8684ffc6a04a40ea269ec643"></span><span class="sig-name descname"><span class="pre">duration_min_index_</span></span><a class="headerlink" href="#SkyOptimization.duration_min_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing minute duration during Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.duration_sec_index_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a477634dc0a1b1d321060ee051bd7732f"></span><span class="sig-name descname"><span class="pre">duration_sec_index_</span></span><a class="headerlink" href="#SkyOptimization.duration_sec_index_" title="Permalink to this definition"></a></dt>
+<dd><p>Index containing second duration during Sky benchmarking. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.solutions_in_constraints_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a0009686e4076ebb18c69172a7ed22ce3"></span><span class="sig-name descname"><span class="pre">solutions_in_constraints_</span></span><a class="headerlink" href="#SkyOptimization.solutions_in_constraints_" title="Permalink to this definition"></a></dt>
+<dd><p>List of solutions that are within constraints. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.solutions_outside_constraints_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aa822a8d8eacc84fc7d8a573cdc379543"></span><span class="sig-name descname"><span class="pre">solutions_outside_constraints_</span></span><a class="headerlink" href="#SkyOptimization.solutions_outside_constraints_" title="Permalink to this definition"></a></dt>
+<dd><p>List of solutions that are outside constraints. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.data_file_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a45e3177b68d8b6517b6f08bfc7185422"></span><span class="sig-name descname"><span class="pre">data_file_</span></span><a class="headerlink" href="#SkyOptimization.data_file_" title="Permalink to this definition"></a></dt>
+<dd><p>String before relevant benchmarking data (Let’s the program know which line to collect benchmarking data from) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.data_file_name_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1af92f40cf672de49e44b1f9a91da864d8"></span><span class="sig-name descname"><span class="pre">data_file_name_</span></span><a class="headerlink" href="#SkyOptimization.data_file_name_" title="Permalink to this definition"></a></dt>
+<dd><p>Data file we will save benchmark data results. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.result_queue_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aea17908f35922783d4f70126c1a215fe"></span><span class="sig-name descname"><span class="pre">result_queue_</span></span><a class="headerlink" href="#SkyOptimization.result_queue_" title="Permalink to this definition"></a></dt>
+<dd><p>List containing info that will be outputted to data file. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.possible_cpus_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aff5e77d41e90e5c0086e7b45b8383e96"></span><span class="sig-name descname"><span class="pre">possible_cpus_</span></span><a class="headerlink" href="#SkyOptimization.possible_cpus_" title="Permalink to this definition"></a></dt>
+<dd><p>List containing possible CPUs (current cloud setup could not do any other CPU amounts) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.optimal_cost_instance_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a5023aadf153a745b25f5e0581bdc6543"></span><span class="sig-name descname"><span class="pre">optimal_cost_instance_</span></span><a class="headerlink" href="#SkyOptimization.optimal_cost_instance_" title="Permalink to this definition"></a></dt>
+<dd><p>String stating the optimal cloud instance for cost optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.optimal_time_instance_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a90d851d896937561c7d57abb73f7374f"></span><span class="sig-name descname"><span class="pre">optimal_time_instance_</span></span><a class="headerlink" href="#SkyOptimization.optimal_time_instance_" title="Permalink to this definition"></a></dt>
+<dd><p>String stating the optimal cloud instance for time optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.optimal_objective_cost_instance_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a0eb79188740bbf8fc64189061a7ed259"></span><span class="sig-name descname"><span class="pre">optimal_objective_cost_instance_</span></span><a class="headerlink" href="#SkyOptimization.optimal_objective_cost_instance_" title="Permalink to this definition"></a></dt>
+<dd><p>String stating the optimal cloud instance for objective cost optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.t4_map_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a8550ff1cb98425540ee9728afb23873f"></span><span class="sig-name descname"><span class="pre">t4_map_</span></span><a class="headerlink" href="#SkyOptimization.t4_map_" title="Permalink to this definition"></a></dt>
+<dd><p>Map between hardware tuples (CPU, Memory) and T4 GPU cloud instances for AWS (Future Work: Will generate these maps online by parsing SkyPilot database CSV file) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.no_gpu_map_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a9d499f7e4971e08bf4ab977db66c1e01"></span><span class="sig-name descname"><span class="pre">no_gpu_map_</span></span><a class="headerlink" href="#SkyOptimization.no_gpu_map_" title="Permalink to this definition"></a></dt>
+<dd><p>Map between hardware tuples (CPU, Memory) and no GPU cloud instance (Future Work: Will generate these maps online by parsing SkyPilot database CSV file) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.time_model_info_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a7c9f64b012daa06c7442f257192a614a"></span><span class="sig-name descname"><span class="pre">time_model_info_</span></span><a class="headerlink" href="#SkyOptimization.time_model_info_" title="Permalink to this definition"></a></dt>
+<dd><p>Time Regression Output containing model info and constraints. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cost_model_info_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aa9a8a2d3819a40f03a8abe75c7361e27"></span><span class="sig-name descname"><span class="pre">cost_model_info_</span></span><a class="headerlink" href="#SkyOptimization.cost_model_info_" title="Permalink to this definition"></a></dt>
+<dd><p>Cost Regression Output containing model info and constraints. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.objective_cost_model_info_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a0dc8ee5370d2528efc522faca4ff1e02"></span><span class="sig-name descname"><span class="pre">objective_cost_model_info_</span></span><a class="headerlink" href="#SkyOptimization.objective_cost_model_info_" title="Permalink to this definition"></a></dt>
+<dd><p>Objective Cost Regression Output containing model info and constraints (only motion planning) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.timeModel_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1acd19fecda0f7cc035a60fd99f18b6f21"></span><span class="sig-name descname"><span class="pre">timeModel_</span></span><a class="headerlink" href="#SkyOptimization.timeModel_" title="Permalink to this definition"></a></dt>
+<dd><p>Time Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.time_model_coefficients_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a262ece4d7b758dea7bff41b1a57c2f04"></span><span class="sig-name descname"><span class="pre">time_model_coefficients_</span></span><a class="headerlink" href="#SkyOptimization.time_model_coefficients_" title="Permalink to this definition"></a></dt>
+<dd><p>Coefficients for Time Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.costModel_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a5b9ca760f548a0f9860fc34687a2c93c"></span><span class="sig-name descname"><span class="pre">costModel_</span></span><a class="headerlink" href="#SkyOptimization.costModel_" title="Permalink to this definition"></a></dt>
+<dd><p>Cost Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cost_model_coefficients_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a631f5f6b49c5dd04a54318015d22677a"></span><span class="sig-name descname"><span class="pre">cost_model_coefficients_</span></span><a class="headerlink" href="#SkyOptimization.cost_model_coefficients_" title="Permalink to this definition"></a></dt>
+<dd><p>Coefficients for Cost Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.objectiveCostModel_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a3a4e5657cfb75a91141c4bdaf6cd03fb"></span><span class="sig-name descname"><span class="pre">objectiveCostModel_</span></span><a class="headerlink" href="#SkyOptimization.objectiveCostModel_" title="Permalink to this definition"></a></dt>
+<dd><p>Objective Cost Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.objective_cost_model_coefficients_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1aeae970169c5c80e33ca0697d68c7caa6"></span><span class="sig-name descname"><span class="pre">objective_cost_model_coefficients_</span></span><a class="headerlink" href="#SkyOptimization.objective_cost_model_coefficients_" title="Permalink to this definition"></a></dt>
+<dd><p>Coefficients for Objective Cost Regression Model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.cost_optimization_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a3da0f8b7acda9f41346479d5a8ecb926"></span><span class="sig-name descname"><span class="pre">cost_optimization_results_</span></span><a class="headerlink" href="#SkyOptimization.cost_optimization_results_" title="Permalink to this definition"></a></dt>
+<dd><p>Scipy Output from Cost Optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.time_optimization_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1ac51449c1a9770907ee03b8ce2a117f96"></span><span class="sig-name descname"><span class="pre">time_optimization_results_</span></span><a class="headerlink" href="#SkyOptimization.time_optimization_results_" title="Permalink to this definition"></a></dt>
+<dd><p>Scipy Output from Time Optimization. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="SkyOptimization.objective_cost_optimization_results_">
+<span class="target" id="classsky__optimization_1_1SkyOptimization_1a5677bad01f1999a7437b45f084652d10"></span><span class="sig-name descname"><span class="pre">objective_cost_optimization_results_</span></span><a class="headerlink" href="#SkyOptimization.objective_cost_optimization_results_" title="Permalink to this definition"></a></dt>
+<dd><p>Scipy Output from Objective Cost Optimization. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="FogROS2-Sky Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Models/summary.html" class="btn btn-neutral float-right" title="Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Kaiyuan Chen, Kush Hari, Rohil Khare, Charlotte Le, Trinity Chung, Jaimyn Drake, Karthik Dharmarajan, Simeon Adebola, Jeffrey Ichnowski, John Kubiatowicz, and Ken Goldberg.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
