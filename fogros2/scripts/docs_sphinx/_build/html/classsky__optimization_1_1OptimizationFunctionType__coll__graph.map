@@ -1,0 +1,4 @@
+<map id="sky_optimization.OptimizationFunctionType" name="sky_optimization.OptimizationFunctionType">
+<area shape="rect" id="node1" title="Specifies whether the optimization problem will be solving for time or cost." alt="" coords="5,80,227,121"/>
+<area shape="rect" id="node2" title=" " alt="" coords="87,5,145,32"/>
+</map>

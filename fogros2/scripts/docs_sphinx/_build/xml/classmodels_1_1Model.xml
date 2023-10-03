@@ -1,0 +1,2017 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classmodels_1_1Model" kind="class" language="Python" prot="public">
+    <compoundname>models::Model</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmodels_1_1Model_1afe540c8f99ca7bba9be929960a1086d9" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.Model::x_</definition>
+        <argsstring></argsstring>
+        <name>x_</name>
+        <briefdescription>
+<para>Hardware Data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="159" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="159" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1Model_1a84eefbbc1d96638b5c468b24a09b45fa" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.Model::y_</definition>
+        <argsstring></argsstring>
+        <name>y_</name>
+        <briefdescription>
+<para>Time, Cost, or Objective Cost. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="163" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="163" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1Model_1adfdb0b1764155905657e004805af3c9a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.Model::max_rsquared_</definition>
+        <argsstring></argsstring>
+        <name>max_rsquared_</name>
+        <briefdescription>
+<para>R^2 for best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="194" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1Model_1a31f4992110b4fc6805ded916a13f6d82" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.Model::model_</definition>
+        <argsstring></argsstring>
+        <name>model_</name>
+        <briefdescription>
+<para>Best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="198" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmodels_1_1Model_1abfd8960a2047e18683955cf1881184f7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.__init__</definition>
+        <argsstring>(self, x, y)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hardware Data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time, Cost, or Objective Cost </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="156" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="156" bodyend="212"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1aea0ad827ec8dee36a64ece5235e0b3d7" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.getModel</definition>
+        <argsstring>(self)</argsstring>
+        <name>getModel</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Gets best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Best Fit <ref refid="classmodels_1_1Model" kindref="compound">Model</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="216" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="216" bodyend="220"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a4f3638d335bf4e6c2c7f1daefab658a9" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.regression</definition>
+        <argsstring>(self, model, coeff_len)</argsstring>
+        <name>regression</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>model</type>
+          <defname>model</defname>
+        </param>
+        <param>
+          <type>coeff_len</type>
+          <defname>coeff_len</defname>
+        </param>
+        <briefdescription>
+<para>Performs regression based on model type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coeff_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of coefficients required for this regression model </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple containing R^2 and coefficients of given model </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="226" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="226" bodyend="231"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1af609e9512e9c4e024b35acf4e3757f3a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.linear_linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is linear and Memory is linear. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="239" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="239" bodyend="246"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a90dc1feb64dbcd4115dbaccba50654bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.linear_log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is linear and Memory is log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="254" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="254" bodyend="261"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a8a40d2dfb4ff1f4e23bb361ed03e144a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.linear_exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is linear and Memory is exponential. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="269" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="269" bodyend="276"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a5c32a19867cbb1cd164989369cb1232a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.linear_power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is linear and Memory is power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="284" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="284" bodyend="291"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a19c1ce29958c4517c0c4019b3b0e4943" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.linear_hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is linear and Memory is hyperbolic. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="299" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="299" bodyend="306"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a9c99fb49f0f2b2949e5909625347ade1" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.log_linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is log and Memory is linear. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="314" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="314" bodyend="321"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a8b7da69b5259dc69c9881bb2d0999bb5" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.log_log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is log and Memory is log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="329" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="329" bodyend="336"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a23ab642cb812c6fd95c8f022ba0d0529" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.log_exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is log and Memory is exponential. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="344" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="344" bodyend="351"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1ac9e85fedb4a855d9dceae1676ced87bf" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.log_power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is log and Memory is power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="359" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="359" bodyend="366"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1abe7e67146bbb5022a5c4af42216d6e35" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.log_hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is log and Memory is hyper. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="374" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="374" bodyend="381"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a65a917e8ae03d0cb3e22bc6971dffb91" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.exp_linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is exponential and Memory is linear. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="389" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="389" bodyend="396"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1aae877f0a6523e2b4cc1ce300655d2723" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.exp_log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is exponential and Memory is log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="404" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="404" bodyend="411"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a1fd1f82cf43d64436b88acbea2bb32c6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.exp_exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is exponential and Memory is exponential. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="419" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="419" bodyend="426"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a393f33a2f4051d58d55575e3262df791" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.exp_power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is exponential and Memory is power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="434" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="434" bodyend="441"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1aad9fb0c0bbc1c3fa5958adeae946c79e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.exp_hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is exponential and Memory is hyperbolic. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="449" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="449" bodyend="456"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a526d32ec27cfca14e4a25f2a9cd0b208" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.power_linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is power and Memory is linear. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="464" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="464" bodyend="471"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1ae7bff69f1217b2041ab90040d327e9b2" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.power_log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is power and Memory is log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="479" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="479" bodyend="486"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1acee112f0c0edc33692805e99ff344da3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.power_exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is power and Memory is exponential. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="494" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="494" bodyend="501"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a23e2093df47fbc63d097b6d8832d93a3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.power_power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is power and Memory is power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="509" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="509" bodyend="516"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a8be4ca7061cbe6eb6300fef68c31316f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.power_hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is power and Memory is hyperbolic. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="524" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="524" bodyend="531"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a16dde322d064dba147f4f3b760ce2450" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.hyper_linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is hyperbolic and Memory is linear. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="539" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="539" bodyend="547"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a5bb1ffff30feb95112009c2fb71dc00b" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.hyper_log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is hyperbolic and Memory is log. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="555" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="555" bodyend="562"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a6787e518dbb539025c45820697f776a0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.hyper_exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is hyperbolic and Memory is exponential. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="570" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="570" bodyend="577"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a4e844753d569fe9a71360ea5e43cfad6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.hyper_power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is hyperbolic and Memory is power. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="585" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="585" bodyend="592"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1Model_1a467bb101028f6d307803454bc66c6b73" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.Model.hyper_hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> where CPU is hyperbolic and Memory is hyperbolic. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Input </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coefficients</parametername>
+</parameternamelist>
+<parameterdescription>
+<para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> coefficients </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>predict</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we are predicting (False if we are trying to curve fit and solve) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>single</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Boolean if we just want to run the model for single input </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Output </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="600" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="600" bodyend="606"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Finds best fit time/cost model as a function of hardware for non-GPU instances. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="150" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="150" bodyend="606"/>
+    <listofallmembers>
+      <member refid="classmodels_1_1Model_1abfd8960a2047e18683955cf1881184f7" prot="public" virt="non-virtual"><scope>models::Model</scope><name>__init__</name></member>
+      <member refid="classmodels_1_1Model_1a1fd1f82cf43d64436b88acbea2bb32c6" prot="public" virt="non-virtual"><scope>models::Model</scope><name>exp_exp_model</name></member>
+      <member refid="classmodels_1_1Model_1aad9fb0c0bbc1c3fa5958adeae946c79e" prot="public" virt="non-virtual"><scope>models::Model</scope><name>exp_hyper_model</name></member>
+      <member refid="classmodels_1_1Model_1a65a917e8ae03d0cb3e22bc6971dffb91" prot="public" virt="non-virtual"><scope>models::Model</scope><name>exp_linear_model</name></member>
+      <member refid="classmodels_1_1Model_1aae877f0a6523e2b4cc1ce300655d2723" prot="public" virt="non-virtual"><scope>models::Model</scope><name>exp_log_model</name></member>
+      <member refid="classmodels_1_1Model_1a393f33a2f4051d58d55575e3262df791" prot="public" virt="non-virtual"><scope>models::Model</scope><name>exp_power_model</name></member>
+      <member refid="classmodels_1_1Model_1aea0ad827ec8dee36a64ece5235e0b3d7" prot="public" virt="non-virtual"><scope>models::Model</scope><name>getModel</name></member>
+      <member refid="classmodels_1_1Model_1a6787e518dbb539025c45820697f776a0" prot="public" virt="non-virtual"><scope>models::Model</scope><name>hyper_exp_model</name></member>
+      <member refid="classmodels_1_1Model_1a467bb101028f6d307803454bc66c6b73" prot="public" virt="non-virtual"><scope>models::Model</scope><name>hyper_hyper_model</name></member>
+      <member refid="classmodels_1_1Model_1a16dde322d064dba147f4f3b760ce2450" prot="public" virt="non-virtual"><scope>models::Model</scope><name>hyper_linear_model</name></member>
+      <member refid="classmodels_1_1Model_1a5bb1ffff30feb95112009c2fb71dc00b" prot="public" virt="non-virtual"><scope>models::Model</scope><name>hyper_log_model</name></member>
+      <member refid="classmodels_1_1Model_1a4e844753d569fe9a71360ea5e43cfad6" prot="public" virt="non-virtual"><scope>models::Model</scope><name>hyper_power_model</name></member>
+      <member refid="classmodels_1_1Model_1a8a40d2dfb4ff1f4e23bb361ed03e144a" prot="public" virt="non-virtual"><scope>models::Model</scope><name>linear_exp_model</name></member>
+      <member refid="classmodels_1_1Model_1a19c1ce29958c4517c0c4019b3b0e4943" prot="public" virt="non-virtual"><scope>models::Model</scope><name>linear_hyper_model</name></member>
+      <member refid="classmodels_1_1Model_1af609e9512e9c4e024b35acf4e3757f3a" prot="public" virt="non-virtual"><scope>models::Model</scope><name>linear_linear_model</name></member>
+      <member refid="classmodels_1_1Model_1a90dc1feb64dbcd4115dbaccba50654bf" prot="public" virt="non-virtual"><scope>models::Model</scope><name>linear_log_model</name></member>
+      <member refid="classmodels_1_1Model_1a5c32a19867cbb1cd164989369cb1232a" prot="public" virt="non-virtual"><scope>models::Model</scope><name>linear_power_model</name></member>
+      <member refid="classmodels_1_1Model_1a23ab642cb812c6fd95c8f022ba0d0529" prot="public" virt="non-virtual"><scope>models::Model</scope><name>log_exp_model</name></member>
+      <member refid="classmodels_1_1Model_1abe7e67146bbb5022a5c4af42216d6e35" prot="public" virt="non-virtual"><scope>models::Model</scope><name>log_hyper_model</name></member>
+      <member refid="classmodels_1_1Model_1a9c99fb49f0f2b2949e5909625347ade1" prot="public" virt="non-virtual"><scope>models::Model</scope><name>log_linear_model</name></member>
+      <member refid="classmodels_1_1Model_1a8b7da69b5259dc69c9881bb2d0999bb5" prot="public" virt="non-virtual"><scope>models::Model</scope><name>log_log_model</name></member>
+      <member refid="classmodels_1_1Model_1ac9e85fedb4a855d9dceae1676ced87bf" prot="public" virt="non-virtual"><scope>models::Model</scope><name>log_power_model</name></member>
+      <member refid="classmodels_1_1Model_1adfdb0b1764155905657e004805af3c9a" prot="public" virt="non-virtual"><scope>models::Model</scope><name>max_rsquared_</name></member>
+      <member refid="classmodels_1_1Model_1a31f4992110b4fc6805ded916a13f6d82" prot="public" virt="non-virtual"><scope>models::Model</scope><name>model_</name></member>
+      <member refid="classmodels_1_1Model_1acee112f0c0edc33692805e99ff344da3" prot="public" virt="non-virtual"><scope>models::Model</scope><name>power_exp_model</name></member>
+      <member refid="classmodels_1_1Model_1a8be4ca7061cbe6eb6300fef68c31316f" prot="public" virt="non-virtual"><scope>models::Model</scope><name>power_hyper_model</name></member>
+      <member refid="classmodels_1_1Model_1a526d32ec27cfca14e4a25f2a9cd0b208" prot="public" virt="non-virtual"><scope>models::Model</scope><name>power_linear_model</name></member>
+      <member refid="classmodels_1_1Model_1ae7bff69f1217b2041ab90040d327e9b2" prot="public" virt="non-virtual"><scope>models::Model</scope><name>power_log_model</name></member>
+      <member refid="classmodels_1_1Model_1a23e2093df47fbc63d097b6d8832d93a3" prot="public" virt="non-virtual"><scope>models::Model</scope><name>power_power_model</name></member>
+      <member refid="classmodels_1_1Model_1a4f3638d335bf4e6c2c7f1daefab658a9" prot="public" virt="non-virtual"><scope>models::Model</scope><name>regression</name></member>
+      <member refid="classmodels_1_1Model_1afe540c8f99ca7bba9be929960a1086d9" prot="public" virt="non-virtual"><scope>models::Model</scope><name>x_</name></member>
+      <member refid="classmodels_1_1Model_1a84eefbbc1d96638b5c468b24a09b45fa" prot="public" virt="non-virtual"><scope>models::Model</scope><name>y_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

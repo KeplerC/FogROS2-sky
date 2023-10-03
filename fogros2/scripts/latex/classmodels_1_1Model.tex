@@ -1,0 +1,645 @@
+\hypertarget{classmodels_1_1Model}{}\doxysection{models.\+Model Class Reference}
+\label{classmodels_1_1Model}\index{models.Model@{models.Model}}
+
+
+Finds best fit time/cost model as a function of hardware for non-\/\+GPU instances.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classmodels_1_1Model_abfd8960a2047e18683955cf1881184f7}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, x, y)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} Constructor. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_aea0ad827ec8dee36a64ece5235e0b3d7}{get\+Model}} (self)
+\begin{DoxyCompactList}\small\item\em Gets best fit model. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a4f3638d335bf4e6c2c7f1daefab658a9}{regression}} (self, model, coeff\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Performs regression based on model type. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_af609e9512e9c4e024b35acf4e3757f3a}{linear\+\_\+linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is linear. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a90dc1feb64dbcd4115dbaccba50654bf}{linear\+\_\+log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is log. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a8a40d2dfb4ff1f4e23bb361ed03e144a}{linear\+\_\+exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is exponential. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a5c32a19867cbb1cd164989369cb1232a}{linear\+\_\+power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is power. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a19c1ce29958c4517c0c4019b3b0e4943}{linear\+\_\+hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is hyperbolic. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a9c99fb49f0f2b2949e5909625347ade1}{log\+\_\+linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is linear. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a8b7da69b5259dc69c9881bb2d0999bb5}{log\+\_\+log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is log. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a23ab642cb812c6fd95c8f022ba0d0529}{log\+\_\+exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is exponential. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_ac9e85fedb4a855d9dceae1676ced87bf}{log\+\_\+power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is power. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_abe7e67146bbb5022a5c4af42216d6e35}{log\+\_\+hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is hyper. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a65a917e8ae03d0cb3e22bc6971dffb91}{exp\+\_\+linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is linear. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_aae877f0a6523e2b4cc1ce300655d2723}{exp\+\_\+log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is log. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a1fd1f82cf43d64436b88acbea2bb32c6}{exp\+\_\+exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is exponential. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a393f33a2f4051d58d55575e3262df791}{exp\+\_\+power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is power. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_aad9fb0c0bbc1c3fa5958adeae946c79e}{exp\+\_\+hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is hyperbolic. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a526d32ec27cfca14e4a25f2a9cd0b208}{power\+\_\+linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is linear. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_ae7bff69f1217b2041ab90040d327e9b2}{power\+\_\+log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is log. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_acee112f0c0edc33692805e99ff344da3}{power\+\_\+exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is exponential. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a23e2093df47fbc63d097b6d8832d93a3}{power\+\_\+power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is power. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a8be4ca7061cbe6eb6300fef68c31316f}{power\+\_\+hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is hyperbolic. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a16dde322d064dba147f4f3b760ce2450}{hyper\+\_\+linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is linear. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a5bb1ffff30feb95112009c2fb71dc00b}{hyper\+\_\+log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is log. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a6787e518dbb539025c45820697f776a0}{hyper\+\_\+exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is exponential. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a4e844753d569fe9a71360ea5e43cfad6}{hyper\+\_\+power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is power. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1Model_a467bb101028f6d307803454bc66c6b73}{hyper\+\_\+hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is hyperbolic. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodels_1_1Model_afe540c8f99ca7bba9be929960a1086d9}\label{classmodels_1_1Model_afe540c8f99ca7bba9be929960a1086d9}} 
+\mbox{\hyperlink{classmodels_1_1Model_afe540c8f99ca7bba9be929960a1086d9}{x\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Hardware Data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1Model_a84eefbbc1d96638b5c468b24a09b45fa}\label{classmodels_1_1Model_a84eefbbc1d96638b5c468b24a09b45fa}} 
+\mbox{\hyperlink{classmodels_1_1Model_a84eefbbc1d96638b5c468b24a09b45fa}{y\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Time, Cost, or Objective Cost. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1Model_adfdb0b1764155905657e004805af3c9a}\label{classmodels_1_1Model_adfdb0b1764155905657e004805af3c9a}} 
+\mbox{\hyperlink{classmodels_1_1Model_adfdb0b1764155905657e004805af3c9a}{max\+\_\+rsquared\+\_\+}}
+\begin{DoxyCompactList}\small\item\em R$^\wedge$2 for best fit model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1Model_a31f4992110b4fc6805ded916a13f6d82}\label{classmodels_1_1Model_a31f4992110b4fc6805ded916a13f6d82}} 
+\mbox{\hyperlink{classmodels_1_1Model_a31f4992110b4fc6805ded916a13f6d82}{model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Best fit model. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Finds best fit time/cost model as a function of hardware for non-\/\+GPU instances. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmodels_1_1Model_abfd8960a2047e18683955cf1881184f7}\label{classmodels_1_1Model_abfd8960a2047e18683955cf1881184f7}} 
+\index{models.Model@{models.Model}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def models.\+Model.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Hardware Data \\
+\hline
+{\em y} & Time, Cost, or Objective Cost \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmodels_1_1Model_a1fd1f82cf43d64436b88acbea2bb32c6}\label{classmodels_1_1Model_a1fd1f82cf43d64436b88acbea2bb32c6}} 
+\index{models.Model@{models.Model}!exp\_exp\_model@{exp\_exp\_model}}
+\index{exp\_exp\_model@{exp\_exp\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{exp\_exp\_model()}{exp\_exp\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+exp\+\_\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is exponential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_aad9fb0c0bbc1c3fa5958adeae946c79e}\label{classmodels_1_1Model_aad9fb0c0bbc1c3fa5958adeae946c79e}} 
+\index{models.Model@{models.Model}!exp\_hyper\_model@{exp\_hyper\_model}}
+\index{exp\_hyper\_model@{exp\_hyper\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{exp\_hyper\_model()}{exp\_hyper\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+exp\+\_\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is hyperbolic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a65a917e8ae03d0cb3e22bc6971dffb91}\label{classmodels_1_1Model_a65a917e8ae03d0cb3e22bc6971dffb91}} 
+\index{models.Model@{models.Model}!exp\_linear\_model@{exp\_linear\_model}}
+\index{exp\_linear\_model@{exp\_linear\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{exp\_linear\_model()}{exp\_linear\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+exp\+\_\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is linear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_aae877f0a6523e2b4cc1ce300655d2723}\label{classmodels_1_1Model_aae877f0a6523e2b4cc1ce300655d2723}} 
+\index{models.Model@{models.Model}!exp\_log\_model@{exp\_log\_model}}
+\index{exp\_log\_model@{exp\_log\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{exp\_log\_model()}{exp\_log\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+exp\+\_\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a393f33a2f4051d58d55575e3262df791}\label{classmodels_1_1Model_a393f33a2f4051d58d55575e3262df791}} 
+\index{models.Model@{models.Model}!exp\_power\_model@{exp\_power\_model}}
+\index{exp\_power\_model@{exp\_power\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{exp\_power\_model()}{exp\_power\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+exp\+\_\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is exponential and Memory is power. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_aea0ad827ec8dee36a64ece5235e0b3d7}\label{classmodels_1_1Model_aea0ad827ec8dee36a64ece5235e0b3d7}} 
+\index{models.Model@{models.Model}!getModel@{getModel}}
+\index{getModel@{getModel}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily def models.\+Model.\+get\+Model (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Gets best fit model. 
+
+\begin{DoxyReturn}{Returns}
+Best Fit \mbox{\hyperlink{classmodels_1_1Model}{Model}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a6787e518dbb539025c45820697f776a0}\label{classmodels_1_1Model_a6787e518dbb539025c45820697f776a0}} 
+\index{models.Model@{models.Model}!hyper\_exp\_model@{hyper\_exp\_model}}
+\index{hyper\_exp\_model@{hyper\_exp\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{hyper\_exp\_model()}{hyper\_exp\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+hyper\+\_\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is exponential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a467bb101028f6d307803454bc66c6b73}\label{classmodels_1_1Model_a467bb101028f6d307803454bc66c6b73}} 
+\index{models.Model@{models.Model}!hyper\_hyper\_model@{hyper\_hyper\_model}}
+\index{hyper\_hyper\_model@{hyper\_hyper\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{hyper\_hyper\_model()}{hyper\_hyper\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+hyper\+\_\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is hyperbolic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a16dde322d064dba147f4f3b760ce2450}\label{classmodels_1_1Model_a16dde322d064dba147f4f3b760ce2450}} 
+\index{models.Model@{models.Model}!hyper\_linear\_model@{hyper\_linear\_model}}
+\index{hyper\_linear\_model@{hyper\_linear\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{hyper\_linear\_model()}{hyper\_linear\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+hyper\+\_\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is linear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a5bb1ffff30feb95112009c2fb71dc00b}\label{classmodels_1_1Model_a5bb1ffff30feb95112009c2fb71dc00b}} 
+\index{models.Model@{models.Model}!hyper\_log\_model@{hyper\_log\_model}}
+\index{hyper\_log\_model@{hyper\_log\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{hyper\_log\_model()}{hyper\_log\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+hyper\+\_\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a4e844753d569fe9a71360ea5e43cfad6}\label{classmodels_1_1Model_a4e844753d569fe9a71360ea5e43cfad6}} 
+\index{models.Model@{models.Model}!hyper\_power\_model@{hyper\_power\_model}}
+\index{hyper\_power\_model@{hyper\_power\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{hyper\_power\_model()}{hyper\_power\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+hyper\+\_\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is hyperbolic and Memory is power. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a8a40d2dfb4ff1f4e23bb361ed03e144a}\label{classmodels_1_1Model_a8a40d2dfb4ff1f4e23bb361ed03e144a}} 
+\index{models.Model@{models.Model}!linear\_exp\_model@{linear\_exp\_model}}
+\index{linear\_exp\_model@{linear\_exp\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{linear\_exp\_model()}{linear\_exp\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+linear\+\_\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is exponential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a19c1ce29958c4517c0c4019b3b0e4943}\label{classmodels_1_1Model_a19c1ce29958c4517c0c4019b3b0e4943}} 
+\index{models.Model@{models.Model}!linear\_hyper\_model@{linear\_hyper\_model}}
+\index{linear\_hyper\_model@{linear\_hyper\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{linear\_hyper\_model()}{linear\_hyper\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+linear\+\_\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is hyperbolic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_af609e9512e9c4e024b35acf4e3757f3a}\label{classmodels_1_1Model_af609e9512e9c4e024b35acf4e3757f3a}} 
+\index{models.Model@{models.Model}!linear\_linear\_model@{linear\_linear\_model}}
+\index{linear\_linear\_model@{linear\_linear\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{linear\_linear\_model()}{linear\_linear\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+linear\+\_\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is linear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a90dc1feb64dbcd4115dbaccba50654bf}\label{classmodels_1_1Model_a90dc1feb64dbcd4115dbaccba50654bf}} 
+\index{models.Model@{models.Model}!linear\_log\_model@{linear\_log\_model}}
+\index{linear\_log\_model@{linear\_log\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{linear\_log\_model()}{linear\_log\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+linear\+\_\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a5c32a19867cbb1cd164989369cb1232a}\label{classmodels_1_1Model_a5c32a19867cbb1cd164989369cb1232a}} 
+\index{models.Model@{models.Model}!linear\_power\_model@{linear\_power\_model}}
+\index{linear\_power\_model@{linear\_power\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{linear\_power\_model()}{linear\_power\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+linear\+\_\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is linear and Memory is power. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a23ab642cb812c6fd95c8f022ba0d0529}\label{classmodels_1_1Model_a23ab642cb812c6fd95c8f022ba0d0529}} 
+\index{models.Model@{models.Model}!log\_exp\_model@{log\_exp\_model}}
+\index{log\_exp\_model@{log\_exp\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{log\_exp\_model()}{log\_exp\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+log\+\_\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is exponential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_abe7e67146bbb5022a5c4af42216d6e35}\label{classmodels_1_1Model_abe7e67146bbb5022a5c4af42216d6e35}} 
+\index{models.Model@{models.Model}!log\_hyper\_model@{log\_hyper\_model}}
+\index{log\_hyper\_model@{log\_hyper\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{log\_hyper\_model()}{log\_hyper\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+log\+\_\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is hyper. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a9c99fb49f0f2b2949e5909625347ade1}\label{classmodels_1_1Model_a9c99fb49f0f2b2949e5909625347ade1}} 
+\index{models.Model@{models.Model}!log\_linear\_model@{log\_linear\_model}}
+\index{log\_linear\_model@{log\_linear\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{log\_linear\_model()}{log\_linear\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+log\+\_\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is linear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a8b7da69b5259dc69c9881bb2d0999bb5}\label{classmodels_1_1Model_a8b7da69b5259dc69c9881bb2d0999bb5}} 
+\index{models.Model@{models.Model}!log\_log\_model@{log\_log\_model}}
+\index{log\_log\_model@{log\_log\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{log\_log\_model()}{log\_log\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+log\+\_\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_ac9e85fedb4a855d9dceae1676ced87bf}\label{classmodels_1_1Model_ac9e85fedb4a855d9dceae1676ced87bf}} 
+\index{models.Model@{models.Model}!log\_power\_model@{log\_power\_model}}
+\index{log\_power\_model@{log\_power\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{log\_power\_model()}{log\_power\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+log\+\_\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is log and Memory is power. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_acee112f0c0edc33692805e99ff344da3}\label{classmodels_1_1Model_acee112f0c0edc33692805e99ff344da3}} 
+\index{models.Model@{models.Model}!power\_exp\_model@{power\_exp\_model}}
+\index{power\_exp\_model@{power\_exp\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{power\_exp\_model()}{power\_exp\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+power\+\_\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is exponential. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a8be4ca7061cbe6eb6300fef68c31316f}\label{classmodels_1_1Model_a8be4ca7061cbe6eb6300fef68c31316f}} 
+\index{models.Model@{models.Model}!power\_hyper\_model@{power\_hyper\_model}}
+\index{power\_hyper\_model@{power\_hyper\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{power\_hyper\_model()}{power\_hyper\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+power\+\_\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is hyperbolic. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a526d32ec27cfca14e4a25f2a9cd0b208}\label{classmodels_1_1Model_a526d32ec27cfca14e4a25f2a9cd0b208}} 
+\index{models.Model@{models.Model}!power\_linear\_model@{power\_linear\_model}}
+\index{power\_linear\_model@{power\_linear\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{power\_linear\_model()}{power\_linear\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+power\+\_\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is linear. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_ae7bff69f1217b2041ab90040d327e9b2}\label{classmodels_1_1Model_ae7bff69f1217b2041ab90040d327e9b2}} 
+\index{models.Model@{models.Model}!power\_log\_model@{power\_log\_model}}
+\index{power\_log\_model@{power\_log\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{power\_log\_model()}{power\_log\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+power\+\_\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is log. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a23e2093df47fbc63d097b6d8832d93a3}\label{classmodels_1_1Model_a23e2093df47fbc63d097b6d8832d93a3}} 
+\index{models.Model@{models.Model}!power\_power\_model@{power\_power\_model}}
+\index{power\_power\_model@{power\_power\_model}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{power\_power\_model()}{power\_power\_model()}}
+{\footnotesize\ttfamily def models.\+Model.\+power\+\_\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} where CPU is power and Memory is power. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} Input \\
+\hline
+{\em coefficients} & \mbox{\hyperlink{classmodels_1_1Model}{Model}} coefficients @predict Boolean if we are predicting (False if we are trying to curve fit and solve) @single Boolean if we just want to run the model for single input \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Output 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1Model_a4f3638d335bf4e6c2c7f1daefab658a9}\label{classmodels_1_1Model_a4f3638d335bf4e6c2c7f1daefab658a9}} 
+\index{models.Model@{models.Model}!regression@{regression}}
+\index{regression@{regression}!models.Model@{models.Model}}
+\doxysubsubsection{\texorpdfstring{regression()}{regression()}}
+{\footnotesize\ttfamily def models.\+Model.\+regression (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{model,  }\item[{}]{coeff\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Performs regression based on model type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}} Type \\
+\hline
+{\em coeff\+\_\+len} & Number of coefficients required for this regression model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tuple containing R$^\wedge$2 and coefficients of given model 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+models.\+py\end{DoxyCompactItemize}

@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classsky__optimization_1_1OptimizationFunctionType" kind="class" language="Python" prot="public">
+    <compoundname>sky_optimization::OptimizationFunctionType</compoundname>
+    <basecompoundref prot="public" virt="non-virtual">Enum</basecompoundref>
+      <sectiondef kind="public-static-attrib">
+      <memberdef kind="variable" id="classsky__optimization_1_1OptimizationFunctionType_1a7c5407f39e4a09c49c7c0a46628e8bba" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int sky_optimization.OptimizationFunctionType::TIME</definition>
+        <argsstring></argsstring>
+        <name>TIME</name>
+        <initializer>=  1</initializer>
+        <briefdescription>
+<para>Time Optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="25" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="25" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1OptimizationFunctionType_1afd5e9e85b47495dffccdbdfb77771a51" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int sky_optimization.OptimizationFunctionType::COST</definition>
+        <argsstring></argsstring>
+        <name>COST</name>
+        <initializer>=  2</initializer>
+        <briefdescription>
+<para>Cost Optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="29" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="29" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1OptimizationFunctionType_1aa511b95f475612659dd133fff54c8f98" prot="public" static="yes" mutable="no">
+        <type>int</type>
+        <definition>int sky_optimization.OptimizationFunctionType::OBJECTIVE_COST</definition>
+        <argsstring></argsstring>
+        <name>OBJECTIVE_COST</name>
+        <initializer>=  3</initializer>
+        <briefdescription>
+<para>Objective Cost Optimization (Motion Planning) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="33" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="33" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Specifies whether the optimization problem will be solving for time or cost. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <inheritancegraph>
+      <node id="1">
+        <label>sky_optimization.OptimizationFunctionType</label>
+        <link refid="classsky__optimization_1_1OptimizationFunctionType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Enum</label>
+      </node>
+    </inheritancegraph>
+    <collaborationgraph>
+      <node id="1">
+        <label>sky_optimization.OptimizationFunctionType</label>
+        <link refid="classsky__optimization_1_1OptimizationFunctionType"/>
+        <childnode refid="2" relation="public-inheritance">
+        </childnode>
+      </node>
+      <node id="2">
+        <label>Enum</label>
+      </node>
+    </collaborationgraph>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="22" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="22" bodyend="37"/>
+    <listofallmembers>
+      <member refid="classsky__optimization_1_1OptimizationFunctionType_1afd5e9e85b47495dffccdbdfb77771a51" prot="public" virt="non-virtual"><scope>sky_optimization::OptimizationFunctionType</scope><name>COST</name></member>
+      <member refid="classsky__optimization_1_1OptimizationFunctionType_1aa511b95f475612659dd133fff54c8f98" prot="public" virt="non-virtual"><scope>sky_optimization::OptimizationFunctionType</scope><name>OBJECTIVE_COST</name></member>
+      <member refid="classsky__optimization_1_1OptimizationFunctionType_1a7c5407f39e4a09c49c7c0a46628e8bba" prot="public" virt="non-virtual"><scope>sky_optimization::OptimizationFunctionType</scope><name>TIME</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

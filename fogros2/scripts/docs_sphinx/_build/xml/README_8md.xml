@@ -1,0 +1,153 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="README_8md" kind="file" language="Markdown">
+    <compoundname>README.md</compoundname>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline><highlight class="normal">#<sp/>Optimization<sp/>Script</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Installation<sp/>and<sp/>Setup</highlight></codeline>
+<codeline><highlight class="normal">Follow<sp/>the<sp/>installation<sp/>steps<sp/>on<sp/>the<sp/>[`Sky<sp/>Setup<sp/>Instructions`](https://github.com/KeplerC/FogROS2-sky#sky-setup-instructions)<sp/>section<sp/>of<sp/>the<sp/>FogROS2-Sky<sp/>README.<sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">Before<sp/>running<sp/>the<sp/>optimization<sp/>script,<sp/>configure<sp/>AWS<sp/>using<sp/>your<sp/>access<sp/>key<sp/>and<sp/>secret<sp/>access<sp/>key.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">aws<sp/>configure</highlight></codeline>
+<codeline><highlight class="normal">sky<sp/>check</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Command<sp/>Line<sp/>Arguments</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>Short<sp/>Argument<sp/>|<sp/>Long<sp/>Argument<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>Required<sp/>|<sp/>Type<sp/><sp/><sp/>|<sp/>Description<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>--------------<sp/>|<sp/>-------------<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--------<sp/>|<sp/>-----<sp/><sp/>|<sp/>-----------<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-y<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--yaml_file<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>String<sp/>|<sp/>Path<sp/>to<sp/>yaml<sp/>file<sp/>from<sp/>current<sp/>directory<sp/>(not<sp/>the<sp/>directory<sp/>that<sp/>the<sp/>script<sp/>is<sp/>in)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-gy<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--gpu_yaml_file<sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>String<sp/>|<sp/>Path<sp/>to<sp/>gpu<sp/>yaml<sp/>file<sp/>from<sp/>current<sp/>directory<sp/>(not<sp/>the<sp/>directory<sp/>that<sp/>the<sp/>script<sp/>is<sp/>in)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-s<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--steps<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>Int<sp/><sp/><sp/><sp/>|<sp/>Total<sp/>number<sp/>of<sp/>steps<sp/>you<sp/>want<sp/>the<sp/>algorithm<sp/>to<sp/>take<sp/>(Dexnet<sp/>by<sp/>default)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-c<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--max_cost<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>Float<sp/><sp/>|<sp/>Maximum<sp/>financial<sp/>cost<sp/>you<sp/>want<sp/>to<sp/>spend<sp/>on<sp/>cloud<sp/>computing<sp/>(in<sp/>$)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-t<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--max_time<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>Float<sp/><sp/>|<sp/>Maximum<sp/>amount<sp/>of<sp/>time<sp/>you<sp/>want<sp/>the<sp/>algorithm<sp/>to<sp/>spend<sp/>on<sp/>the<sp/>cloud<sp/>(in<sp/>seconds)<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-oc<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--max_objective_cost<sp/>|<sp/>True<sp/><sp/><sp/><sp/><sp/>|<sp/>Float<sp/><sp/>|<sp/>Maximum<sp/>objective<sp/>cost<sp/>(used<sp/>only<sp/>for<sp/>motion<sp/>planning,<sp/>TODO:<sp/>Remove<sp/>objective<sp/>cost<sp/>requirement<sp/>for<sp/>SLAM<sp/>and<sp/>Dexnet<sp/>where<sp/>it<sp/>isn&apos;t<sp/>used)<sp/>|</highlight></codeline>
+<codeline><highlight class="normal">|<sp/>-d<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>--debug<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|<sp/>False<sp/><sp/><sp/><sp/>|<sp/>N/A<sp/><sp/><sp/><sp/>|<sp/>Type<sp/>-d<sp/>if<sp/>you<sp/>want<sp/>to<sp/>run<sp/>debug<sp/>mode<sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>|</highlight></codeline>
+<codeline><highlight class="normal">In<sp/>order<sp/>to<sp/>run<sp/>SLAM,<sp/>yaml<sp/>and<sp/>gpu<sp/>yaml<sp/>files<sp/>need<sp/>to<sp/>contain<sp/>slam<sp/>in<sp/>the<sp/>filename.<sp/>In<sp/>order<sp/>to<sp/>run<sp/>motion<sp/>planning,<sp/>yaml<sp/>and<sp/>gpu<sp/>yaml<sp/>files<sp/>need<sp/>to<sp/>contain<sp/>mp.<sp/>Otherwise,<sp/>Dexnet<sp/>is<sp/>run<sp/>by<sp/>default.</highlight></codeline>
+<codeline><highlight class="normal">TODO:<sp/>Add<sp/>command<sp/>line<sp/>argument<sp/>to<sp/>specify<sp/>if<sp/>the<sp/>program<sp/>should<sp/>run<sp/>Dexnet,<sp/>SLAM,<sp/>or<sp/>Motion<sp/>Planning.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">##<sp/>Example<sp/>Runs</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Dexnet<sp/>(Light<sp/>Constraints)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark.yaml<sp/>-gy<sp/>../../benchmark_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>1<sp/>-t<sp/>3500<sp/>-oc<sp/>700<sp/>-d</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Outputs</highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>6.583081308434977<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>13.166162616833319<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>3500.000000746982<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.27147393261837877<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">c6i.2xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>29.10002363774633<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>208.22697699205892<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>2067.889985919936<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$1.0000000067110584<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">r6i.8xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">T4<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>4.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>16.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>1841.2<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.26924140299114097<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">g4dn.xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>4.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>16.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>1841.2<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.26924140299114097<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">g4dn.xlarge<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>first<sp/>optimization<sp/>used<sp/>cost<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>time<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>cost<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>time<sp/>constraint<sp/>of<sp/>3500<sp/>seconds.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>c6i.2xlarge.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>second<sp/>optimization<sp/>used<sp/>time<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>cost<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>time<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>cost<sp/>constraint<sp/>of<sp/>$5.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>r6i.8xlarge.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Now,<sp/>it<sp/>is<sp/>important<sp/>to<sp/>note<sp/>the<sp/>latter<sp/>2<sp/>optimizations<sp/>including<sp/>the<sp/>T4<sp/>GPU<sp/>also<sp/>satisfy<sp/>the<sp/>constraints,<sp/>and<sp/>seem<sp/>to<sp/>work<sp/>more<sp/>efficiently.<sp/>This<sp/>can<sp/>be<sp/>highlighed<sp/>in<sp/>the<sp/>next<sp/>section<sp/>with<sp/>harsher<sp/>constraints.</highlight></codeline>
+<codeline><highlight class="normal">###<sp/>Dexnet<sp/>(Harsh<sp/>Constraints)</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark.yaml<sp/>-gy<sp/>../../benchmark_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>0.5<sp/>-t<sp/>2000<sp/>-oc<sp/>700<sp/>-d</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Outputs</highlight></codeline>
+<codeline><highlight class="normal">Failed<sp/>optimization.<sp/>Please<sp/>relax<sp/>constraints<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Closest<sp/>CPU:<sp/>55.174132878793564<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Closest<sp/>Memory:<sp/>110.34826575767434<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>1999.999999995834<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$1.2847671764297848<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">c6i.16xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Failed<sp/>optimization.<sp/>Please<sp/>relax<sp/>constraints<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Closest<sp/>CPU:<sp/>19.513887987497554<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Closest<sp/>Memory:<sp/>39.027775974959205<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>2197.1952866003394<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.5000000000002129<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">c6i.4xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">T4<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>4.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>16.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>1835.8785714325759<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.2679159162503509<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">g4dn.xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>4.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>16.0<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>1835.8785714325759<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$0.2679159162503509<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">g4dn.xlarge<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>first<sp/>two<sp/>optimizations<sp/>attempt<sp/>to<sp/>find<sp/>an<sp/>instance<sp/>to<sp/>run<sp/>Dexnet<sp/>in<sp/>under<sp/>2000<sp/>seconds<sp/>and<sp/>$0.50.<sp/>With<sp/>just<sp/>CPU,<sp/>this<sp/>task<sp/>is<sp/>not<sp/>possible<sp/>under<sp/>those<sp/>constraints,<sp/>but<sp/>the<sp/>latter<sp/>2<sp/>optimizations<sp/>show<sp/>cost<sp/>and<sp/>time<sp/>optimizations<sp/>when<sp/>a<sp/>T4<sp/>is<sp/>included.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>additional<sp/>CPU<sp/>and<sp/>memory<sp/>don&apos;t<sp/>help<sp/>with<sp/>computation<sp/>since<sp/>the<sp/>optimal<sp/>CPU<sp/>and<sp/>memory<sp/>for<sp/>the<sp/>T4<sp/>GPU<sp/>is<sp/>the<sp/>minimum<sp/>amount.<sp/>Furthermore,<sp/>since<sp/>CPU<sp/>and<sp/>memory<sp/>are<sp/>most<sp/>efficient<sp/>at<sp/>the<sp/>minimum,<sp/>the<sp/>GPU<sp/>optimizations<sp/>don&apos;t<sp/>push<sp/>up<sp/>to<sp/>the<sp/>user&apos;s<sp/>constraints.</highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>SLAM</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark_slam.yaml<sp/>-gy<sp/>../../benchmark_slam_gpu.yaml<sp/>-s<sp/>1000000<sp/>-c<sp/>5<sp/>-t<sp/>55000<sp/>-oc<sp/>650<sp/>-d</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Outputs</highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>4.586338333006091<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>16.89002258471161<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>54999.9999999424284<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$3.444474922339687<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">m6i.xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>7.441775519458142<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>59.53420428352985<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>time:<sp/>38322.24476746237<sp/>seconds<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$4.999999996850867<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">r6i.2xlarge<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>first<sp/>optimization<sp/>used<sp/>cost<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>time<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>cost<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>time<sp/>constraint<sp/>of<sp/>55000<sp/>seconds.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>m6i.xlarge.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>second<sp/>optimization<sp/>used<sp/>time<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>cost<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>time<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>cost<sp/>constraint<sp/>of<sp/>$5.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>r6i.2xlarge.<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">###<sp/>Motion<sp/>Planning</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark_mp.yaml<sp/>-gy<sp/>../../benchmark_mp_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>2<sp/>-t<sp/>3500<sp/>-oc<sp/>650<sp/>-d</highlight></codeline>
+<codeline><highlight class="normal">```</highlight></codeline>
+<codeline><highlight class="normal">####<sp/>Outputs</highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>14.868582555026965<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>29.73716511005242<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>objective<sp/>cost:<sp/>650.0000000000771<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$1.4081357880019716<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">c6i.4xlarge<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Successful<sp/>optimization<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>CPU:<sp/>23.744358343008674<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Optimized<sp/>Memory:<sp/>47.488716242681406<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>objective<sp/>cost:<sp/>637.8114539965433<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">Projected<sp/>cost:<sp/>$2.000000117784925<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">c6i.4xlarge<sp/><sp/></highlight></codeline>
+<codeline></codeline>
+<codeline><highlight class="normal">The<sp/>first<sp/>optimization<sp/>used<sp/>cost<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>objective<sp/>cost<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>cost<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>objective<sp/>cost<sp/>constraint<sp/>of<sp/>650.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>c6i.4xlarge.<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">The<sp/>second<sp/>optimization<sp/>used<sp/>objective<sp/>cost<sp/>as<sp/>an<sp/>objective<sp/>function<sp/>and<sp/>set<sp/>cost<sp/>as<sp/>a<sp/>constraint.<sp/>We<sp/>can<sp/>see<sp/>that<sp/>we<sp/>selected<sp/>CPU<sp/>and<sp/>memory<sp/>such<sp/>that<sp/>objective<sp/>cost<sp/>was<sp/>minimized<sp/>while<sp/>still<sp/>adhering<sp/>to<sp/>the<sp/>user&apos;s<sp/>cost<sp/>constraint<sp/>of<sp/>$2.<sp/>The<sp/>closest<sp/>AWS<sp/>instance<sp/>to<sp/>imitate<sp/>this<sp/>hardware<sp/>setup<sp/>is<sp/>the<sp/>c6i.4xlarge<sp/>(same<sp/>as<sp/>the<sp/>first<sp/>optimization).<sp/><sp/></highlight></codeline>
+<codeline><highlight class="normal">It<sp/>is<sp/>also<sp/>important<sp/>to<sp/>note<sp/>that<sp/>the<sp/>memory:CPU<sp/>ratio<sp/>for<sp/>both<sp/>optimizations<sp/>is<sp/>2,<sp/>meaning<sp/>that<sp/>cloud<sp/>instances<sp/>with<sp/>excessive<sp/>memory<sp/>is<sp/>inefficient<sp/>for<sp/>this<sp/>motion<sp/>planning<sp/>task.<sp/><sp/></highlight></codeline>
+    </programlisting>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/README.md"/>
+  </compounddef>
+</doxygen>

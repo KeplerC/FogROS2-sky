@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Models &mdash; FogROS2-Sky  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Sky Optimization" href="../SkyOptimization/summary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            FogROS2-Sky
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../SkyOptimization/summary.html">Sky Optimization</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id0"><code class="docutils literal notranslate"><span class="pre">models</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#models.GPUModel"><code class="docutils literal notranslate"><span class="pre">models.GPUModel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.__init__"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.getModel"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.getModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.regression"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.regression()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.const_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.const_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.linear_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.log_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.exp_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.power_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.hyper_model"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.x_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.x_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.y_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.y_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.r_squared_threshold_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.r_squared_threshold_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.max_rsquared_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.max_rsquared_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.model_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.model_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.GPUModel.is_const_model_"><code class="docutils literal notranslate"><span class="pre">models.GPUModel.is_const_model_</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#models.Model"><code class="docutils literal notranslate"><span class="pre">models.Model</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.__init__"><code class="docutils literal notranslate"><span class="pre">models.Model.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.getModel"><code class="docutils literal notranslate"><span class="pre">models.Model.getModel()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.regression"><code class="docutils literal notranslate"><span class="pre">models.Model.regression()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.linear_linear_model"><code class="docutils literal notranslate"><span class="pre">models.Model.linear_linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.linear_log_model"><code class="docutils literal notranslate"><span class="pre">models.Model.linear_log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.linear_exp_model"><code class="docutils literal notranslate"><span class="pre">models.Model.linear_exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.linear_power_model"><code class="docutils literal notranslate"><span class="pre">models.Model.linear_power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.linear_hyper_model"><code class="docutils literal notranslate"><span class="pre">models.Model.linear_hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.log_linear_model"><code class="docutils literal notranslate"><span class="pre">models.Model.log_linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.log_log_model"><code class="docutils literal notranslate"><span class="pre">models.Model.log_log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.log_exp_model"><code class="docutils literal notranslate"><span class="pre">models.Model.log_exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.log_power_model"><code class="docutils literal notranslate"><span class="pre">models.Model.log_power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.log_hyper_model"><code class="docutils literal notranslate"><span class="pre">models.Model.log_hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.exp_linear_model"><code class="docutils literal notranslate"><span class="pre">models.Model.exp_linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.exp_log_model"><code class="docutils literal notranslate"><span class="pre">models.Model.exp_log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.exp_exp_model"><code class="docutils literal notranslate"><span class="pre">models.Model.exp_exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.exp_power_model"><code class="docutils literal notranslate"><span class="pre">models.Model.exp_power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.exp_hyper_model"><code class="docutils literal notranslate"><span class="pre">models.Model.exp_hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.power_linear_model"><code class="docutils literal notranslate"><span class="pre">models.Model.power_linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.power_log_model"><code class="docutils literal notranslate"><span class="pre">models.Model.power_log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.power_exp_model"><code class="docutils literal notranslate"><span class="pre">models.Model.power_exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.power_power_model"><code class="docutils literal notranslate"><span class="pre">models.Model.power_power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.power_hyper_model"><code class="docutils literal notranslate"><span class="pre">models.Model.power_hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.hyper_linear_model"><code class="docutils literal notranslate"><span class="pre">models.Model.hyper_linear_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.hyper_log_model"><code class="docutils literal notranslate"><span class="pre">models.Model.hyper_log_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.hyper_exp_model"><code class="docutils literal notranslate"><span class="pre">models.Model.hyper_exp_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.hyper_power_model"><code class="docutils literal notranslate"><span class="pre">models.Model.hyper_power_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.hyper_hyper_model"><code class="docutils literal notranslate"><span class="pre">models.Model.hyper_hyper_model()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.x_"><code class="docutils literal notranslate"><span class="pre">models.Model.x_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.y_"><code class="docutils literal notranslate"><span class="pre">models.Model.y_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.max_rsquared_"><code class="docutils literal notranslate"><span class="pre">models.Model.max_rsquared_</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#models.Model.model_"><code class="docutils literal notranslate"><span class="pre">models.Model.model_</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">FogROS2-Sky</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/Models/summary.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="models">
+<h1>Models<a class="headerlink" href="#models" title="Permalink to this heading"></a></h1>
+<p>Contains all possible time and cost regression models for GPU and non-GPU hardware instances</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="id0">
+<span class="target" id="namespacemodels"></span><em class="property"><span class="pre">module</span> </em><span class="sig-name descname"><span class="pre">models</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd><dl class="py class">
+<dt class="sig sig-object py" id="models.GPUModel">
+<span class="target" id="classmodels_1_1GPUModel"></span><em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">GPUModel</span></span><a class="headerlink" href="#models.GPUModel" title="Permalink to this definition"></a></dt>
+<dd><p>Finds best fit time/cost model as a function of hardware for GPU instances. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.__init__">
+<span class="target" id="classmodels_1_1GPUModel_1ad85ce2b3c092d022a06467bda7209b30"></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.__init__" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1GPUModel"><span class="std std-ref">GPUModel</span></a> Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Hardware Data </p></li>
+<li><p><strong>y</strong> – Time, Cost, or Objective Cost </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.getModel">
+<span class="target" id="classmodels_1_1GPUModel_1a4a52ef8d4317de837b38f66c0b9734d6"></span><span class="sig-name descname"><span class="pre">getModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.getModel" title="Permalink to this definition"></a></dt>
+<dd><p>Gets best fit model. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Best Fit <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.regression">
+<span class="target" id="classmodels_1_1GPUModel_1a498688fff74b10719ef2df8e66f57cdd"></span><span class="sig-name descname"><span class="pre">regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff_len</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.regression" title="Permalink to this definition"></a></dt>
+<dd><p>Performs regression based on model type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Type </p></li>
+<li><p><strong>coeff_len</strong> – Number of coefficients required for this regression model </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing R^2 and coefficients of given model </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.const_model">
+<span class="target" id="classmodels_1_1GPUModel_1a65305f2013b766fa8625bf8580c23838"></span><span class="sig-name descname"><span class="pre">const_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.const_model" title="Permalink to this definition"></a></dt>
+<dd><p>Constant Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.linear_model">
+<span class="target" id="classmodels_1_1GPUModel_1acd0371a78abcb6f5e8a236d933b29ea8"></span><span class="sig-name descname"><span class="pre">linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.linear_model" title="Permalink to this definition"></a></dt>
+<dd><p>Linear Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.log_model">
+<span class="target" id="classmodels_1_1GPUModel_1a38e6ee50e509fe0bc49203bdcad8092e"></span><span class="sig-name descname"><span class="pre">log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.log_model" title="Permalink to this definition"></a></dt>
+<dd><p>Log Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.exp_model">
+<span class="target" id="classmodels_1_1GPUModel_1ac8cf529aac748a4b1e127a50eb5bbdc3"></span><span class="sig-name descname"><span class="pre">exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.exp_model" title="Permalink to this definition"></a></dt>
+<dd><p>Exponential Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.power_model">
+<span class="target" id="classmodels_1_1GPUModel_1a2defed1ee3220e3a173883061e59dac8"></span><span class="sig-name descname"><span class="pre">power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.power_model" title="Permalink to this definition"></a></dt>
+<dd><p>Power Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.GPUModel.hyper_model">
+<span class="target" id="classmodels_1_1GPUModel_1aff0c8ca7874ee502f554f44395c220ef"></span><span class="sig-name descname"><span class="pre">hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.GPUModel.hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p>Hyperbolic Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Outputs </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.x_">
+<span class="target" id="classmodels_1_1GPUModel_1ab8e53912746fb0fdf6b2131c89686498"></span><span class="sig-name descname"><span class="pre">x_</span></span><a class="headerlink" href="#models.GPUModel.x_" title="Permalink to this definition"></a></dt>
+<dd><p>Hardware Data. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.y_">
+<span class="target" id="classmodels_1_1GPUModel_1a0bbdf3c37190cfb94bba7a342a00ba44"></span><span class="sig-name descname"><span class="pre">y_</span></span><a class="headerlink" href="#models.GPUModel.y_" title="Permalink to this definition"></a></dt>
+<dd><p>Time, Cost, or Objective Cost. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.r_squared_threshold_">
+<span class="target" id="classmodels_1_1GPUModel_1a98e8bba6082afadc1a824661b9451fc4"></span><span class="sig-name descname"><span class="pre">r_squared_threshold_</span></span><a class="headerlink" href="#models.GPUModel.r_squared_threshold_" title="Permalink to this definition"></a></dt>
+<dd><p>Minimum r^2 for best fit model (if it is below, then we say the correlation isn’t strong enough) </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.max_rsquared_">
+<span class="target" id="classmodels_1_1GPUModel_1ad8e7a9dca7d5e74ca10e23e3fd25d2e7"></span><span class="sig-name descname"><span class="pre">max_rsquared_</span></span><a class="headerlink" href="#models.GPUModel.max_rsquared_" title="Permalink to this definition"></a></dt>
+<dd><p>R^2 for best fit model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.model_">
+<span class="target" id="classmodels_1_1GPUModel_1afc167ab556351a906797d822dd794055"></span><span class="sig-name descname"><span class="pre">model_</span></span><a class="headerlink" href="#models.GPUModel.model_" title="Permalink to this definition"></a></dt>
+<dd><p>Best fit model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.GPUModel.is_const_model_">
+<span class="target" id="classmodels_1_1GPUModel_1a0a960adb664758649d4f1b276facc8ef"></span><span class="sig-name descname"><span class="pre">is_const_model_</span></span><a class="headerlink" href="#models.GPUModel.is_const_model_" title="Permalink to this definition"></a></dt>
+<dd><p>Const model boolean is true if the best fit model doesn’t have a strong enough correlation. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="models.Model">
+<span class="target" id="classmodels_1_1Model"></span><em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Model</span></span><a class="headerlink" href="#models.Model" title="Permalink to this definition"></a></dt>
+<dd><p>Finds best fit time/cost model as a function of hardware for non-GPU instances. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.__init__">
+<span class="target" id="classmodels_1_1Model_1abfd8960a2047e18683955cf1881184f7"></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.__init__" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – Hardware Data </p></li>
+<li><p><strong>y</strong> – Time, Cost, or Objective Cost </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.getModel">
+<span class="target" id="classmodels_1_1Model_1aea0ad827ec8dee36a64ece5235e0b3d7"></span><span class="sig-name descname"><span class="pre">getModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.getModel" title="Permalink to this definition"></a></dt>
+<dd><p>Gets best fit model. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Best Fit <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.regression">
+<span class="target" id="classmodels_1_1Model_1a4f3638d335bf4e6c2c7f1daefab658a9"></span><span class="sig-name descname"><span class="pre">regression</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coeff_len</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.regression" title="Permalink to this definition"></a></dt>
+<dd><p>Performs regression based on model type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> – Regression <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Type </p></li>
+<li><p><strong>coeff_len</strong> – Number of coefficients required for this regression model </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Tuple containing R^2 and coefficients of given model </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.linear_linear_model">
+<span class="target" id="classmodels_1_1Model_1af609e9512e9c4e024b35acf4e3757f3a"></span><span class="sig-name descname"><span class="pre">linear_linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.linear_linear_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is linear and Memory is linear. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.linear_log_model">
+<span class="target" id="classmodels_1_1Model_1a90dc1feb64dbcd4115dbaccba50654bf"></span><span class="sig-name descname"><span class="pre">linear_log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.linear_log_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is linear and Memory is log. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.linear_exp_model">
+<span class="target" id="classmodels_1_1Model_1a8a40d2dfb4ff1f4e23bb361ed03e144a"></span><span class="sig-name descname"><span class="pre">linear_exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.linear_exp_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is linear and Memory is exponential. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.linear_power_model">
+<span class="target" id="classmodels_1_1Model_1a5c32a19867cbb1cd164989369cb1232a"></span><span class="sig-name descname"><span class="pre">linear_power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.linear_power_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is linear and Memory is power. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.linear_hyper_model">
+<span class="target" id="classmodels_1_1Model_1a19c1ce29958c4517c0c4019b3b0e4943"></span><span class="sig-name descname"><span class="pre">linear_hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.linear_hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is linear and Memory is hyperbolic. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.log_linear_model">
+<span class="target" id="classmodels_1_1Model_1a9c99fb49f0f2b2949e5909625347ade1"></span><span class="sig-name descname"><span class="pre">log_linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.log_linear_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is log and Memory is linear. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.log_log_model">
+<span class="target" id="classmodels_1_1Model_1a8b7da69b5259dc69c9881bb2d0999bb5"></span><span class="sig-name descname"><span class="pre">log_log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.log_log_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is log and Memory is log. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.log_exp_model">
+<span class="target" id="classmodels_1_1Model_1a23ab642cb812c6fd95c8f022ba0d0529"></span><span class="sig-name descname"><span class="pre">log_exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.log_exp_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is log and Memory is exponential. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.log_power_model">
+<span class="target" id="classmodels_1_1Model_1ac9e85fedb4a855d9dceae1676ced87bf"></span><span class="sig-name descname"><span class="pre">log_power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.log_power_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is log and Memory is power. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.log_hyper_model">
+<span class="target" id="classmodels_1_1Model_1abe7e67146bbb5022a5c4af42216d6e35"></span><span class="sig-name descname"><span class="pre">log_hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.log_hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is log and Memory is hyper. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.exp_linear_model">
+<span class="target" id="classmodels_1_1Model_1a65a917e8ae03d0cb3e22bc6971dffb91"></span><span class="sig-name descname"><span class="pre">exp_linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.exp_linear_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is exponential and Memory is linear. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.exp_log_model">
+<span class="target" id="classmodels_1_1Model_1aae877f0a6523e2b4cc1ce300655d2723"></span><span class="sig-name descname"><span class="pre">exp_log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.exp_log_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is exponential and Memory is log. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.exp_exp_model">
+<span class="target" id="classmodels_1_1Model_1a1fd1f82cf43d64436b88acbea2bb32c6"></span><span class="sig-name descname"><span class="pre">exp_exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.exp_exp_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is exponential and Memory is exponential. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.exp_power_model">
+<span class="target" id="classmodels_1_1Model_1a393f33a2f4051d58d55575e3262df791"></span><span class="sig-name descname"><span class="pre">exp_power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.exp_power_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is exponential and Memory is power. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.exp_hyper_model">
+<span class="target" id="classmodels_1_1Model_1aad9fb0c0bbc1c3fa5958adeae946c79e"></span><span class="sig-name descname"><span class="pre">exp_hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.exp_hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is exponential and Memory is hyperbolic. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.power_linear_model">
+<span class="target" id="classmodels_1_1Model_1a526d32ec27cfca14e4a25f2a9cd0b208"></span><span class="sig-name descname"><span class="pre">power_linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.power_linear_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is power and Memory is linear. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.power_log_model">
+<span class="target" id="classmodels_1_1Model_1ae7bff69f1217b2041ab90040d327e9b2"></span><span class="sig-name descname"><span class="pre">power_log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.power_log_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is power and Memory is log. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.power_exp_model">
+<span class="target" id="classmodels_1_1Model_1acee112f0c0edc33692805e99ff344da3"></span><span class="sig-name descname"><span class="pre">power_exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.power_exp_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is power and Memory is exponential. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.power_power_model">
+<span class="target" id="classmodels_1_1Model_1a23e2093df47fbc63d097b6d8832d93a3"></span><span class="sig-name descname"><span class="pre">power_power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.power_power_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is power and Memory is power. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.power_hyper_model">
+<span class="target" id="classmodels_1_1Model_1a8be4ca7061cbe6eb6300fef68c31316f"></span><span class="sig-name descname"><span class="pre">power_hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.power_hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is power and Memory is hyperbolic. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.hyper_linear_model">
+<span class="target" id="classmodels_1_1Model_1a16dde322d064dba147f4f3b760ce2450"></span><span class="sig-name descname"><span class="pre">hyper_linear_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.hyper_linear_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is hyperbolic and Memory is linear. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.hyper_log_model">
+<span class="target" id="classmodels_1_1Model_1a5bb1ffff30feb95112009c2fb71dc00b"></span><span class="sig-name descname"><span class="pre">hyper_log_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.hyper_log_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is hyperbolic and Memory is log. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.hyper_exp_model">
+<span class="target" id="classmodels_1_1Model_1a6787e518dbb539025c45820697f776a0"></span><span class="sig-name descname"><span class="pre">hyper_exp_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.hyper_exp_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is hyperbolic and Memory is exponential. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.hyper_power_model">
+<span class="target" id="classmodels_1_1Model_1a4e844753d569fe9a71360ea5e43cfad6"></span><span class="sig-name descname"><span class="pre">hyper_power_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.hyper_power_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is hyperbolic and Memory is power. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="models.Model.hyper_hyper_model">
+<span class="target" id="classmodels_1_1Model_1a467bb101028f6d307803454bc66c6b73"></span><span class="sig-name descname"><span class="pre">hyper_hyper_model</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">coefficients</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">predict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">single</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#models.Model.hyper_hyper_model" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> where CPU is hyperbolic and Memory is hyperbolic. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Input </p></li>
+<li><p><strong>coefficients</strong> – <a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> coefficients </p></li>
+<li><p><strong>predict</strong> – Boolean if we are predicting (False if we are trying to curve fit and solve) </p></li>
+<li><p><strong>single</strong> – Boolean if we just want to run the model for single input </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference internal" href="#classmodels_1_1Model"><span class="std std-ref">Model</span></a> Output </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Model.x_">
+<span class="target" id="classmodels_1_1Model_1afe540c8f99ca7bba9be929960a1086d9"></span><span class="sig-name descname"><span class="pre">x_</span></span><a class="headerlink" href="#models.Model.x_" title="Permalink to this definition"></a></dt>
+<dd><p>Hardware Data. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Model.y_">
+<span class="target" id="classmodels_1_1Model_1a84eefbbc1d96638b5c468b24a09b45fa"></span><span class="sig-name descname"><span class="pre">y_</span></span><a class="headerlink" href="#models.Model.y_" title="Permalink to this definition"></a></dt>
+<dd><p>Time, Cost, or Objective Cost. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Model.max_rsquared_">
+<span class="target" id="classmodels_1_1Model_1adfdb0b1764155905657e004805af3c9a"></span><span class="sig-name descname"><span class="pre">max_rsquared_</span></span><a class="headerlink" href="#models.Model.max_rsquared_" title="Permalink to this definition"></a></dt>
+<dd><p>R^2 for best fit model. </p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="models.Model.model_">
+<span class="target" id="classmodels_1_1Model_1a31f4992110b4fc6805ded916a13f6d82"></span><span class="sig-name descname"><span class="pre">model_</span></span><a class="headerlink" href="#models.Model.model_" title="Permalink to this definition"></a></dt>
+<dd><p>Best fit model. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../SkyOptimization/summary.html" class="btn btn-neutral float-left" title="Sky Optimization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Kaiyuan Chen, Kush Hari, Rohil Khare, Charlotte Le, Trinity Chung, Jaimyn Drake, Karthik Dharmarajan, Simeon Adebola, Jeffrey Ichnowski, John Kubiatowicz, and Ken Goldberg.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

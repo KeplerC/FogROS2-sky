@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FogROS2-Sky Optimization &mdash; FogROS2-Sky  documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/graphviz.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Sky Optimization" href="SkyOptimization/summary.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="#" class="icon icon-home">
+            FogROS2-Sky
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="SkyOptimization/summary.html">Sky Optimization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Models/summary.html">Models</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">FogROS2-Sky</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">FogROS2-Sky Optimization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="fogros2-sky-optimization">
+<h1>FogROS2-Sky Optimization<a class="headerlink" href="#fogros2-sky-optimization" title="Permalink to this heading"></a></h1>
+<section id="installation-and-setup">
+<h2>Installation and Setup<a class="headerlink" href="#installation-and-setup" title="Permalink to this heading"></a></h2>
+<p>Follow the installation steps on the <a class="reference external" href="https://github.com/KeplerC/FogROS2-sky#sky-setup-instructions">Sky Setup Instructions</a> section of the FogROS2-Sky README.</p>
+<p>Before running the optimization script, configure AWS using your access key and secret access key.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">aws</span><span class="w"> </span><span class="n">configure</span>
+<span class="n">sky</span><span class="w"> </span><span class="n">check</span>
+</pre></div>
+</div>
+</section>
+<section id="command-line-arguments">
+<h2>Command Line Arguments<a class="headerlink" href="#command-line-arguments" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Short Argument</p></th>
+<th class="head"><p>Long Argument</p></th>
+<th class="head"><p>Required</p></th>
+<th class="head"><p>Type</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>-y</p></td>
+<td><p>–yaml_file</p></td>
+<td><p>True</p></td>
+<td><p>String</p></td>
+<td><p>Path to yaml
+file from
+current
+directory
+(not the
+directory
+that the
+script is
+in)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-gy</p></td>
+<td><p>–gpu_yaml_file</p></td>
+<td><p>True</p></td>
+<td><p>String</p></td>
+<td><p>Path to gpu
+yaml file
+from current
+directory
+(not the
+directory
+that the
+script is
+in)</p></td>
+</tr>
+<tr class="row-even"><td><p>-s</p></td>
+<td><p>–steps</p></td>
+<td><p>True</p></td>
+<td><p>Int</p></td>
+<td><p>Total number
+of steps you
+want the
+algorithm to
+take (Dexnet
+by default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-c</p></td>
+<td><p>–max_cost</p></td>
+<td><p>True</p></td>
+<td><p>Float</p></td>
+<td><p>Maximum
+financial
+cost you
+want to
+spend on
+cloud
+computing
+(in $)</p></td>
+</tr>
+<tr class="row-even"><td><p>-t</p></td>
+<td><p>–max_time</p></td>
+<td><p>True</p></td>
+<td><p>Float</p></td>
+<td><p>Maximum
+amount of
+time you
+want the
+algorithm to
+spend on the
+cloud (in
+seconds)</p></td>
+</tr>
+<tr class="row-odd"><td><p>-oc</p></td>
+<td><p>–max
+_objective_cost</p></td>
+<td><p>True</p></td>
+<td><p>Float</p></td>
+<td><p>Maximum
+objective
+cost (used
+only for
+motion
+planning,
+TODO: Remove
+objective
+cost
+requirement
+for SLAM and
+Dexnet where
+it isn’t
+used)</p></td>
+</tr>
+<tr class="row-even"><td><p>-d</p></td>
+<td><p>–debug</p></td>
+<td><p>False</p></td>
+<td><p>N/A</p></td>
+<td><p>Type -d if
+you want to
+run debug
+mode</p></td>
+</tr>
+</tbody>
+</table>
+<p>In order to run SLAM, yaml and gpu yaml files need to contain slam in
+the filename. In order to run motion planning, yaml and gpu yaml files
+need to contain mp. Otherwise, Dexnet is run by default. TODO: Add
+command line argument to specify if the program should run Dexnet, SLAM,
+or Motion Planning.</p>
+</section>
+<section id="sample-dexnet-run-light-constraints">
+<h2>Sample Dexnet Run (Light Constraints)<a class="headerlink" href="#sample-dexnet-run-light-constraints" title="Permalink to this heading"></a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">~/</span><span class="n">FogROS2</span><span class="o">-</span><span class="n">sky</span><span class="o">/</span><span class="n">fogros2</span><span class="o">/</span><span class="n">scripts</span>
+<span class="n">python3</span><span class="w"> </span><span class="n">sky_optimization</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">gy</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_gpu</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="mi">3500</span><span class="w"> </span><span class="o">-</span><span class="n">oc</span><span class="w"> </span><span class="mi">700</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+</pre></div>
+</div>
+<div class="admonition-sample-output admonition">
+<p class="admonition-title">Sample Output</p>
+<p>The first optimization used cost as an objective function and set time
+as a constraint. We can see that we selected CPU and memory such that
+cost was minimized while still adhering to the time constraint
+of 3500 seconds. The closest AWS instance to imitate this hardware
+setup is the c6i.2xlarge.</p>
+<p>The second optimization used time as an objective function and set
+cost as a constraint. We can see that we selected CPU and memory such
+that time was minimized while still adhering to the cost
+constraint of $5. The closest AWS instance to imitate this hardware
+setup is the r6i.8xlarge.</p>
+<p>Now, it is important to note the latter 2 optimizations including the
+T4 GPU also satisfy the constraints, and seem to work more
+efficiently. This can be highlighed in the next section with harsher
+constraints.</p>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">6.583081308434977</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">13.166162616833319</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">3500.000000746982</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.27147393261837877</span>
+<span class="n">c6i</span><span class="mf">.2</span><span class="n">xlarge</span>
+
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">29.10002363774633</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">208.22697699205892</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">2067.889985919936</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$1</span><span class="mf">.0000000067110584</span>
+<span class="n">r6i</span><span class="mf">.8</span><span class="n">xlarge</span>
+
+<span class="n">T4</span>
+
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">4.0</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">16.0</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">1841.2</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.26924140299114097</span>
+<span class="n">g4dn</span><span class="p">.</span><span class="n">xlarge</span>
+
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">4.0</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">16.0</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">1841.2</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.26924140299114097</span>
+<span class="n">g4dn</span><span class="p">.</span><span class="n">xlarge</span>
+</pre></div>
+</div>
+</section>
+<section id="sample-dexnet-run-harsh-constraints">
+<h2>Sample Dexnet Run (Harsh Constraints)<a class="headerlink" href="#sample-dexnet-run-harsh-constraints" title="Permalink to this heading"></a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">~/</span><span class="n">FogROS2</span><span class="o">-</span><span class="n">sky</span><span class="o">/</span><span class="n">fogros2</span><span class="o">/</span><span class="n">scripts</span>
+<span class="n">python3</span><span class="w"> </span><span class="n">sky_optimization</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">gy</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_gpu</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="mf">0.5</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="mi">2000</span><span class="w"> </span><span class="o">-</span><span class="n">oc</span><span class="w"> </span><span class="mi">700</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+</pre></div>
+</div>
+<div class="admonition-sample-output admonition">
+<p class="admonition-title">Sample Output</p>
+<p>The first two optimizations attempt to find an instance to run Dexnet in
+under 2000 seconds and $0.50. With just CPU, this task is not possible
+under those constraints, but the latter 2 optimizations show cost and
+time optimizations when a T4 is included. We can see that additional CPU
+and memory do not help with computation since the optimal CPU and memory
+for the T4 GPU is the minimum amount. Furthermore, since CPU and memory
+are most efficient at the minimum, the GPU optimizations do not push up
+to the user constraints.</p>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Failed</span><span class="w"> </span><span class="n">optimization</span><span class="p">.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">relax</span><span class="w"> </span><span class="n">constraints</span>
+<span class="n">Closest</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">55.174132878793564</span>
+<span class="n">Closest</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">110.34826575767434</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">1999.999999995834</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$1</span><span class="mf">.2847671764297848</span>
+<span class="n">c6i</span><span class="mf">.16</span><span class="n">xlarge</span>
+<span class="n">Failed</span><span class="w"> </span><span class="n">optimization</span><span class="p">.</span><span class="w"> </span><span class="n">Please</span><span class="w"> </span><span class="n">relax</span><span class="w"> </span><span class="n">constraints</span>
+<span class="n">Closest</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">19.513887987497554</span>
+<span class="n">Closest</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">39.027775974959205</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">2197.1952866003394</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.5000000000002129</span>
+<span class="n">c6i</span><span class="mf">.4</span><span class="n">xlarge</span>
+<span class="n">T4</span>
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">4.0</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">16.0</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">1835.8785714325759</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.2679159162503509</span>
+<span class="n">g4dn</span><span class="p">.</span><span class="n">xlarge</span>
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">4.0</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">16.0</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">1835.8785714325759</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$0</span><span class="mf">.2679159162503509</span>
+<span class="n">g4dn</span><span class="p">.</span><span class="n">xlarge</span>
+</pre></div>
+</div>
+</section>
+<section id="sample-slam-run">
+<h2>Sample SLAM Run<a class="headerlink" href="#sample-slam-run" title="Permalink to this heading"></a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">~/</span><span class="n">FogROS2</span><span class="o">-</span><span class="n">sky</span><span class="o">/</span><span class="n">fogros2</span><span class="o">/</span><span class="n">scripts</span>
+<span class="n">python3</span><span class="w"> </span><span class="n">sky_optimization</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_slam</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">gy</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_slam_gpu</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="mi">1000000</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="mi">55000</span><span class="w"> </span><span class="o">-</span><span class="n">oc</span><span class="w"> </span><span class="mi">650</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+</pre></div>
+</div>
+<div class="admonition-sample-output admonition">
+<p class="admonition-title">Sample Output</p>
+<p>The first optimization used cost as an objective function and set time
+as a constraint. We can see that we selected CPU and memory such that
+cost was minimized while still adhering to the user’s time constraint
+of 55000 seconds. The closest AWS instance to imitate this hardware
+setup is the m6i.xlarge.</p>
+<p>The second optimization used time as an objective function and set
+cost as a constraint. We can see that we selected CPU and memory such
+that time was minimized while still adhering to the user’s cost
+constraint of $5. The closest AWS instance to imitate this hardware
+setup is the r6i.2xlarge.</p>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">4.586338333006091</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">16.89002258471161</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">54999.9999999424284</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$3</span><span class="mf">.444474922339687</span>
+<span class="n">m6i</span><span class="p">.</span><span class="n">xlarge</span>
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">7.441775519458142</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">59.53420428352985</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">time</span><span class="o">:</span><span class="w"> </span><span class="mf">38322.24476746237</span><span class="w"> </span><span class="n">seconds</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$4</span><span class="mf">.999999996850867</span>
+<span class="n">r6i</span><span class="mf">.2</span><span class="n">xlarge</span>
+</pre></div>
+</div>
+</section>
+<section id="sample-motion-planning-run">
+<h2>Sample Motion Planning Run<a class="headerlink" href="#sample-motion-planning-run" title="Permalink to this heading"></a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span><span class="w"> </span><span class="o">~/</span><span class="n">FogROS2</span><span class="o">-</span><span class="n">sky</span><span class="o">/</span><span class="n">fogros2</span><span class="o">/</span><span class="n">scripts</span>
+<span class="n">python3</span><span class="w"> </span><span class="n">sky_optimization</span><span class="p">.</span><span class="n">py</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_mp</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">gy</span><span class="w"> </span><span class="p">..</span><span class="o">/</span><span class="p">..</span><span class="o">/</span><span class="n">benchmark_mp_gpu</span><span class="p">.</span><span class="n">yaml</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="mi">1000</span><span class="w"> </span><span class="o">-</span><span class="n">c</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">-</span><span class="n">t</span><span class="w"> </span><span class="mi">3500</span><span class="w"> </span><span class="o">-</span><span class="n">oc</span><span class="w"> </span><span class="mi">650</span><span class="w"> </span><span class="o">-</span><span class="n">d</span>
+</pre></div>
+</div>
+<div class="admonition-sample-output admonition">
+<p class="admonition-title">Sample Output</p>
+<p>The first optimization used cost as an objective function and set
+objective cost as a constraint. We can see that we selected CPU and
+memory such that cost was minimized while still adhering to the user
+objective cost constraint of 650. The closest AWS instance to imitate
+this hardware setup is the c6i.4xlarge.</p>
+<p>The second optimization used objective cost as an objective function
+and set cost as a constraint. We can see that we selected CPU and
+memory such that objective cost was minimized while still adhering to
+the user cost constraint of $2. The closest AWS instance to imitate
+this hardware setup is the c6i.4xlarge (same as the first
+optimization).</p>
+<p>It is also important to note that the memory:CPU ratio for both
+optimizations is 2, meaning that cloud instances with excessive memory
+is inefficient for this motion planning task.</p>
+</div>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">14.868582555026965</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">29.73716511005242</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">objective</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="mf">650.0000000000771</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$1</span><span class="mf">.4081357880019716</span>
+<span class="n">c6i</span><span class="mf">.4</span><span class="n">xlarge</span>
+<span class="n">Successful</span><span class="w"> </span><span class="n">optimization</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mf">23.744358343008674</span>
+<span class="n">Optimized</span><span class="w"> </span><span class="n">Memory</span><span class="o">:</span><span class="w"> </span><span class="mf">47.488716242681406</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">objective</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="mf">637.8114539965433</span>
+<span class="n">Projected</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="n">$2</span><span class="mf">.000000117784925</span>
+<span class="n">c6i</span><span class="mf">.4</span><span class="n">xlarge</span>
+</pre></div>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="SkyOptimization/summary.html" class="btn btn-neutral float-right" title="Sky Optimization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Kaiyuan Chen, Kush Hari, Rohil Khare, Charlotte Le, Trinity Chung, Jaimyn Drake, Karthik Dharmarajan, Simeon Adebola, Jeffrey Ichnowski, John Kubiatowicz, and Ken Goldberg.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

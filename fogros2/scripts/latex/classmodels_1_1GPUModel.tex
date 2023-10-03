@@ -1,0 +1,191 @@
+\hypertarget{classmodels_1_1GPUModel}{}\doxysection{models.\+GPUModel Class Reference}
+\label{classmodels_1_1GPUModel}\index{models.GPUModel@{models.GPUModel}}
+
+
+Finds best fit time/cost model as a function of hardware for GPU instances.  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_ad85ce2b3c092d022a06467bda7209b30}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, x, y)
+\begin{DoxyCompactList}\small\item\em \mbox{\hyperlink{classmodels_1_1GPUModel}{GPUModel}} Constructor. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_a4a52ef8d4317de837b38f66c0b9734d6}{get\+Model}} (self)
+\begin{DoxyCompactList}\small\item\em Gets best fit model. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_a498688fff74b10719ef2df8e66f57cdd}{regression}} (self, model, coeff\+\_\+len)
+\begin{DoxyCompactList}\small\item\em Performs regression based on model type. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_a65305f2013b766fa8625bf8580c23838}{const\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Constant Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_acd0371a78abcb6f5e8a236d933b29ea8}{linear\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Linear Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_a38e6ee50e509fe0bc49203bdcad8092e}{log\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Log Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_ac8cf529aac748a4b1e127a50eb5bbdc3}{exp\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Exponential Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_a2defed1ee3220e3a173883061e59dac8}{power\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Power Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classmodels_1_1GPUModel_aff0c8ca7874ee502f554f44395c220ef}{hyper\+\_\+model}} (self, x, $\ast$coefficients, predict=False, single=False)
+\begin{DoxyCompactList}\small\item\em Hyperbolic Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_ab8e53912746fb0fdf6b2131c89686498}\label{classmodels_1_1GPUModel_ab8e53912746fb0fdf6b2131c89686498}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_ab8e53912746fb0fdf6b2131c89686498}{x\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Hardware Data. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a0bbdf3c37190cfb94bba7a342a00ba44}\label{classmodels_1_1GPUModel_a0bbdf3c37190cfb94bba7a342a00ba44}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_a0bbdf3c37190cfb94bba7a342a00ba44}{y\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Time, Cost, or Objective Cost. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a98e8bba6082afadc1a824661b9451fc4}\label{classmodels_1_1GPUModel_a98e8bba6082afadc1a824661b9451fc4}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_a98e8bba6082afadc1a824661b9451fc4}{r\+\_\+squared\+\_\+threshold\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Minimum r$^\wedge$2 for best fit model (if it is below, then we say the correlation isn\textquotesingle{}t strong enough) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_ad8e7a9dca7d5e74ca10e23e3fd25d2e7}\label{classmodels_1_1GPUModel_ad8e7a9dca7d5e74ca10e23e3fd25d2e7}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_ad8e7a9dca7d5e74ca10e23e3fd25d2e7}{max\+\_\+rsquared\+\_\+}}
+\begin{DoxyCompactList}\small\item\em R$^\wedge$2 for best fit model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_afc167ab556351a906797d822dd794055}\label{classmodels_1_1GPUModel_afc167ab556351a906797d822dd794055}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_afc167ab556351a906797d822dd794055}{model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Best fit model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a0a960adb664758649d4f1b276facc8ef}\label{classmodels_1_1GPUModel_a0a960adb664758649d4f1b276facc8ef}} 
+\mbox{\hyperlink{classmodels_1_1GPUModel_a0a960adb664758649d4f1b276facc8ef}{is\+\_\+const\+\_\+model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Const model boolean is true if the best fit model doesn\textquotesingle{}t have a strong enough correlation. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Finds best fit time/cost model as a function of hardware for GPU instances. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_ad85ce2b3c092d022a06467bda7209b30}\label{classmodels_1_1GPUModel_ad85ce2b3c092d022a06467bda7209b30}} 
+\index{models.GPUModel@{models.GPUModel}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})}
+
+
+
+\mbox{\hyperlink{classmodels_1_1GPUModel}{GPUModel}} Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Hardware Data \\
+\hline
+{\em y} & Time, Cost, or Objective Cost \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a65305f2013b766fa8625bf8580c23838}\label{classmodels_1_1GPUModel_a65305f2013b766fa8625bf8580c23838}} 
+\index{models.GPUModel@{models.GPUModel}!const\_model@{const\_model}}
+\index{const\_model@{const\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{const\_model()}{const\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+const\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Constant Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_ac8cf529aac748a4b1e127a50eb5bbdc3}\label{classmodels_1_1GPUModel_ac8cf529aac748a4b1e127a50eb5bbdc3}} 
+\index{models.GPUModel@{models.GPUModel}!exp\_model@{exp\_model}}
+\index{exp\_model@{exp\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{exp\_model()}{exp\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+exp\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Exponential Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a4a52ef8d4317de837b38f66c0b9734d6}\label{classmodels_1_1GPUModel_a4a52ef8d4317de837b38f66c0b9734d6}} 
+\index{models.GPUModel@{models.GPUModel}!getModel@{getModel}}
+\index{getModel@{getModel}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{getModel()}{getModel()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+get\+Model (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Gets best fit model. 
+
+\begin{DoxyReturn}{Returns}
+Best Fit \mbox{\hyperlink{classmodels_1_1Model}{Model}} 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_aff0c8ca7874ee502f554f44395c220ef}\label{classmodels_1_1GPUModel_aff0c8ca7874ee502f554f44395c220ef}} 
+\index{models.GPUModel@{models.GPUModel}!hyper\_model@{hyper\_model}}
+\index{hyper\_model@{hyper\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{hyper\_model()}{hyper\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+hyper\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Hyperbolic Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_acd0371a78abcb6f5e8a236d933b29ea8}\label{classmodels_1_1GPUModel_acd0371a78abcb6f5e8a236d933b29ea8}} 
+\index{models.GPUModel@{models.GPUModel}!linear\_model@{linear\_model}}
+\index{linear\_model@{linear\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{linear\_model()}{linear\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+linear\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Linear Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a38e6ee50e509fe0bc49203bdcad8092e}\label{classmodels_1_1GPUModel_a38e6ee50e509fe0bc49203bdcad8092e}} 
+\index{models.GPUModel@{models.GPUModel}!log\_model@{log\_model}}
+\index{log\_model@{log\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{log\_model()}{log\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+log\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Log Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a2defed1ee3220e3a173883061e59dac8}\label{classmodels_1_1GPUModel_a2defed1ee3220e3a173883061e59dac8}} 
+\index{models.GPUModel@{models.GPUModel}!power\_model@{power\_model}}
+\index{power\_model@{power\_model}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{power\_model()}{power\_model()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+power\+\_\+model (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{x,  }\item[{$\ast$}]{coefficients,  }\item[{}]{predict = {\ttfamily False},  }\item[{}]{single = {\ttfamily False} }\end{DoxyParamCaption})}
+
+
+
+Power Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}}. 
+
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classmodels_1_1Model}{Model}} Outputs 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classmodels_1_1GPUModel_a498688fff74b10719ef2df8e66f57cdd}\label{classmodels_1_1GPUModel_a498688fff74b10719ef2df8e66f57cdd}} 
+\index{models.GPUModel@{models.GPUModel}!regression@{regression}}
+\index{regression@{regression}!models.GPUModel@{models.GPUModel}}
+\doxysubsubsection{\texorpdfstring{regression()}{regression()}}
+{\footnotesize\ttfamily def models.\+GPUModel.\+regression (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{model,  }\item[{}]{coeff\+\_\+len }\end{DoxyParamCaption})}
+
+
+
+Performs regression based on model type. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em model} & Regression \mbox{\hyperlink{classmodels_1_1Model}{Model}} Type \\
+\hline
+{\em coeff\+\_\+len} & Number of coefficients required for this regression model \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Tuple containing R$^\wedge$2 and coefficients of given model 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+models.\+py\end{DoxyCompactItemize}

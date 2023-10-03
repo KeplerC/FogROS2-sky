@@ -1,0 +1,594 @@
+\hypertarget{classsky__optimization_1_1SkyOptimization}{}\doxysection{sky\+\_\+optimization.\+Sky\+Optimization Class Reference}
+\label{classsky__optimization_1_1SkyOptimization}\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+
+
+Sky Optimizer responsible for performing the cost and time optimizations based on problem type (Dexnet, VSLAM, Motion Planning) and GPU type (No GPU, T4, etc)  
+
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a39a8f8caf861f46106c0a7aae4f7e2cd}{\+\_\+\+\_\+init\+\_\+\+\_\+}} (self, yaml\+\_\+file, gpu\+\_\+yaml\+\_\+file, steps, max\+\_\+cost, max\+\_\+time, max\+\_\+objective\+\_\+cost, debug, gpu\+\_\+type, count)
+\begin{DoxyCompactList}\small\item\em Sky Optimization Constructor. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a267b44e102db28ce95c71e3015c2f60f}{full\+Optimization}} (self)
+\begin{DoxyCompactList}\small\item\em Full Sky Optimization Function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ab49a020cbddd3b21b5910da3e8abcb43}{get\+Objective\+Cost}} (self, machine\+\_\+name)
+\begin{DoxyCompactList}\small\item\em Parses Sky benchmarking to get objective cost for given machine instance. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ae2e79639f37155ca1ea96e0fbe10cb7a}{find\+Instance}} (self, optimization\+\_\+results, optimization\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Given results of optimization, this will find the closest feasible hardware setup and its corresponding AWS Instance (Future Work\+: Build out to other cloud providers) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ac56fe7d2cba6776d09ed8aceb83a325e}{binary\+Search\+Rounding}} (self, optimal\+\_\+cpu\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Rounds CPU output of optimization to nearest feasible CPU amount allowed in cloud instance. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aed0a897dd9d70289da9627c5f522a01f}\label{classsky__optimization_1_1SkyOptimization_aed0a897dd9d70289da9627c5f522a01f}} 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aed0a897dd9d70289da9627c5f522a01f}{find\+Gpu\+Values}} (self)
+\begin{DoxyCompactList}\small\item\em Parses provided GPU benchmark file to determine possible hardware setups for given GPU. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_abb929a2946778610f5fd2a5063fe9a71}\label{classsky__optimization_1_1SkyOptimization_abb929a2946778610f5fd2a5063fe9a71}} 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_abb929a2946778610f5fd2a5063fe9a71}{find\+Cpu\+Values}} (self)
+\begin{DoxyCompactList}\small\item\em Parses provided CPU benchmark file to determine edge case hardware setups. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a13f369d90ce3347bc1bd704ec2dfc5b0}{create\+Benchmarks}} (self, gpu\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Creates Yaml files for each benchmarking instance that will be run. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a38deae1f7984a52a487d6dfbe9fc7562}{run\+Sky\+Benchmarks}} (self, count)
+\begin{DoxyCompactList}\small\item\em Multithreads (Python-\/style) sky benchmarking instances. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aa4f19dace05127352c5bf66ced3540a6}{sky\+Benchmark}} (self, yaml\+\_\+file, benchmark\+\_\+name, hardware\+\_\+count)
+\begin{DoxyCompactList}\small\item\em Runs sky benchmarking instance from bash script. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_abda685964081b0ca76af9a1a6e501f86}{regression\+Solver}} (self, data, purpose)
+\begin{DoxyCompactList}\small\item\em Finds best fitting model given benchmarking data. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a133ced3a3b28b15b9ec884106324976a}{create\+Bounds}} (self)
+\begin{DoxyCompactList}\small\item\em Bounds for CPU and Memory for optimization problem. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a43161ffa0faa9da8f154608cf3fa9d47}{create\+Constraints}} (self, constraint\+\_\+function\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Constraints for Optimization Problem (includes time/cost along with memory/\+CPU ratio) \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_afcd54cc614b0ef5b91c479f415dd11f0}{get\+Time\+Optimization}} (self)
+\begin{DoxyCompactList}\small\item\em Gets Time Optimization Results. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ad74297d3b060c7506c3822e94c8af3bc}{get\+Cost\+Optimization}} (self)
+\begin{DoxyCompactList}\small\item\em Gets Cost Optimization Results. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a65212da61b559b4eda7273f7dc76fc60}{create\+Objective\+Function}} (self, objective\+\_\+function\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Optimization Loss Function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a292af0b8fc00695722a2dc2c87ccc629}{memory\+Function}} (self)
+\begin{DoxyCompactList}\small\item\em Function for memory/\+CPU ratio constraint. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a9bae6ff64842af75b23394e1c6ad8074}{cost\+Function}} (self)
+\begin{DoxyCompactList}\small\item\em Cost Function = \$/second $\ast$ seconds/step $\ast$ \# steps. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a78ea3c762086394f44a5e6ab6f23e10a}{time\+Function}} (self)
+\begin{DoxyCompactList}\small\item\em Time Function = seconds/step $\ast$ \# steps. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ab1987bf7c8175c834941f86a24d33c57}{objective\+Cost\+Function}} (self)
+\begin{DoxyCompactList}\small\item\em Objective Cost Function. \end{DoxyCompactList}\item 
+def \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a2f45c1ac884c2446cc67144adb8adc8a}{solve\+Optimization}} (self, objective\+\_\+function\+\_\+type, constraint\+\_\+function\+\_\+type)
+\begin{DoxyCompactList}\small\item\em Optimization Problem Setup and Solver. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a49d85a35ddb0203bd65e5934ee8f1416}\label{classsky__optimization_1_1SkyOptimization_a49d85a35ddb0203bd65e5934ee8f1416}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a49d85a35ddb0203bd65e5934ee8f1416}{debug\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Debug Mode (Lots of print statements) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a0f868e7a0735257eb2ec31a5a8e7a464}\label{classsky__optimization_1_1SkyOptimization_a0f868e7a0735257eb2ec31a5a8e7a464}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a0f868e7a0735257eb2ec31a5a8e7a464}{steps\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Number of steps the Sky benchmarking should run. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_acefe65e600bb09fcb2c4d3e69dd76f11}\label{classsky__optimization_1_1SkyOptimization_acefe65e600bb09fcb2c4d3e69dd76f11}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_acefe65e600bb09fcb2c4d3e69dd76f11}{max\+\_\+cost\+\_\+}}
+\begin{DoxyCompactList}\small\item\em User provided cost constraint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a50d798eb763489929afd39b12d1949a0}\label{classsky__optimization_1_1SkyOptimization_a50d798eb763489929afd39b12d1949a0}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a50d798eb763489929afd39b12d1949a0}{max\+\_\+time\+\_\+}}
+\begin{DoxyCompactList}\small\item\em User provided time constraint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_af2a885293ef2d18424926fc5ce2c5053}\label{classsky__optimization_1_1SkyOptimization_af2a885293ef2d18424926fc5ce2c5053}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_af2a885293ef2d18424926fc5ce2c5053}{max\+\_\+objective\+\_\+cost\+\_\+}}
+\begin{DoxyCompactList}\small\item\em User provided objective cost constraint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a34f4213616e8090576b333b24bddbaad}\label{classsky__optimization_1_1SkyOptimization_a34f4213616e8090576b333b24bddbaad}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a34f4213616e8090576b333b24bddbaad}{gpu\+\_\+type\+\_\+}}
+\begin{DoxyCompactList}\small\item\em The GPU type used in the Sky benchmarking (only tested on No GPU, T4) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a045b07f0297cfa3e6c099a354c71a750}\label{classsky__optimization_1_1SkyOptimization_a045b07f0297cfa3e6c099a354c71a750}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a045b07f0297cfa3e6c099a354c71a750}{count\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index in list of \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization}{Sky\+Optimization}} Problems being run (helps coordinate the multithreading) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a35ecd4c7647030cde04a8a0c946b8c7e}\label{classsky__optimization_1_1SkyOptimization_a35ecd4c7647030cde04a8a0c946b8c7e}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a35ecd4c7647030cde04a8a0c946b8c7e}{SECONDS\+\_\+\+PER\+\_\+\+MINUTE}}
+\begin{DoxyCompactList}\small\item\em Number of seconds in a minute. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aa44cefc98e2a66fdf588216a1321ecac}\label{classsky__optimization_1_1SkyOptimization_aa44cefc98e2a66fdf588216a1321ecac}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aa44cefc98e2a66fdf588216a1321ecac}{MINUTES\+\_\+\+PER\+\_\+\+HOUR}}
+\begin{DoxyCompactList}\small\item\em Number of minutes in an hour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_abce54906722787cd57c5471fbc57c1aa}\label{classsky__optimization_1_1SkyOptimization_abce54906722787cd57c5471fbc57c1aa}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_abce54906722787cd57c5471fbc57c1aa}{SECONDS\+\_\+\+PER\+\_\+\+HOUR}}
+\begin{DoxyCompactList}\small\item\em Number of seconds in an hour. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a17169c5c1e85810c5f3dc75dd59a738c}\label{classsky__optimization_1_1SkyOptimization_a17169c5c1e85810c5f3dc75dd59a738c}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a17169c5c1e85810c5f3dc75dd59a738c}{ZERO\+\_\+\+EPSILON}}
+\begin{DoxyCompactList}\small\item\em Positive zero approximation. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aeee01f861ccbc6de5f213b60238ef20c}\label{classsky__optimization_1_1SkyOptimization_aeee01f861ccbc6de5f213b60238ef20c}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aeee01f861ccbc6de5f213b60238ef20c}{yaml\+\_\+file\+\_\+}}
+\begin{DoxyCompactList}\small\item\em YAML file specifying Sky benchmarking setup for no GPU. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a5efe23f6440de54800a26aeb4d68cf7b}\label{classsky__optimization_1_1SkyOptimization_a5efe23f6440de54800a26aeb4d68cf7b}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a5efe23f6440de54800a26aeb4d68cf7b}{gpu\+\_\+yaml\+\_\+file\+\_\+}}
+\begin{DoxyCompactList}\small\item\em YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_add496d9356567dd5e3d4cea5c85cc995}\label{classsky__optimization_1_1SkyOptimization_add496d9356567dd5e3d4cea5c85cc995}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_add496d9356567dd5e3d4cea5c85cc995}{is\+\_\+slam\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Boolean indicating if the task is V-\/\+SLAM. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a1b3a8d2a6ed4e848a4e1b6478c88477b}\label{classsky__optimization_1_1SkyOptimization_a1b3a8d2a6ed4e848a4e1b6478c88477b}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a1b3a8d2a6ed4e848a4e1b6478c88477b}{is\+\_\+motion\+\_\+planning\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Boolean indicating if the task is motion planning. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a68219ed58fc2c0257712429299f644e1}\label{classsky__optimization_1_1SkyOptimization_a68219ed58fc2c0257712429299f644e1}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a68219ed58fc2c0257712429299f644e1}{is\+\_\+dexnet\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Boolean indicating if the task is Dexnet. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_acc9b57033573a885212186b97dc99207}\label{classsky__optimization_1_1SkyOptimization_acc9b57033573a885212186b97dc99207}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_acc9b57033573a885212186b97dc99207}{optimization\+\_\+function\+\_\+type\+\_\+length\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index in solution string specifying optimization function type. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a52a45c1c4260aa9f2f394d1f4c356815}\label{classsky__optimization_1_1SkyOptimization_a52a45c1c4260aa9f2f394d1f4c356815}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a52a45c1c4260aa9f2f394d1f4c356815}{max\+\_\+cpu\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Initialzation of maximum CPU constraint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a40511625171cbc420bb30661c61ee476}\label{classsky__optimization_1_1SkyOptimization_a40511625171cbc420bb30661c61ee476}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a40511625171cbc420bb30661c61ee476}{max\+\_\+memory\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Initialization of maximum memory constraint. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a72e4c451abbfc42b4c2849afdc69e616}\label{classsky__optimization_1_1SkyOptimization_a72e4c451abbfc42b4c2849afdc69e616}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a72e4c451abbfc42b4c2849afdc69e616}{relevant\+\_\+cpu\+\_\+list\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of realistic CPU setups for the cloud (similar to relevant hardware list without memory, rememant of prototype version that just looked for optimal CPU) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_abd2ae81e4be03e4a8a94b315ba0d2e45}\label{classsky__optimization_1_1SkyOptimization_abd2ae81e4be03e4a8a94b315ba0d2e45}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_abd2ae81e4be03e4a8a94b315ba0d2e45}{relevant\+\_\+hardware\+\_\+list\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of realistic CPU and memory setups for the cloud. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a2bccc848e89dd687f17b5c7fc8e1d4af}\label{classsky__optimization_1_1SkyOptimization_a2bccc848e89dd687f17b5c7fc8e1d4af}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a2bccc848e89dd687f17b5c7fc8e1d4af}{benchmark\+\_\+time\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List storing results from time benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aa235e18513ab01cfc9e10ba16ef9f7ea}\label{classsky__optimization_1_1SkyOptimization_aa235e18513ab01cfc9e10ba16ef9f7ea}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aa235e18513ab01cfc9e10ba16ef9f7ea}{benchmark\+\_\+yaml\+\_\+list\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of YAML files generated that will be used for Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aff7a271a0d938814ddd80e81e4f434c2}\label{classsky__optimization_1_1SkyOptimization_aff7a271a0d938814ddd80e81e4f434c2}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aff7a271a0d938814ddd80e81e4f434c2}{benchmark\+\_\+range\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Number of benchmarks performed per feature (i.\+e we only do benchmarking for minimum CPU amount, maximum CPU amount, and middle CPU amount) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a8a78a143f3bbf921caee7a8c7df6cafd}\label{classsky__optimization_1_1SkyOptimization_a8a78a143f3bbf921caee7a8c7df6cafd}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a8a78a143f3bbf921caee7a8c7df6cafd}{benchmark\+\_\+threads\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of different threads running Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_af3d4713dd960e0b81364d2e462e72828}\label{classsky__optimization_1_1SkyOptimization_af3d4713dd960e0b81364d2e462e72828}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_af3d4713dd960e0b81364d2e462e72828}{benchmark\+\_\+cost\+\_\+substring\+\_\+1\+\_\+}}
+\begin{DoxyCompactList}\small\item\em First identifier substring for cost benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ae06bd5d1e4dfbb7b0b054ab0e4a2b78d}\label{classsky__optimization_1_1SkyOptimization_ae06bd5d1e4dfbb7b0b054ab0e4a2b78d}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ae06bd5d1e4dfbb7b0b054ab0e4a2b78d}{benchmark\+\_\+cost\+\_\+substring\+\_\+2\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Second identifier substring for cost benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aca7b765b1d8f05bd3302c7afae7aa5be}\label{classsky__optimization_1_1SkyOptimization_aca7b765b1d8f05bd3302c7afae7aa5be}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aca7b765b1d8f05bd3302c7afae7aa5be}{benchmark\+\_\+time\+\_\+substring\+\_\+1\+\_\+}}
+\begin{DoxyCompactList}\small\item\em First identifier substring for time benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a2eb84795b7dff16671b7131b7564edaf}\label{classsky__optimization_1_1SkyOptimization_a2eb84795b7dff16671b7131b7564edaf}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a2eb84795b7dff16671b7131b7564edaf}{benchmark\+\_\+time\+\_\+substring\+\_\+2\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Second identifier substring for time benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ab9a547f76d882c185b085cd1ec103bed}\label{classsky__optimization_1_1SkyOptimization_ab9a547f76d882c185b085cd1ec103bed}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ab9a547f76d882c185b085cd1ec103bed}{min\+\_\+gpu\+\_\+substring\+\_\+1\+\_\+}}
+\begin{DoxyCompactList}\small\item\em First identifier substring for GPU identification. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a94504e90ae5fac73038d270cab17ba82}\label{classsky__optimization_1_1SkyOptimization_a94504e90ae5fac73038d270cab17ba82}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a94504e90ae5fac73038d270cab17ba82}{min\+\_\+gpu\+\_\+substring\+\_\+2\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Second identifier substring for GPU identification. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aaec9bf157fa5a0e40b76770d0536a10c}\label{classsky__optimization_1_1SkyOptimization_aaec9bf157fa5a0e40b76770d0536a10c}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aaec9bf157fa5a0e40b76770d0536a10c}{mem\+\_\+to\+\_\+cpu\+\_\+ratio\+\_\+for\+\_\+gpu\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Initialization for memory\+:CPU ratio (used only when GPU type isn\textquotesingle{}t None) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a538af45488bdf1a6114b5cbb38f09279}\label{classsky__optimization_1_1SkyOptimization_a538af45488bdf1a6114b5cbb38f09279}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a538af45488bdf1a6114b5cbb38f09279}{num\+\_\+steps\+\_\+and\+\_\+duration\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List containing step and startup time results for benchmarking (remmanat of prototype version where we tried to account for startup time. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a89cd90eb183761bd867f7563a2d93b2a}\label{classsky__optimization_1_1SkyOptimization_a89cd90eb183761bd867f7563a2d93b2a}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a89cd90eb183761bd867f7563a2d93b2a}{average\+\_\+setup\+\_\+time\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Average setup time for cloud instance (remmenant of prototype version\+: see self.\+num\+\_\+steps\+\_\+and\+\_\+duration\+\_\+ for explanation) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aaf9a95af2f39d4d94783736c8290c82c}\label{classsky__optimization_1_1SkyOptimization_aaf9a95af2f39d4d94783736c8290c82c}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aaf9a95af2f39d4d94783736c8290c82c}{got\+\_\+cost\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Boolean indicating if we have receieved cost information from benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a020b2f2f2db34c9f80743631ed7e1685}\label{classsky__optimization_1_1SkyOptimization_a020b2f2f2db34c9f80743631ed7e1685}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a020b2f2f2db34c9f80743631ed7e1685}{benchmark\+\_\+cost\+\_\+substring\+\_\+cpu\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Indiex where CPU information is located in benchmark cost string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a85fc9d5ae09d457a2f85352b3c930574}\label{classsky__optimization_1_1SkyOptimization_a85fc9d5ae09d457a2f85352b3c930574}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a85fc9d5ae09d457a2f85352b3c930574}{benchmark\+\_\+cost\+\_\+substring\+\_\+cost\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index where Cost information is located in benchmark cost string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a9c73c23a186529f9eccf043acac62560}\label{classsky__optimization_1_1SkyOptimization_a9c73c23a186529f9eccf043acac62560}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a9c73c23a186529f9eccf043acac62560}{benchmark\+\_\+cost\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List containng cost results from Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a054927efdf3272841445d020727ddf30}\label{classsky__optimization_1_1SkyOptimization_a054927efdf3272841445d020727ddf30}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a054927efdf3272841445d020727ddf30}{benchmark\+\_\+objective\+\_\+cost\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List containing objective cost results for Sky benchmarking (only relevant for Motion Planning) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ad95886624b53afd9d435d8491584b184}\label{classsky__optimization_1_1SkyOptimization_ad95886624b53afd9d435d8491584b184}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ad95886624b53afd9d435d8491584b184}{yaml\+\_\+file\+\_\+contents\+\_\+}}
+\begin{DoxyCompactList}\small\item\em String containing YAML file contents for Sky benchmark YAML. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a7f044a3da11dc7c692c5d6b6cd6fac8b}\label{classsky__optimization_1_1SkyOptimization_a7f044a3da11dc7c692c5d6b6cd6fac8b}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a7f044a3da11dc7c692c5d6b6cd6fac8b}{cpu\+\_\+start\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing information about where CPU information starts in YAML file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a7898ef8cbb1f7321cac96d983c1835b5}\label{classsky__optimization_1_1SkyOptimization_a7898ef8cbb1f7321cac96d983c1835b5}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a7898ef8cbb1f7321cac96d983c1835b5}{cpu\+\_\+candiate\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing information about where CPU candidate information starts in YAML file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a2e3b191fc23c2b66fc2133d4b641aec1}\label{classsky__optimization_1_1SkyOptimization_a2e3b191fc23c2b66fc2133d4b641aec1}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a2e3b191fc23c2b66fc2133d4b641aec1}{cpu\+\_\+str\+\_\+offset\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Offset for index where we insert CPU information into the YAML file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a21f9f708df7b2680238b6c9e21aa55cd}\label{classsky__optimization_1_1SkyOptimization_a21f9f708df7b2680238b6c9e21aa55cd}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a21f9f708df7b2680238b6c9e21aa55cd}{seconds\+\_\+per\+\_\+step\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing seconds per step information during Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a19c2c066028c03bccf80ee9b1cd35776}\label{classsky__optimization_1_1SkyOptimization_a19c2c066028c03bccf80ee9b1cd35776}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a19c2c066028c03bccf80ee9b1cd35776}{num\+\_\+steps\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing number of steps information during Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a9870a41b8684ffc6a04a40ea269ec643}\label{classsky__optimization_1_1SkyOptimization_a9870a41b8684ffc6a04a40ea269ec643}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a9870a41b8684ffc6a04a40ea269ec643}{duration\+\_\+min\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing minute duration during Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a477634dc0a1b1d321060ee051bd7732f}\label{classsky__optimization_1_1SkyOptimization_a477634dc0a1b1d321060ee051bd7732f}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a477634dc0a1b1d321060ee051bd7732f}{duration\+\_\+sec\+\_\+index\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Index containing second duration during Sky benchmarking. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a0009686e4076ebb18c69172a7ed22ce3}\label{classsky__optimization_1_1SkyOptimization_a0009686e4076ebb18c69172a7ed22ce3}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a0009686e4076ebb18c69172a7ed22ce3}{solutions\+\_\+in\+\_\+constraints\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of solutions that are within constraints. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aa822a8d8eacc84fc7d8a573cdc379543}\label{classsky__optimization_1_1SkyOptimization_aa822a8d8eacc84fc7d8a573cdc379543}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aa822a8d8eacc84fc7d8a573cdc379543}{solutions\+\_\+outside\+\_\+constraints\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List of solutions that are outside constraints. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a45e3177b68d8b6517b6f08bfc7185422}\label{classsky__optimization_1_1SkyOptimization_a45e3177b68d8b6517b6f08bfc7185422}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a45e3177b68d8b6517b6f08bfc7185422}{data\+\_\+file\+\_\+}}
+\begin{DoxyCompactList}\small\item\em String before relevant benchmarking data (Let\textquotesingle{}s the program know which line to collect benchmarking data from) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_af92f40cf672de49e44b1f9a91da864d8}\label{classsky__optimization_1_1SkyOptimization_af92f40cf672de49e44b1f9a91da864d8}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_af92f40cf672de49e44b1f9a91da864d8}{data\+\_\+file\+\_\+name\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Data file we will save benchmark data results. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aea17908f35922783d4f70126c1a215fe}\label{classsky__optimization_1_1SkyOptimization_aea17908f35922783d4f70126c1a215fe}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aea17908f35922783d4f70126c1a215fe}{result\+\_\+queue\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List containing info that will be outputted to data file. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aff5e77d41e90e5c0086e7b45b8383e96}\label{classsky__optimization_1_1SkyOptimization_aff5e77d41e90e5c0086e7b45b8383e96}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aff5e77d41e90e5c0086e7b45b8383e96}{possible\+\_\+cpus\+\_\+}}
+\begin{DoxyCompactList}\small\item\em List containing possible CPUs (current cloud setup could not do any other CPU amounts) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a5023aadf153a745b25f5e0581bdc6543}\label{classsky__optimization_1_1SkyOptimization_a5023aadf153a745b25f5e0581bdc6543}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a5023aadf153a745b25f5e0581bdc6543}{optimal\+\_\+cost\+\_\+instance\+\_\+}}
+\begin{DoxyCompactList}\small\item\em String stating the optimal cloud instance for cost optimization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a90d851d896937561c7d57abb73f7374f}\label{classsky__optimization_1_1SkyOptimization_a90d851d896937561c7d57abb73f7374f}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a90d851d896937561c7d57abb73f7374f}{optimal\+\_\+time\+\_\+instance\+\_\+}}
+\begin{DoxyCompactList}\small\item\em String stating the optimal cloud instance for time optimization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a0eb79188740bbf8fc64189061a7ed259}\label{classsky__optimization_1_1SkyOptimization_a0eb79188740bbf8fc64189061a7ed259}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a0eb79188740bbf8fc64189061a7ed259}{optimal\+\_\+objective\+\_\+cost\+\_\+instance\+\_\+}}
+\begin{DoxyCompactList}\small\item\em String stating the optimal cloud instance for objective cost optimization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a8550ff1cb98425540ee9728afb23873f}\label{classsky__optimization_1_1SkyOptimization_a8550ff1cb98425540ee9728afb23873f}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a8550ff1cb98425540ee9728afb23873f}{t4\+\_\+map\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map between hardware tuples (CPU, Memory) and T4 GPU cloud instances for AWS (Future Work\+: Will generate these maps online by parsing Sky\+Pilot database CSV file) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a9d499f7e4971e08bf4ab977db66c1e01}\label{classsky__optimization_1_1SkyOptimization_a9d499f7e4971e08bf4ab977db66c1e01}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a9d499f7e4971e08bf4ab977db66c1e01}{no\+\_\+gpu\+\_\+map\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Map between hardware tuples (CPU, Memory) and no GPU cloud instance (Future Work\+: Will generate these maps online by parsing Sky\+Pilot database CSV file) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a7c9f64b012daa06c7442f257192a614a}\label{classsky__optimization_1_1SkyOptimization_a7c9f64b012daa06c7442f257192a614a}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a7c9f64b012daa06c7442f257192a614a}{time\+\_\+model\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Time Regression Output containing model info and constraints. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aa9a8a2d3819a40f03a8abe75c7361e27}\label{classsky__optimization_1_1SkyOptimization_aa9a8a2d3819a40f03a8abe75c7361e27}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aa9a8a2d3819a40f03a8abe75c7361e27}{cost\+\_\+model\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Cost Regression Output containing model info and constraints. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a0dc8ee5370d2528efc522faca4ff1e02}\label{classsky__optimization_1_1SkyOptimization_a0dc8ee5370d2528efc522faca4ff1e02}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a0dc8ee5370d2528efc522faca4ff1e02}{objective\+\_\+cost\+\_\+model\+\_\+info\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Objective Cost Regression Output containing model info and constraints (only motion planning) \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_acd19fecda0f7cc035a60fd99f18b6f21}\label{classsky__optimization_1_1SkyOptimization_acd19fecda0f7cc035a60fd99f18b6f21}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_acd19fecda0f7cc035a60fd99f18b6f21}{time\+Model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Time Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a262ece4d7b758dea7bff41b1a57c2f04}\label{classsky__optimization_1_1SkyOptimization_a262ece4d7b758dea7bff41b1a57c2f04}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a262ece4d7b758dea7bff41b1a57c2f04}{time\+\_\+model\+\_\+coefficients\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Coefficients for Time Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a5b9ca760f548a0f9860fc34687a2c93c}\label{classsky__optimization_1_1SkyOptimization_a5b9ca760f548a0f9860fc34687a2c93c}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a5b9ca760f548a0f9860fc34687a2c93c}{cost\+Model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Cost Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a631f5f6b49c5dd04a54318015d22677a}\label{classsky__optimization_1_1SkyOptimization_a631f5f6b49c5dd04a54318015d22677a}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a631f5f6b49c5dd04a54318015d22677a}{cost\+\_\+model\+\_\+coefficients\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Coefficients for Cost Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a3a4e5657cfb75a91141c4bdaf6cd03fb}\label{classsky__optimization_1_1SkyOptimization_a3a4e5657cfb75a91141c4bdaf6cd03fb}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a3a4e5657cfb75a91141c4bdaf6cd03fb}{objective\+Cost\+Model\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Objective Cost Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aeae970169c5c80e33ca0697d68c7caa6}\label{classsky__optimization_1_1SkyOptimization_aeae970169c5c80e33ca0697d68c7caa6}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_aeae970169c5c80e33ca0697d68c7caa6}{objective\+\_\+cost\+\_\+model\+\_\+coefficients\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Coefficients for Objective Cost Regression Model. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a3da0f8b7acda9f41346479d5a8ecb926}\label{classsky__optimization_1_1SkyOptimization_a3da0f8b7acda9f41346479d5a8ecb926}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a3da0f8b7acda9f41346479d5a8ecb926}{cost\+\_\+optimization\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scipy Output from Cost Optimization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ac51449c1a9770907ee03b8ce2a117f96}\label{classsky__optimization_1_1SkyOptimization_ac51449c1a9770907ee03b8ce2a117f96}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_ac51449c1a9770907ee03b8ce2a117f96}{time\+\_\+optimization\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scipy Output from Time Optimization. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a5677bad01f1999a7437b45f084652d10}\label{classsky__optimization_1_1SkyOptimization_a5677bad01f1999a7437b45f084652d10}} 
+\mbox{\hyperlink{classsky__optimization_1_1SkyOptimization_a5677bad01f1999a7437b45f084652d10}{objective\+\_\+cost\+\_\+optimization\+\_\+results\+\_\+}}
+\begin{DoxyCompactList}\small\item\em Scipy Output from Objective Cost Optimization. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Sky Optimizer responsible for performing the cost and time optimizations based on problem type (Dexnet, VSLAM, Motion Planning) and GPU type (No GPU, T4, etc) 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a39a8f8caf861f46106c0a7aae4f7e2cd}\label{classsky__optimization_1_1SkyOptimization_a39a8f8caf861f46106c0a7aae4f7e2cd}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!\_\_init\_\_@{\_\_init\_\_}}
+\index{\_\_init\_\_@{\_\_init\_\_}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{\_\_init\_\_()}{\_\_init\_\_()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+\_\+\+\_\+init\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{yaml\+\_\+file,  }\item[{}]{gpu\+\_\+yaml\+\_\+file,  }\item[{}]{steps,  }\item[{}]{max\+\_\+cost,  }\item[{}]{max\+\_\+time,  }\item[{}]{max\+\_\+objective\+\_\+cost,  }\item[{}]{debug,  }\item[{}]{gpu\+\_\+type,  }\item[{}]{count }\end{DoxyParamCaption})}
+
+
+
+Sky Optimization Constructor. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yaml\+\_\+file} & YAML file specifying Sky benchmarking setup for no GPU \\
+\hline
+{\em gpu\+\_\+yaml\+\_\+file} & YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) \\
+\hline
+{\em steps} & Number of steps the Sky benchmarking should run \\
+\hline
+{\em max\+\_\+cost} & User provided cost constraint \\
+\hline
+{\em max\+\_\+time} & User provided time constraint \\
+\hline
+{\em max\+\_\+objective\+\_\+cost} & User provided objective cost constraint \\
+\hline
+{\em debug} & Debug Mode (Lots of print statements) \\
+\hline
+{\em gpu\+\_\+type} & The GPU type used in the Sky benchmarking (only tested on No GPU, T4) \\
+\hline
+{\em count} & Index in list of \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization}{Sky\+Optimization}} Problems being run (helps coordinate the multithreading) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ac56fe7d2cba6776d09ed8aceb83a325e}\label{classsky__optimization_1_1SkyOptimization_ac56fe7d2cba6776d09ed8aceb83a325e}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!binarySearchRounding@{binarySearchRounding}}
+\index{binarySearchRounding@{binarySearchRounding}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{binarySearchRounding()}{binarySearchRounding()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+binary\+Search\+Rounding (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{optimal\+\_\+cpu\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Rounds CPU output of optimization to nearest feasible CPU amount allowed in cloud instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em optimal\+\_\+cpu\+\_\+count} & CPU output from optimization \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Feasible CPU amount closest to the optimal CPU amount 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a9bae6ff64842af75b23394e1c6ad8074}\label{classsky__optimization_1_1SkyOptimization_a9bae6ff64842af75b23394e1c6ad8074}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!costFunction@{costFunction}}
+\index{costFunction@{costFunction}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{costFunction()}{costFunction()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+cost\+Function (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Cost Function = \$/second $\ast$ seconds/step $\ast$ \# steps. 
+
+\begin{DoxyReturn}{Returns}
+Function object for the Cost Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a13f369d90ce3347bc1bd704ec2dfc5b0}\label{classsky__optimization_1_1SkyOptimization_a13f369d90ce3347bc1bd704ec2dfc5b0}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!createBenchmarks@{createBenchmarks}}
+\index{createBenchmarks@{createBenchmarks}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{createBenchmarks()}{createBenchmarks()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+create\+Benchmarks (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{gpu\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Creates Yaml files for each benchmarking instance that will be run. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em gpu\+\_\+type} & The GPU type of this optimization instance (only tested on T4 and No GPU) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a133ced3a3b28b15b9ec884106324976a}\label{classsky__optimization_1_1SkyOptimization_a133ced3a3b28b15b9ec884106324976a}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!createBounds@{createBounds}}
+\index{createBounds@{createBounds}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{createBounds()}{createBounds()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+create\+Bounds (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Bounds for CPU and Memory for optimization problem. 
+
+\begin{DoxyReturn}{Returns}
+Sci\+Py Bounds object for optimization problem 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a43161ffa0faa9da8f154608cf3fa9d47}\label{classsky__optimization_1_1SkyOptimization_a43161ffa0faa9da8f154608cf3fa9d47}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!createConstraints@{createConstraints}}
+\index{createConstraints@{createConstraints}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{createConstraints()}{createConstraints()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+create\+Constraints (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{constraint\+\_\+function\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Constraints for Optimization Problem (includes time/cost along with memory/\+CPU ratio) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em constraint\+\_\+function\+\_\+type} & Constraint function type, which is opposite of the optimization problem (Time Optimization -\/$>$ Cost Constraint and Cost Optimization -\/$>$ Time Constraint) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Sci\+Py Constraints object for optimization problem 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a65212da61b559b4eda7273f7dc76fc60}\label{classsky__optimization_1_1SkyOptimization_a65212da61b559b4eda7273f7dc76fc60}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!createObjectiveFunction@{createObjectiveFunction}}
+\index{createObjectiveFunction@{createObjectiveFunction}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{createObjectiveFunction()}{createObjectiveFunction()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+create\+Objective\+Function (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{objective\+\_\+function\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Optimization Loss Function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em objective\+\_\+function\+\_\+type} & Time or Cost \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Optimization Loss Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ae2e79639f37155ca1ea96e0fbe10cb7a}\label{classsky__optimization_1_1SkyOptimization_ae2e79639f37155ca1ea96e0fbe10cb7a}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!findInstance@{findInstance}}
+\index{findInstance@{findInstance}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{findInstance()}{findInstance()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+find\+Instance (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{optimization\+\_\+results,  }\item[{}]{optimization\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Given results of optimization, this will find the closest feasible hardware setup and its corresponding AWS Instance (Future Work\+: Build out to other cloud providers) 
+
+
+\begin{DoxyParams}{Parameters}
+{\em optimization\+\_\+results} & Scipy Output from optimization \\
+\hline
+{\em optimization\+\_\+type} & Optimization Type (Cost or Time) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a267b44e102db28ce95c71e3015c2f60f}\label{classsky__optimization_1_1SkyOptimization_a267b44e102db28ce95c71e3015c2f60f}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!fullOptimization@{fullOptimization}}
+\index{fullOptimization@{fullOptimization}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{fullOptimization()}{fullOptimization()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+full\+Optimization (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Full Sky Optimization Function. 
+
+\begin{DoxyReturn}{Returns}
+List containing Time and Cost Optimizations 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ad74297d3b060c7506c3822e94c8af3bc}\label{classsky__optimization_1_1SkyOptimization_ad74297d3b060c7506c3822e94c8af3bc}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!getCostOptimization@{getCostOptimization}}
+\index{getCostOptimization@{getCostOptimization}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{getCostOptimization()}{getCostOptimization()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+get\+Cost\+Optimization (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Gets Cost Optimization Results. 
+
+\begin{DoxyReturn}{Returns}
+Cost Optimization Results 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ab49a020cbddd3b21b5910da3e8abcb43}\label{classsky__optimization_1_1SkyOptimization_ab49a020cbddd3b21b5910da3e8abcb43}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!getObjectiveCost@{getObjectiveCost}}
+\index{getObjectiveCost@{getObjectiveCost}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{getObjectiveCost()}{getObjectiveCost()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+get\+Objective\+Cost (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{machine\+\_\+name }\end{DoxyParamCaption})}
+
+
+
+Parses Sky benchmarking to get objective cost for given machine instance. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em machine\+\_\+name} & Name of benchmarking machine instance \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Objective cost from instance 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_afcd54cc614b0ef5b91c479f415dd11f0}\label{classsky__optimization_1_1SkyOptimization_afcd54cc614b0ef5b91c479f415dd11f0}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!getTimeOptimization@{getTimeOptimization}}
+\index{getTimeOptimization@{getTimeOptimization}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{getTimeOptimization()}{getTimeOptimization()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+get\+Time\+Optimization (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Gets Time Optimization Results. 
+
+\begin{DoxyReturn}{Returns}
+Time Optimization Results 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a292af0b8fc00695722a2dc2c87ccc629}\label{classsky__optimization_1_1SkyOptimization_a292af0b8fc00695722a2dc2c87ccc629}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!memoryFunction@{memoryFunction}}
+\index{memoryFunction@{memoryFunction}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{memoryFunction()}{memoryFunction()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+memory\+Function (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Function for memory/\+CPU ratio constraint. 
+
+\begin{DoxyReturn}{Returns}
+Memory\+:CPU Constraint Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_ab1987bf7c8175c834941f86a24d33c57}\label{classsky__optimization_1_1SkyOptimization_ab1987bf7c8175c834941f86a24d33c57}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!objectiveCostFunction@{objectiveCostFunction}}
+\index{objectiveCostFunction@{objectiveCostFunction}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{objectiveCostFunction()}{objectiveCostFunction()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+objective\+Cost\+Function (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Objective Cost Function. 
+
+\begin{DoxyReturn}{Returns}
+Function object for the Objective Cost Function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_abda685964081b0ca76af9a1a6e501f86}\label{classsky__optimization_1_1SkyOptimization_abda685964081b0ca76af9a1a6e501f86}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!regressionSolver@{regressionSolver}}
+\index{regressionSolver@{regressionSolver}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{regressionSolver()}{regressionSolver()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+regression\+Solver (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{data,  }\item[{}]{purpose }\end{DoxyParamCaption})}
+
+
+
+Finds best fitting model given benchmarking data. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em data} & Benchmarking data for either time, cost, or objective cost \\
+\hline
+{\em purpose} & Time, Cost, or Objective Cost \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Best fit model and its coefficients 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a38deae1f7984a52a487d6dfbe9fc7562}\label{classsky__optimization_1_1SkyOptimization_a38deae1f7984a52a487d6dfbe9fc7562}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!runSkyBenchmarks@{runSkyBenchmarks}}
+\index{runSkyBenchmarks@{runSkyBenchmarks}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{runSkyBenchmarks()}{runSkyBenchmarks()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+run\+Sky\+Benchmarks (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{count }\end{DoxyParamCaption})}
+
+
+
+Multithreads (Python-\/style) sky benchmarking instances. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em count} & Global count relative to other \mbox{\hyperlink{classsky__optimization_1_1SkyOptimization}{Sky\+Optimization}} instances to make sure each Sky benchmarking instance name is unique \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_aa4f19dace05127352c5bf66ced3540a6}\label{classsky__optimization_1_1SkyOptimization_aa4f19dace05127352c5bf66ced3540a6}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!skyBenchmark@{skyBenchmark}}
+\index{skyBenchmark@{skyBenchmark}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{skyBenchmark()}{skyBenchmark()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+sky\+Benchmark (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{yaml\+\_\+file,  }\item[{}]{benchmark\+\_\+name,  }\item[{}]{hardware\+\_\+count }\end{DoxyParamCaption})}
+
+
+
+Runs sky benchmarking instance from bash script. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em yaml\+\_\+file} & Yaml configuration file for benchmarking instance \\
+\hline
+{\em benchmark\+\_\+name} & Name of Sky benchmarking instance \\
+\hline
+{\em hardware\+\_\+count} & Tuple containing (CPU, Memory) \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a2f45c1ac884c2446cc67144adb8adc8a}\label{classsky__optimization_1_1SkyOptimization_a2f45c1ac884c2446cc67144adb8adc8a}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!solveOptimization@{solveOptimization}}
+\index{solveOptimization@{solveOptimization}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{solveOptimization()}{solveOptimization()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+solve\+Optimization (\begin{DoxyParamCaption}\item[{}]{self,  }\item[{}]{objective\+\_\+function\+\_\+type,  }\item[{}]{constraint\+\_\+function\+\_\+type }\end{DoxyParamCaption})}
+
+
+
+Optimization Problem Setup and Solver. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em objective\+\_\+function\+\_\+type} & Time or Cost \\
+\hline
+{\em constraint\+\_\+function\+\_\+type} & Opposite of objective\+\_\+function\+\_\+type \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Optimization Result, Time Model Result, Cost Model Result 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classsky__optimization_1_1SkyOptimization_a78ea3c762086394f44a5e6ab6f23e10a}\label{classsky__optimization_1_1SkyOptimization_a78ea3c762086394f44a5e6ab6f23e10a}} 
+\index{sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}!timeFunction@{timeFunction}}
+\index{timeFunction@{timeFunction}!sky\_optimization.SkyOptimization@{sky\_optimization.SkyOptimization}}
+\doxysubsubsection{\texorpdfstring{timeFunction()}{timeFunction()}}
+{\footnotesize\ttfamily def sky\+\_\+optimization.\+Sky\+Optimization.\+time\+Function (\begin{DoxyParamCaption}\item[{}]{self }\end{DoxyParamCaption})}
+
+
+
+Time Function = seconds/step $\ast$ \# steps. 
+
+\begin{DoxyReturn}{Returns}
+Function object for the Time Function 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+sky\+\_\+optimization.\+py\end{DoxyCompactItemize}

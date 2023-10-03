@@ -1,11 +1,26 @@
 import numpy as np
 from scipy.optimize import curve_fit
 
+## @class GPUModel
+# @brief Finds best fit time/cost model as a function of hardware for GPU instances
+#
 class GPUModel:
+
+    ## @brief GPUModel Constructor
+    # @param x Hardware Data
+    # @param y Time, Cost, or Objective Cost
+    #
     def __init__(self,x,y):
-        print("Hello world")
+        ## @brief Hardware Data
+        #
         self.x_ = x
+
+        ## @brief Time, Cost, or Objective Cost
+        #
         self.y_ = y
+
+        ## @brief Minimum r^2 for best fit model (if it is below, then we say the correlation isn't strong enough)
+        #
         self.r_squared_threshold_ = 0.93
         model_list = [
             (self.linear_model,2,"Linear"),
@@ -15,14 +30,22 @@ class GPUModel:
             (self.hyper_model,2,"Hyper")
         ]
         
+        ## @brief R^2 for best fit model
+        #
         self.max_rsquared_ = 0
+
+        ## @brief Best fit model
+        #
         self.model_ = None
+
+        ## @brief Const model boolean is true if the best fit model doesn't have a strong enough correlation
+        #
         self.is_const_model_ = False
+
+        # Solves for best fit model
         for (model,coef_len,name) in model_list:
             rsquared = None
-            try:
-                #print("I'm trying")
-                
+            try:                
                 rsquared,coefficients = self.regression(model,coef_len)
                 if(rsquared > self.max_rsquared_ and rsquared <= 1):
                     self.max_rsquared_ = rsquared
@@ -35,26 +58,29 @@ class GPUModel:
             coefficients = [np.mean(self.y_)]
             self.model_ = (self.const_model,coefficients)
 
-
+    ## @brief Gets best fit model
+    # @return Best Fit Model
+    #
     def getModel(self):
         if(not self.is_const_model_):
             print(self.max_rsquared_)
         print(self.model_)
         return self.model_
     
+    ## @brief Performs regression based on model type
+    # @param model Regression Model Type
+    # @param coeff_len Number of coefficients required for this regression model
+    # @return Tuple containing R^2 and coefficients of given model
+    #
     def regression(self,model,coeff_len):
-        #print("Starting")
-        #print((self.x_[:,0],self.x_[:,1]))
-        #print(self.y_)
         coefficients, _ = curve_fit(model, self.x_, self.y_,p0=np.zeros(coeff_len),maxfev=100000)
-        #print("Coefficients: ",coefficients)
         y_pred = model(np.array(self.x_),coefficients,predict=True)
-        #print("Y pred: ",y_pred)
-        #y_pred = model(self.x_, coefficients)
         rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
-        #print("Rsquared: ",rsquared)
         return (rsquared, coefficients)
     
+    ## @brief Constant Regression Model
+    # @return Model Outputs
+    #
     def const_model(self,x,*coefficients,predict=False,single=False):
         if(single):
             return coefficients[0][0]
@@ -63,117 +89,79 @@ class GPUModel:
         else:
             return coefficients[0]
         
+    ## @brief Linear Regression Model
+    # @return Model Outputs
+    #
     def linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if(single):
             return coefficients[0][0] + coefficients[0][1] * x[0]
         elif(predict):
             return coefficients[0][0] + coefficients[0][1] * x
         else:
             return coefficients[0] + coefficients[1] * x
-        # if single:
-        #     coefficients = coefficients[0] 
-        # if predict:
-        #     return coefficients[0][0] + coefficients[0][1] * x[:,0]
-        # else:
-        #     return coefficients[0] + coefficients[1] * x[0]
         
+    ## @brief Log Regression Model
+    # @return Model Outputs
+    #
     def log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if(single):
             return coefficients[0][0] + coefficients[0][1] * np.log(x[0])
         elif(predict):
             return coefficients[0][0] + coefficients[0][1] * np.log(x)
         else:
             return coefficients[0] + coefficients[1] * np.log(x)
-        # if single:
-        #     coefficients = coefficients[0] 
-        # if predict:
-        #     return coefficients[0][0] + coefficients[0][1] * np.log(x[:,0])
-        # else:
-        #     return coefficients[0] + coefficients[1] * np.log(x[0])
     
+    ## @brief Exponential Regression Model
+    # @return Model Outputs
+    #
     def exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if(single):
             return coefficients[0][0] * np.exp(coefficients[0][1] * x[0])
         elif(predict):
             return coefficients[0][0] * np.exp(coefficients[0][1] * x)
         else:
             return coefficients[0] * np.exp(coefficients[1] * x)
-        # if single:
-        #     coefficients = coefficients[0] 
-        # if predict:
-        #     return coefficients[0][0] * np.exp(coefficients[0][1] * x[:,0])
-        # else:
-        #     return coefficients[0] * np.exp(coefficients[1] * x[0])
-        
+
+    ## @brief Power Regression Model
+    # @return Model Outputs
+    #    
     def power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if(single):
             return coefficients[0][0] * (x[0] ** coefficients[0][1])
         elif(predict):
             return coefficients[0][0] * (x ** coefficients[0][1])
         else:
             return coefficients[0] * (x ** coefficients[1])
-        # if single:
-        #     coefficients = coefficients[0] 
-        # if predict:
-        #     return coefficients[0][0] * (x[:,0] ** coefficients[0][1])
-        # else:
-        #     return coefficients[0] * (x[0] ** coefficients[1])
     
+    ## @brief Hyperbolic Regression Model
+    # @return Model Outputs
+    #
     def hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if(single):
             return coefficients[0][0] + (coefficients[0][1] / x[0])
         elif(predict):
             return coefficients[0][0] + (coefficients[0][1] / x)
         else:
             return coefficients[0] + (coefficients[1] / x)
-        # if single:
-        #     coefficients = coefficients[0] 
-        # if predict:
-        #     return coefficients[0][0] + (coefficients[0][1] / x[:,0])
-        # else:
-        #     return coefficients[0] + (coefficients[1] / x[0])
 
+## @class Model
+# @brief Finds best fit time/cost model as a function of hardware for non-GPU instances
+#
 class Model:
+
+    ## @brief Model Constructor
+    # @param x Hardware Data
+    # @param y Time, Cost, or Objective Cost
+    #
     def __init__(self,x,y):
-        print("Hello world")
+        ## @brief Hardware Data
+        #
         self.x_ = x
+
+        ## @brief Time, Cost, or Objective Cost
+        #
         self.y_ = y
-        #print(x)
-        #print(y)
-        #print(self.x_)
-        #print(self.y_)
+
         model_list = [
             (self.linear_linear_model,3,"Linear linear"),
             (self.linear_log_model,3,"Linear log"),
@@ -201,12 +189,18 @@ class Model:
             (self.hyper_power_model,4,"Hyper power"),
             (self.hyper_hyper_model,3,"Hyper hyper"),
         ]
+        ## @brief R^2 for best fit model
+        #
         self.max_rsquared_ = 0
+
+        ## @brief Best fit model
+        #
         self.model_ = None
+
+        # Solves for best fit model
         for (model,coef_len,name) in model_list:
             rsquared = None
             try:
-                #print("I'm trying")
                 rsquared,coefficients = self.regression(model,coef_len)
                 print("Name: " + str(rsquared))        
                 if(rsquared > self.max_rsquared_ and rsquared <= 1):
@@ -215,103 +209,34 @@ class Model:
                 print(name + ": " + str(rsquared))
             except:
                 continue
-                #print(name + ": " + "Didn't work")
-        #print("Pass one")
 
+    ## @brief Gets best fit model
+    # @return Best Fit Model
+    #
     def getModel(self):
         print(self.max_rsquared_)
         print(self.model_)
         return self.model_
 
+    ## @brief Performs regression based on model type
+    # @param model Regression Model Type
+    # @param coeff_len Number of coefficients required for this regression model
+    # @return Tuple containing R^2 and coefficients of given model
+    #
     def regression(self,model,coeff_len):
-        #print("Starting")
-        #print((self.x_[:,0],self.x_[:,1]))
-        #print(self.y_)
         coefficients, _ = curve_fit(model, (self.x_[:,0],self.x_[:,1]), self.y_,p0=np.zeros(coeff_len),maxfev=100000)
-        #print("Coefficients: ",coefficients)
         y_pred = model(np.array(self.x_),coefficients,predict=True)
-        #print("Y pred: ",y_pred)
-        #y_pred = model(self.x_, coefficients)
-        rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
-        #print("Rsquared: ",rsquared)
-        return (rsquared, coefficients)
-        # rsquared = self.regression(self.linear_linear_model,3)
-        # print("Linear linear: " + str(rsquared))
-        # rsquared = self.regression(self.linear_log_model,3)
-        # print("Linear log: " + str(rsquared))
-        # rsquared = self.regression(self.linear_exp_model,4)
-        # print("Linear exp: " + str(rsquared))
-        # rsquared = self.regression(self.linear_power_model,4)
-        # print("Linear power: " + str(rsquared))
-        # rsquared = self.regression(self.linear_hyper_model,3)
-        # print("Linear hyper: " + str(rsquared))
-        # rsquared = self.regression(self.log_linear_model,3)
-        # print("Log linear: " + str(rsquared))
-        # rsquared = self.regression(self.log_log_model,3)
-        # print("Log log: " + str(rsquared))
-        # rsquared = self.regression(self.log_exp_model,4)
-        # print("Log exp: " + str(rsquared))
-        # rsquared = self.regression(self.log_power_model,4)
-        # print("Log power: " + str(rsquared))
-        # rsquared = self.regression(self.log_hyper_model,3)
-        # print("Log hyper: " + str(rsquared))
-        # rsquared = self.regression(self.exp_linear_model,4)
-        # print("Exp linear: " + str(rsquared))
-        # rsquared = self.regressionThree(self.linear_linear_model)
-        # print("Linear linear: " + str(rsquared))
-        # rsquared = self.regressionThree(self.linear_log_model)
-        # print("Linear log: " + str(rsquared))
-        # rsquared = self.regressionFour(self.linear_exp_model)
-        # print("Linear exp: " + str(rsquared))
-        # rsquared = self.regressionFour(self.linear_power_model)
-        # print("Linear power: " + str(rsquared))
-        # rsquared = self.regressionThree(self.linear_hyper_model)
-        # print("Linear hyper: " + str(rsquared))
-        # rsquared = self.regressionThree(self.log_linear_model)
-        # print("Log linear: " + str(rsquared))
-        # rsquared = self.regressionThree(self.log_log_model)
-        # print("Log log: " + str(rsquared))
-        # rsquared = self.regressionFour(self.log_exp_model)
-        # print("Log exp: " + str(rsquared))
-        # rsquared = self.regressionFour(self.log_power_model)
-        # print("Log power: " + str(rsquared))
-        # rsquared = self.regressionThree(self.log_hyper_model)
-        # print("Log hyper: " + str(rsquared))
-
-    def regressionThree(self,model):
-        coefficients, _ = curve_fit(model, (self.x_[:,0],self.x_[:,1]), self.y_,p0=[0,0,0])
-        y_pred = model(np.array(self.x_),coefficients,predict=True)
-        #y_pred = model(self.x_, coefficients)
         rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
         return (rsquared, coefficients)
     
-    def regressionFour(self,model):
-        coefficients, _ = curve_fit(model, (self.x_[:,0],self.x_[:,1]), self.y_,p0=[0,0,0,0])
-        y_pred = model(np.array(self.x_),coefficients,predict=True)
-        #y_pred = model(self.x_, coefficients)
-        rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
-        return (rsquared, coefficients)
-    
-    def regression(self,model,coeff_len):
-        #print("Starting")
-        #print((self.x_[:,0],self.x_[:,1]))
-        #print(self.y_)
-        coefficients, _ = curve_fit(model, (self.x_[:,0],self.x_[:,1]), self.y_,p0=np.zeros(coeff_len),maxfev=100000)
-        #print("Coefficients: ",coefficients)
-        y_pred = model(np.array(self.x_),coefficients,predict=True)
-        #print("Y pred: ",y_pred)
-        #y_pred = model(self.x_, coefficients)
-        rsquared = 1.0 - np.sum((self.y_ - y_pred) ** 2) / np.sum((self.y_ - np.mean(self.y_)) ** 2)
-        #print("Rsquared: ",rsquared)
-        return (rsquared, coefficients)
-    
+    ## @brief Model where CPU is linear and Memory is linear
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def linear_linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -319,13 +244,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * x[0] + coefficients[2] * x[1]
         
+    ## @brief Model where CPU is linear and Memory is log
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def linear_log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -333,28 +259,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * x[0] + coefficients[2] * np.log(x[1])
     
+    ## @brief Model where CPU is linear and Memory is exponential
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def linear_exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * x[:,0] + coefficients[0][2] * np.exp(coefficients[0][3] * x[:,1])
         else:
             return coefficients[0] + coefficients[1] * x[0] + coefficients[2] * np.exp(coefficients[3] * x[1])
-        
+    
+    ## @brief Model where CPU is linear and Memory is power
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def linear_power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -362,29 +289,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * x[0] + coefficients[2] * (x[1] ** coefficients[3])
     
+    ## @brief Model where CPU is linear and Memory is hyperbolic
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def linear_hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * x[:,0] + (coefficients[0][2] / x[:,1])
         else:
             return coefficients[0] + coefficients[1] * x[0] + (coefficients[2] / x[1])
-        
+    
+    ## @brief Model where CPU is log and Memory is linear
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def log_linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -392,14 +319,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * x[0] + coefficients[2] * x[1]
         
+    ## @brief Model where CPU is log and Memory is log
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def log_log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -407,29 +334,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.log(x[0]) + coefficients[2] * np.log(x[1])
     
+    ## @brief Model where CPU is log and Memory is exponential
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def log_exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * np.log(x[:,0]) + coefficients[0][2] * np.exp(coefficients[0][3] * x[:,1])
         else:
             return coefficients[0] + coefficients[1] * np.log(x[0]) + coefficients[2] * np.exp(coefficients[3] * x[1])
-        
+    
+    ## @brief Model where CPU is log and Memory is power
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def log_power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -437,29 +364,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.log(x[0]) + coefficients[2] * (x[1] ** coefficients[3])
     
+    ## @brief Model where CPU is log and Memory is hyper
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def log_hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * np.log(x[:,0]) + (coefficients[0][2] / x[:,1])
         else:
             return coefficients[0] + coefficients[1] * np.log(x[0]) + (coefficients[2] / x[1])
-        
+    
+    ## @brief Model where CPU is exponential and Memory is linear
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def exp_linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -467,14 +394,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.exp(coefficients[2] * x[0]) + coefficients[3] * x[1]
         
+    ## @brief Model where CPU is exponential and Memory is log
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def exp_log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -482,14 +409,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.exp(coefficients[2] * x[0]) + coefficients[3] * np.log(x[1])
     
+    ## @brief Model where CPU is exponential and Memory is exponential
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def exp_exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -497,14 +424,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.exp(coefficients[2] * x[0])+ coefficients[3] * np.exp(coefficients[4] * x[1])
         
+    ## @brief Model where CPU is exponential and Memory is power
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def exp_power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -512,14 +439,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.exp(coefficients[2] * x[0]) + coefficients[3] * (x[1] ** coefficients[4])
     
+    ## @brief Model where CPU is exponential and Memory is hyperbolic
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def exp_hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -527,29 +454,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * np.exp(coefficients[2] * x[0]) + (coefficients[3] / x[1])
         
+    ## @brief Model where CPU is power and Memory is linear
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def power_linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * (x[:,0] ** coefficients[0][2]) + coefficients[0][3] * x[:,1]
         else:
             return coefficients[0] + coefficients[1] * (x[0] ** coefficients[2]) + coefficients[3] * x[1]
-        
+
+    ## @brief Model where CPU is power and Memory is log
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    # 
     def power_log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -557,14 +484,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * (x[0] ** coefficients[2]) + coefficients[3] * np.log(x[1])
     
+    ## @brief Model where CPU is power and Memory is exponential
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def power_exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -572,14 +499,14 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * (x[0] ** coefficients[2]) + coefficients[3] * np.exp(coefficients[4] * x[1])
         
+    ## @brief Model where CPU is power and Memory is power
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def power_power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -587,27 +514,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] * (x[0] ** coefficients[2]) + coefficients[3] * (x[1] ** coefficients[4])
     
+    ## @brief Model where CPU is power and Memory is hyperbolic
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def power_hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] * (x[:,0] ** coefficients[0][2]) + (coefficients[0][3] / x[:,1])
         else:
             return coefficients[0] + coefficients[1] * (x[0] ** coefficients[2]) + (coefficients[3] / x[1])
+    
+    ## @brief Model where CPU is hyperbolic and Memory is linear
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def hyper_linear_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
         print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
@@ -615,15 +544,15 @@ class Model:
             return coefficients[0][0] + coefficients[0][1] / x[:,0] + coefficients[0][2] * x[:,1]
         else:
             return coefficients[0] + coefficients[1] / x[0] + coefficients[2] * x[1]
-        
+
+    ## @brief Model where CPU is hyperbolic and Memory is log
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #  
     def hyper_log_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -631,29 +560,29 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] / x[0] + coefficients[2] * np.log(x[1])
     
+    ## @brief Model where CPU is hyperbolic and Memory is exponential
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def hyper_exp_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] / x[:,0] + coefficients[0][2] * np.exp(coefficients[0][3] * x[:,1])
         else:
             return coefficients[0] + coefficients[1] / x[0] + coefficients[2] * np.exp(coefficients[3] * x[1])
-        
+    
+    ## @brief Model where CPU is hyperbolic and Memory is power
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def hyper_power_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
@@ -661,29 +590,17 @@ class Model:
         else:
             return coefficients[0] + coefficients[1] / x[0] + coefficients[2] * (x[1] ** coefficients[3])
     
+    ## @brief Model where CPU is hyperbolic and Memory is hyperbolic
+    # @param x Model Input
+    # @param coefficients Model coefficients
+    # @param predict Boolean if we are predicting (False if we are trying to curve fit and solve)
+    # @param single Boolean if we just want to run the model for single input
+    # @return Model Output
+    #
     def hyper_hyper_model(self,x,*coefficients,predict=False,single=False):
-        #print("HI GUYS")
-        #print(x[0])
-        #print(x[1])
-        #print(coefficients[0])
-        #print(coefficients[1])
-        #print(coefficients[2])
-        #print(coefficients[3])
         if single:
             coefficients = coefficients[0] 
         if predict:
             return coefficients[0][0] + coefficients[0][1] / x[:,0] + (coefficients[0][2] / x[:,1])
         else:
             return coefficients[0] + coefficients[1] / x[0] + (coefficients[2] / x[1])
-
-
-def main():
-    x = np.array([16,8,4])
-    y = np.array([0.00040156885322586446, 0.0002504992190434765, 0.0001752593280693606])
-    model = GPUModel(x,y)
-    print(model.getModel())
-    
-
-
-if __name__ == "__main__":
-    main()

@@ -1,0 +1,462 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classmodels_1_1GPUModel" kind="class" language="Python" prot="public">
+    <compoundname>models::GPUModel</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1ab8e53912746fb0fdf6b2131c89686498" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::x_</definition>
+        <argsstring></argsstring>
+        <name>x_</name>
+        <briefdescription>
+<para>Hardware Data. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="16" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="16" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1a0bbdf3c37190cfb94bba7a342a00ba44" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::y_</definition>
+        <argsstring></argsstring>
+        <name>y_</name>
+        <briefdescription>
+<para>Time, Cost, or Objective Cost. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="20" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="20" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1a98e8bba6082afadc1a824661b9451fc4" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::r_squared_threshold_</definition>
+        <argsstring></argsstring>
+        <name>r_squared_threshold_</name>
+        <briefdescription>
+<para>Minimum r^2 for best fit model (if it is below, then we say the correlation isn&apos;t strong enough) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="24" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="24" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1ad8e7a9dca7d5e74ca10e23e3fd25d2e7" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::max_rsquared_</definition>
+        <argsstring></argsstring>
+        <name>max_rsquared_</name>
+        <briefdescription>
+<para>R^2 for best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="35" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="35" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1afc167ab556351a906797d822dd794055" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::model_</definition>
+        <argsstring></argsstring>
+        <name>model_</name>
+        <briefdescription>
+<para>Best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="39" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="39" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classmodels_1_1GPUModel_1a0a960adb664758649d4f1b276facc8ef" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>models.GPUModel::is_const_model_</definition>
+        <argsstring></argsstring>
+        <name>is_const_model_</name>
+        <briefdescription>
+<para>Const model boolean is true if the best fit model doesn&apos;t have a strong enough correlation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="43" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="43" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1ad85ce2b3c092d022a06467bda7209b30" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.__init__</definition>
+        <argsstring>(self, x, y)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>y</type>
+          <defname>y</defname>
+        </param>
+        <briefdescription>
+<para><ref refid="classmodels_1_1GPUModel" kindref="compound">GPUModel</ref> Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>x</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Hardware Data </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>y</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time, Cost, or Objective Cost </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="13" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="13" bodyend="60"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1a4a52ef8d4317de837b38f66c0b9734d6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.getModel</definition>
+        <argsstring>(self)</argsstring>
+        <name>getModel</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Gets best fit model. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Best Fit <ref refid="classmodels_1_1Model" kindref="compound">Model</ref> </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="64" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="64" bodyend="69"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1a498688fff74b10719ef2df8e66f57cdd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.regression</definition>
+        <argsstring>(self, model, coeff_len)</argsstring>
+        <name>regression</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>model</type>
+          <defname>model</defname>
+        </param>
+        <param>
+          <type>coeff_len</type>
+          <defname>coeff_len</defname>
+        </param>
+        <briefdescription>
+<para>Performs regression based on model type. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>model</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Type </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>coeff_len</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of coefficients required for this regression model </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Tuple containing R^2 and coefficients of given model </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="75" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="75" bodyend="80"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1a65305f2013b766fa8625bf8580c23838" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.const_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>const_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Constant Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="84" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="84" bodyend="91"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1acd0371a78abcb6f5e8a236d933b29ea8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.linear_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>linear_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Linear Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="95" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="95" bodyend="102"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1a38e6ee50e509fe0bc49203bdcad8092e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.log_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>log_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Log Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="106" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="106" bodyend="113"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1ac8cf529aac748a4b1e127a50eb5bbdc3" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.exp_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>exp_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Exponential Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="117" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="117" bodyend="124"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1a2defed1ee3220e3a173883061e59dac8" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.power_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>power_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Power Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="128" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="128" bodyend="135"/>
+      </memberdef>
+      <memberdef kind="function" id="classmodels_1_1GPUModel_1aff0c8ca7874ee502f554f44395c220ef" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def models.GPUModel.hyper_model</definition>
+        <argsstring>(self, x, *coefficients, predict=False, single=False)</argsstring>
+        <name>hyper_model</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>x</type>
+          <defname>x</defname>
+        </param>
+        <param>
+          <type>*</type>
+          <declname>coefficients</declname>
+        </param>
+        <param>
+          <type>predict</type>
+          <defname>predict</defname>
+          <defval>False</defval>
+        </param>
+        <param>
+          <type>single</type>
+          <defname>single</defname>
+          <defval>False</defval>
+        </param>
+        <briefdescription>
+<para>Hyperbolic Regression <ref refid="classmodels_1_1Model" kindref="compound">Model</ref>. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para><ref refid="classmodels_1_1Model" kindref="compound">Model</ref> Outputs </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="139" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="139" bodyend="146"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Finds best fit time/cost model as a function of hardware for GPU instances. </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" line="7" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/models.py" bodystart="7" bodyend="147"/>
+    <listofallmembers>
+      <member refid="classmodels_1_1GPUModel_1ad85ce2b3c092d022a06467bda7209b30" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>__init__</name></member>
+      <member refid="classmodels_1_1GPUModel_1a65305f2013b766fa8625bf8580c23838" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>const_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1ac8cf529aac748a4b1e127a50eb5bbdc3" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>exp_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1a4a52ef8d4317de837b38f66c0b9734d6" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>getModel</name></member>
+      <member refid="classmodels_1_1GPUModel_1aff0c8ca7874ee502f554f44395c220ef" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>hyper_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1a0a960adb664758649d4f1b276facc8ef" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>is_const_model_</name></member>
+      <member refid="classmodels_1_1GPUModel_1acd0371a78abcb6f5e8a236d933b29ea8" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>linear_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1a38e6ee50e509fe0bc49203bdcad8092e" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>log_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1ad8e7a9dca7d5e74ca10e23e3fd25d2e7" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>max_rsquared_</name></member>
+      <member refid="classmodels_1_1GPUModel_1afc167ab556351a906797d822dd794055" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>model_</name></member>
+      <member refid="classmodels_1_1GPUModel_1a2defed1ee3220e3a173883061e59dac8" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>power_model</name></member>
+      <member refid="classmodels_1_1GPUModel_1a98e8bba6082afadc1a824661b9451fc4" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>r_squared_threshold_</name></member>
+      <member refid="classmodels_1_1GPUModel_1a498688fff74b10719ef2df8e66f57cdd" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>regression</name></member>
+      <member refid="classmodels_1_1GPUModel_1ab8e53912746fb0fdf6b2131c89686498" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>x_</name></member>
+      <member refid="classmodels_1_1GPUModel_1a0bbdf3c37190cfb94bba7a342a00ba44" prot="public" virt="non-virtual"><scope>models::GPUModel</scope><name>y_</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

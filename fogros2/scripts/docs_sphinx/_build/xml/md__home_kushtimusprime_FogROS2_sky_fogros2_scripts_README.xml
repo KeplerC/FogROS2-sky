@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README" kind="page">
+    <compoundname>md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README</compoundname>
+    <title>Optimization Script</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<sect1 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md1">
+<title>Installation and Setup</title>
+<para>Follow the installation steps on the <ulink url="https://github.com/KeplerC/FogROS2-sky#sky-setup-instructions"><computeroutput>Sky Setup Instructions</computeroutput></ulink> section of the FogROS2-Sky README.</para>
+<para>Before running the optimization script, configure AWS using your access key and secret access key.</para>
+<para><programlisting><codeline><highlight class="normal">aws<sp/>configure</highlight></codeline>
+<codeline><highlight class="normal">sky<sp/>check</highlight></codeline>
+</programlisting></para>
+</sect1>
+<sect1 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md2">
+<title>Command Line Arguments</title>
+<para><table rows="8" cols="5"><row>
+<entry thead="yes"><para>Short Argument   </para>
+</entry><entry thead="yes"><para>Long Argument   </para>
+</entry><entry thead="yes"><para>Required   </para>
+</entry><entry thead="yes"><para>Type   </para>
+</entry><entry thead="yes"><para>Description    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-y   </para>
+</entry><entry thead="no"><para><ndash/>yaml_file   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>String   </para>
+</entry><entry thead="no"><para>Path to yaml file from current directory (not the directory that the script is in)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-gy   </para>
+</entry><entry thead="no"><para><ndash/>gpu_yaml_file   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>String   </para>
+</entry><entry thead="no"><para>Path to gpu yaml file from current directory (not the directory that the script is in)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-s   </para>
+</entry><entry thead="no"><para><ndash/>steps   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>Int   </para>
+</entry><entry thead="no"><para>Total number of steps you want the algorithm to take (Dexnet by default)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-c   </para>
+</entry><entry thead="no"><para><ndash/>max_cost   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>Float   </para>
+</entry><entry thead="no"><para>Maximum financial cost you want to spend on cloud computing (in $)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-t   </para>
+</entry><entry thead="no"><para><ndash/>max_time   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>Float   </para>
+</entry><entry thead="no"><para>Maximum amount of time you want the algorithm to spend on the cloud (in seconds)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-oc   </para>
+</entry><entry thead="no"><para><ndash/>max_objective_cost   </para>
+</entry><entry thead="no"><para>True   </para>
+</entry><entry thead="no"><para>Float   </para>
+</entry><entry thead="no"><para>Maximum objective cost (used only for motion planning, TODO: Remove objective cost requirement for SLAM and Dexnet where it isn&apos;t used)    </para>
+</entry></row>
+<row>
+<entry thead="no"><para>-d   </para>
+</entry><entry thead="no"><para><ndash/>debug   </para>
+</entry><entry thead="no"><para>False   </para>
+</entry><entry thead="no"><para>N/A   </para>
+</entry><entry thead="no"><para>Type -d if you want to run debug mode   </para>
+</entry></row>
+</table>
+In order to run SLAM, yaml and gpu yaml files need to contain slam in the filename. In order to run motion planning, yaml and gpu yaml files need to contain mp. Otherwise, Dexnet is run by default. TODO: Add command line argument to specify if the program should run Dexnet, SLAM, or Motion Planning.</para>
+</sect1>
+<sect1 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md3">
+<title>Example Runs</title>
+<sect2 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md4">
+<title>Dexnet (Light Constraints)</title>
+<para><programlisting><codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark.yaml<sp/>-gy<sp/>../../benchmark_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>1<sp/>-t<sp/>3500<sp/>-oc<sp/>700<sp/>-d</highlight></codeline>
+</programlisting> </para>
+<sect3 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md5">
+<title>Outputs</title>
+<para>Successful optimization <linebreak/>
+ Optimized CPU: 6.583081308434977 <linebreak/>
+ Optimized Memory: 13.166162616833319 <linebreak/>
+ Projected time: 3500.000000746982 seconds <linebreak/>
+ Projected cost: $0.27147393261837877 <linebreak/>
+ c6i.2xlarge <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 29.10002363774633 <linebreak/>
+ Optimized Memory: 208.22697699205892 <linebreak/>
+ Projected time: 2067.889985919936 seconds <linebreak/>
+ Projected cost: $1.0000000067110584 <linebreak/>
+ r6i.8xlarge <linebreak/>
+ T4 <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 4.0 <linebreak/>
+ Optimized Memory: 16.0 <linebreak/>
+ Projected time: 1841.2 seconds <linebreak/>
+ Projected cost: $0.26924140299114097 <linebreak/>
+ g4dn.xlarge <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 4.0 <linebreak/>
+ Optimized Memory: 16.0 <linebreak/>
+ Projected time: 1841.2 seconds <linebreak/>
+ Projected cost: $0.26924140299114097 <linebreak/>
+ g4dn.xlarge <linebreak/>
+</para>
+<para>The first optimization used cost as an objective function and set time as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user&apos;s time constraint of 3500 seconds. The closest AWS instance to imitate this hardware setup is the c6i.2xlarge. <linebreak/>
+ The second optimization used time as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that time was minimized while still adhering to the user&apos;s cost constraint of $5. The closest AWS instance to imitate this hardware setup is the r6i.8xlarge. <linebreak/>
+ Now, it is important to note the latter 2 optimizations including the T4 GPU also satisfy the constraints, and seem to work more efficiently. This can be highlighed in the next section with harsher constraints. </para>
+</sect3>
+</sect2>
+<sect2 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md6">
+<title>Dexnet (Harsh Constraints)</title>
+<para><programlisting><codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark.yaml<sp/>-gy<sp/>../../benchmark_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>0.5<sp/>-t<sp/>2000<sp/>-oc<sp/>700<sp/>-d</highlight></codeline>
+</programlisting> </para>
+<sect3 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md7">
+<title>Outputs</title>
+<para>Failed optimization. Please relax constraints <linebreak/>
+ Closest CPU: 55.174132878793564 <linebreak/>
+ Closest Memory: 110.34826575767434 <linebreak/>
+ Projected time: 1999.999999995834 seconds <linebreak/>
+ Projected cost: $1.2847671764297848 <linebreak/>
+ c6i.16xlarge <linebreak/>
+ Failed optimization. Please relax constraints <linebreak/>
+ Closest CPU: 19.513887987497554 <linebreak/>
+ Closest Memory: 39.027775974959205 <linebreak/>
+ Projected time: 2197.1952866003394 seconds <linebreak/>
+ Projected cost: $0.5000000000002129 <linebreak/>
+ c6i.4xlarge <linebreak/>
+ T4 <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 4.0 <linebreak/>
+ Optimized Memory: 16.0 <linebreak/>
+ Projected time: 1835.8785714325759 seconds <linebreak/>
+ Projected cost: $0.2679159162503509 <linebreak/>
+ g4dn.xlarge <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 4.0 <linebreak/>
+ Optimized Memory: 16.0 <linebreak/>
+ Projected time: 1835.8785714325759 seconds <linebreak/>
+ Projected cost: $0.2679159162503509 <linebreak/>
+ g4dn.xlarge <linebreak/>
+</para>
+<para>The first two optimizations attempt to find an instance to run Dexnet in under 2000 seconds and $0.50. With just CPU, this task is not possible under those constraints, but the latter 2 optimizations show cost and time optimizations when a T4 is included. We can see that additional CPU and memory don&apos;t help with computation since the optimal CPU and memory for the T4 GPU is the minimum amount. Furthermore, since CPU and memory are most efficient at the minimum, the GPU optimizations don&apos;t push up to the user&apos;s constraints.</para>
+</sect3>
+</sect2>
+<sect2 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md8">
+<title>SLAM</title>
+<para><programlisting><codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark_slam.yaml<sp/>-gy<sp/>../../benchmark_slam_gpu.yaml<sp/>-s<sp/>1000000<sp/>-c<sp/>5<sp/>-t<sp/>55000<sp/>-oc<sp/>650<sp/>-d</highlight></codeline>
+</programlisting> </para>
+<sect3 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md9">
+<title>Outputs</title>
+<para>Successful optimization <linebreak/>
+ Optimized CPU: 4.586338333006091 <linebreak/>
+ Optimized Memory: 16.89002258471161 <linebreak/>
+ Projected time: 54999.9999999424284 seconds <linebreak/>
+ Projected cost: $3.444474922339687 <linebreak/>
+ m6i.xlarge <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 7.441775519458142 <linebreak/>
+ Optimized Memory: 59.53420428352985 <linebreak/>
+ Projected time: 38322.24476746237 seconds <linebreak/>
+ Projected cost: $4.999999996850867 <linebreak/>
+ r6i.2xlarge <linebreak/>
+</para>
+<para>The first optimization used cost as an objective function and set time as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user&apos;s time constraint of 55000 seconds. The closest AWS instance to imitate this hardware setup is the m6i.xlarge. <linebreak/>
+ The second optimization used time as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that time was minimized while still adhering to the user&apos;s cost constraint of $5. The closest AWS instance to imitate this hardware setup is the r6i.2xlarge. <linebreak/>
+</para>
+</sect3>
+</sect2>
+<sect2 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md10">
+<title>Motion Planning</title>
+<para><programlisting><codeline><highlight class="normal">cd<sp/>~/FogROS2-sky/fogros2/scripts</highlight></codeline>
+<codeline><highlight class="normal">python3<sp/>sky_optimization.py<sp/>-y<sp/>../../benchmark_mp.yaml<sp/>-gy<sp/>../../benchmark_mp_gpu.yaml<sp/>-s<sp/>1000<sp/>-c<sp/>2<sp/>-t<sp/>3500<sp/>-oc<sp/>650<sp/>-d</highlight></codeline>
+</programlisting> </para>
+<sect3 id="md__home_kushtimusprime_FogROS2_sky_fogros2_scripts_README_1autotoc_md11">
+<title>Outputs</title>
+<para>Successful optimization <linebreak/>
+ Optimized CPU: 14.868582555026965 <linebreak/>
+ Optimized Memory: 29.73716511005242 <linebreak/>
+ Projected objective cost: 650.0000000000771 <linebreak/>
+ Projected cost: $1.4081357880019716 <linebreak/>
+ c6i.4xlarge <linebreak/>
+ Successful optimization <linebreak/>
+ Optimized CPU: 23.744358343008674 <linebreak/>
+ Optimized Memory: 47.488716242681406 <linebreak/>
+ Projected objective cost: 637.8114539965433 <linebreak/>
+ Projected cost: $2.000000117784925 <linebreak/>
+ c6i.4xlarge <linebreak/>
+</para>
+<para>The first optimization used cost as an objective function and set objective cost as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user&apos;s objective cost constraint of 650. The closest AWS instance to imitate this hardware setup is the c6i.4xlarge. <linebreak/>
+ The second optimization used objective cost as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that objective cost was minimized while still adhering to the user&apos;s cost constraint of $2. The closest AWS instance to imitate this hardware setup is the c6i.4xlarge (same as the first optimization). <linebreak/>
+ It is also important to note that the memory:CPU ratio for both optimizations is 2, meaning that cloud instances with excessive memory is inefficient for this motion planning task. <linebreak/>
+ </para>
+</sect3>
+</sect2>
+</sect1>
+    </detaileddescription>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/README.md"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,155 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ \hypertarget{index_autotoc_md1}{}\doxysection{Installation and Setup}\label{index_autotoc_md1}
+Follow the installation steps on the \href{https://github.com/KeplerC/FogROS2-sky\#sky-setup-instructions}{\texttt{ {\ttfamily Sky Setup Instructions}}} section of the Fog\+ROS2-\/\+Sky README.
+
+Before running the optimization script, configure AWS using your access key and secret access key.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{aws configure}
+\DoxyCodeLine{sky check}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md2}{}\doxysection{Command Line Arguments}\label{index_autotoc_md2}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{5}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Short Argument   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Long Argument   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Required   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-5}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Short Argument   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Long Argument   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Required   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Type   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Description    }\\\cline{1-5}
+\endhead
+-\/y   &--yaml\+\_\+file   &True   &String   &Path to yaml file from current directory (not the directory that the script is in)    \\\cline{1-5}
+-\/gy   &--gpu\+\_\+yaml\+\_\+file   &True   &String   &Path to gpu yaml file from current directory (not the directory that the script is in)    \\\cline{1-5}
+-\/s   &--steps   &True   &Int   &Total number of steps you want the algorithm to take (Dexnet by default)    \\\cline{1-5}
+-\/c   &--max\+\_\+cost   &True   &Float   &Maximum financial cost you want to spend on cloud computing (in \$)    \\\cline{1-5}
+-\/t   &--max\+\_\+time   &True   &Float   &Maximum amount of time you want the algorithm to spend on the cloud (in seconds)    \\\cline{1-5}
+-\/oc   &--max\+\_\+objective\+\_\+cost   &True   &Float   &Maximum objective cost (used only for motion planning, TODO\+: Remove objective cost requirement for SLAM and Dexnet where it isn\textquotesingle{}t used)    \\\cline{1-5}
+-\/d   &--debug   &False   &N/A   &Type -\/d if you want to run debug mode   \\\cline{1-5}
+\end{longtabu}
+In order to run SLAM, yaml and gpu yaml files need to contain slam in the filename. In order to run motion planning, yaml and gpu yaml files need to contain mp. Otherwise, Dexnet is run by default. TODO\+: Add command line argument to specify if the program should run Dexnet, SLAM, or Motion Planning.\hypertarget{index_autotoc_md3}{}\doxysection{Example Runs}\label{index_autotoc_md3}
+\hypertarget{index_autotoc_md4}{}\doxysubsection{Dexnet (\+Light Constraints)}\label{index_autotoc_md4}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~/FogROS2-\/sky/fogros2/scripts}
+\DoxyCodeLine{python3 sky\_optimization.py -\/y ../../benchmark.yaml -\/gy ../../benchmark\_gpu.yaml -\/s 1000 -\/c 1 -\/t 3500 -\/oc 700 -\/d}
+
+\end{DoxyCode}
+ \hypertarget{index_autotoc_md5}{}\doxysubsubsection{Outputs}\label{index_autotoc_md5}
+Successful optimization ~\newline
+ Optimized CPU\+: 6.\+583081308434977 ~\newline
+ Optimized Memory\+: 13.\+166162616833319 ~\newline
+ Projected time\+: 3500.\+000000746982 seconds ~\newline
+ Projected cost\+: \$0.\+27147393261837877 ~\newline
+ c6i.\+2xlarge ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 29.\+10002363774633 ~\newline
+ Optimized Memory\+: 208.\+22697699205892 ~\newline
+ Projected time\+: 2067.\+889985919936 seconds ~\newline
+ Projected cost\+: \$1.\+0000000067110584 ~\newline
+ r6i.\+8xlarge ~\newline
+ T4 ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 4.\+0 ~\newline
+ Optimized Memory\+: 16.\+0 ~\newline
+ Projected time\+: 1841.\+2 seconds ~\newline
+ Projected cost\+: \$0.\+26924140299114097 ~\newline
+ g4dn.\+xlarge ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 4.\+0 ~\newline
+ Optimized Memory\+: 16.\+0 ~\newline
+ Projected time\+: 1841.\+2 seconds ~\newline
+ Projected cost\+: \$0.\+26924140299114097 ~\newline
+ g4dn.\+xlarge ~\newline
+
+
+The first optimization used cost as an objective function and set time as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user\textquotesingle{}s time constraint of 3500 seconds. The closest AWS instance to imitate this hardware setup is the c6i.\+2xlarge. ~\newline
+ The second optimization used time as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that time was minimized while still adhering to the user\textquotesingle{}s cost constraint of \$5. The closest AWS instance to imitate this hardware setup is the r6i.\+8xlarge. ~\newline
+ Now, it is important to note the latter 2 optimizations including the T4 GPU also satisfy the constraints, and seem to work more efficiently. This can be highlighed in the next section with harsher constraints. \hypertarget{index_autotoc_md6}{}\doxysubsection{Dexnet (\+Harsh Constraints)}\label{index_autotoc_md6}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~/FogROS2-\/sky/fogros2/scripts}
+\DoxyCodeLine{python3 sky\_optimization.py -\/y ../../benchmark.yaml -\/gy ../../benchmark\_gpu.yaml -\/s 1000 -\/c 0.5 -\/t 2000 -\/oc 700 -\/d}
+
+\end{DoxyCode}
+ \hypertarget{index_autotoc_md7}{}\doxysubsubsection{Outputs}\label{index_autotoc_md7}
+Failed optimization. Please relax constraints ~\newline
+ Closest CPU\+: 55.\+174132878793564 ~\newline
+ Closest Memory\+: 110.\+34826575767434 ~\newline
+ Projected time\+: 1999.\+999999995834 seconds ~\newline
+ Projected cost\+: \$1.\+2847671764297848 ~\newline
+ c6i.\+16xlarge ~\newline
+ Failed optimization. Please relax constraints ~\newline
+ Closest CPU\+: 19.\+513887987497554 ~\newline
+ Closest Memory\+: 39.\+027775974959205 ~\newline
+ Projected time\+: 2197.\+1952866003394 seconds ~\newline
+ Projected cost\+: \$0.\+5000000000002129 ~\newline
+ c6i.\+4xlarge ~\newline
+ T4 ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 4.\+0 ~\newline
+ Optimized Memory\+: 16.\+0 ~\newline
+ Projected time\+: 1835.\+8785714325759 seconds ~\newline
+ Projected cost\+: \$0.\+2679159162503509 ~\newline
+ g4dn.\+xlarge ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 4.\+0 ~\newline
+ Optimized Memory\+: 16.\+0 ~\newline
+ Projected time\+: 1835.\+8785714325759 seconds ~\newline
+ Projected cost\+: \$0.\+2679159162503509 ~\newline
+ g4dn.\+xlarge ~\newline
+
+
+The first two optimizations attempt to find an instance to run Dexnet in under 2000 seconds and \$0.\+50. With just CPU, this task is not possible under those constraints, but the latter 2 optimizations show cost and time optimizations when a T4 is included. We can see that additional CPU and memory don\textquotesingle{}t help with computation since the optimal CPU and memory for the T4 GPU is the minimum amount. Furthermore, since CPU and memory are most efficient at the minimum, the GPU optimizations don\textquotesingle{}t push up to the user\textquotesingle{}s constraints.\hypertarget{index_autotoc_md8}{}\doxysubsection{SLAM}\label{index_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~/FogROS2-\/sky/fogros2/scripts}
+\DoxyCodeLine{python3 sky\_optimization.py -\/y ../../benchmark\_slam.yaml -\/gy ../../benchmark\_slam\_gpu.yaml -\/s 1000000 -\/c 5 -\/t 55000 -\/oc 650 -\/d}
+
+\end{DoxyCode}
+ \hypertarget{index_autotoc_md9}{}\doxysubsubsection{Outputs}\label{index_autotoc_md9}
+Successful optimization ~\newline
+ Optimized CPU\+: 4.\+586338333006091 ~\newline
+ Optimized Memory\+: 16.\+89002258471161 ~\newline
+ Projected time\+: 54999.\+9999999424284 seconds ~\newline
+ Projected cost\+: \$3.\+444474922339687 ~\newline
+ m6i.\+xlarge ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 7.\+441775519458142 ~\newline
+ Optimized Memory\+: 59.\+53420428352985 ~\newline
+ Projected time\+: 38322.\+24476746237 seconds ~\newline
+ Projected cost\+: \$4.\+999999996850867 ~\newline
+ r6i.\+2xlarge ~\newline
+
+
+The first optimization used cost as an objective function and set time as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user\textquotesingle{}s time constraint of 55000 seconds. The closest AWS instance to imitate this hardware setup is the m6i.\+xlarge. ~\newline
+ The second optimization used time as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that time was minimized while still adhering to the user\textquotesingle{}s cost constraint of \$5. The closest AWS instance to imitate this hardware setup is the r6i.\+2xlarge. ~\newline
+\hypertarget{index_autotoc_md10}{}\doxysubsection{Motion Planning}\label{index_autotoc_md10}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{cd \string~/FogROS2-\/sky/fogros2/scripts}
+\DoxyCodeLine{python3 sky\_optimization.py -\/y ../../benchmark\_mp.yaml -\/gy ../../benchmark\_mp\_gpu.yaml -\/s 1000 -\/c 2 -\/t 3500 -\/oc 650 -\/d}
+
+\end{DoxyCode}
+ \hypertarget{index_autotoc_md11}{}\doxysubsubsection{Outputs}\label{index_autotoc_md11}
+Successful optimization ~\newline
+ Optimized CPU\+: 14.\+868582555026965 ~\newline
+ Optimized Memory\+: 29.\+73716511005242 ~\newline
+ Projected objective cost\+: 650.\+0000000000771 ~\newline
+ Projected cost\+: \$1.\+4081357880019716 ~\newline
+ c6i.\+4xlarge ~\newline
+ Successful optimization ~\newline
+ Optimized CPU\+: 23.\+744358343008674 ~\newline
+ Optimized Memory\+: 47.\+488716242681406 ~\newline
+ Projected objective cost\+: 637.\+8114539965433 ~\newline
+ Projected cost\+: \$2.\+000000117784925 ~\newline
+ c6i.\+4xlarge ~\newline
+
+
+The first optimization used cost as an objective function and set objective cost as a constraint. We can see that we selected CPU and memory such that cost was minimized while still adhering to the user\textquotesingle{}s objective cost constraint of 650. The closest AWS instance to imitate this hardware setup is the c6i.\+4xlarge. ~\newline
+ The second optimization used objective cost as an objective function and set cost as a constraint. We can see that we selected CPU and memory such that objective cost was minimized while still adhering to the user\textquotesingle{}s cost constraint of \$2. The closest AWS instance to imitate this hardware setup is the c6i.\+4xlarge (same as the first optimization). ~\newline
+ It is also important to note that the memory\+:CPU ratio for both optimizations is 2, meaning that cloud instances with excessive memory is inefficient for this motion planning task. ~\newline
+ 

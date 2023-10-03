@@ -1,0 +1,1813 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="classsky__optimization_1_1SkyOptimization" kind="class" language="Python" prot="public">
+    <compoundname>sky_optimization::SkyOptimization</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a49d85a35ddb0203bd65e5934ee8f1416" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::debug_</definition>
+        <argsstring></argsstring>
+        <name>debug_</name>
+        <briefdescription>
+<para>Debug Mode (Lots of print statements) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="66" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="66" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a0f868e7a0735257eb2ec31a5a8e7a464" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::steps_</definition>
+        <argsstring></argsstring>
+        <name>steps_</name>
+        <briefdescription>
+<para>Number of steps the Sky benchmarking should run. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="70" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="70" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1acefe65e600bb09fcb2c4d3e69dd76f11" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::max_cost_</definition>
+        <argsstring></argsstring>
+        <name>max_cost_</name>
+        <briefdescription>
+<para>User provided cost constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="74" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="74" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a50d798eb763489929afd39b12d1949a0" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::max_time_</definition>
+        <argsstring></argsstring>
+        <name>max_time_</name>
+        <briefdescription>
+<para>User provided time constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="78" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1af2a885293ef2d18424926fc5ce2c5053" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::max_objective_cost_</definition>
+        <argsstring></argsstring>
+        <name>max_objective_cost_</name>
+        <briefdescription>
+<para>User provided objective cost constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="82" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="82" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a34f4213616e8090576b333b24bddbaad" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::gpu_type_</definition>
+        <argsstring></argsstring>
+        <name>gpu_type_</name>
+        <briefdescription>
+<para>The GPU type used in the Sky benchmarking (only tested on No GPU, T4) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="86" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="86" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a045b07f0297cfa3e6c099a354c71a750" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::count_</definition>
+        <argsstring></argsstring>
+        <name>count_</name>
+        <briefdescription>
+<para>Index in list of <ref refid="classsky__optimization_1_1SkyOptimization" kindref="compound">SkyOptimization</ref> Problems being run (helps coordinate the multithreading) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="90" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="90" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a35ecd4c7647030cde04a8a0c946b8c7e" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::SECONDS_PER_MINUTE</definition>
+        <argsstring></argsstring>
+        <name>SECONDS_PER_MINUTE</name>
+        <briefdescription>
+<para>Number of seconds in a minute. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="114" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="114" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aa44cefc98e2a66fdf588216a1321ecac" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::MINUTES_PER_HOUR</definition>
+        <argsstring></argsstring>
+        <name>MINUTES_PER_HOUR</name>
+        <briefdescription>
+<para>Number of minutes in an hour. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="118" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="118" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1abce54906722787cd57c5471fbc57c1aa" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::SECONDS_PER_HOUR</definition>
+        <argsstring></argsstring>
+        <name>SECONDS_PER_HOUR</name>
+        <briefdescription>
+<para>Number of seconds in an hour. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="122" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="122" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a17169c5c1e85810c5f3dc75dd59a738c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::ZERO_EPSILON</definition>
+        <argsstring></argsstring>
+        <name>ZERO_EPSILON</name>
+        <briefdescription>
+<para>Positive zero approximation. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="126" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="126" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aeee01f861ccbc6de5f213b60238ef20c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::yaml_file_</definition>
+        <argsstring></argsstring>
+        <name>yaml_file_</name>
+        <briefdescription>
+<para>YAML file specifying Sky benchmarking setup for no GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="130" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a5efe23f6440de54800a26aeb4d68cf7b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::gpu_yaml_file_</definition>
+        <argsstring></argsstring>
+        <name>gpu_yaml_file_</name>
+        <briefdescription>
+<para>YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="134" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="134" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1add496d9356567dd5e3d4cea5c85cc995" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::is_slam_</definition>
+        <argsstring></argsstring>
+        <name>is_slam_</name>
+        <briefdescription>
+<para>Boolean indicating if the task is V-SLAM. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="138" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="138" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a1b3a8d2a6ed4e848a4e1b6478c88477b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::is_motion_planning_</definition>
+        <argsstring></argsstring>
+        <name>is_motion_planning_</name>
+        <briefdescription>
+<para>Boolean indicating if the task is motion planning. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="142" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="142" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a68219ed58fc2c0257712429299f644e1" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::is_dexnet_</definition>
+        <argsstring></argsstring>
+        <name>is_dexnet_</name>
+        <briefdescription>
+<para>Boolean indicating if the task is Dexnet. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="146" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="146" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1acc9b57033573a885212186b97dc99207" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::optimization_function_type_length_</definition>
+        <argsstring></argsstring>
+        <name>optimization_function_type_length_</name>
+        <briefdescription>
+<para>Index in solution string specifying optimization function type. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="150" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="150" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a52a45c1c4260aa9f2f394d1f4c356815" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::max_cpu_</definition>
+        <argsstring></argsstring>
+        <name>max_cpu_</name>
+        <briefdescription>
+<para>Initialzation of maximum CPU constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="154" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="154" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a40511625171cbc420bb30661c61ee476" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::max_memory_</definition>
+        <argsstring></argsstring>
+        <name>max_memory_</name>
+        <briefdescription>
+<para>Initialization of maximum memory constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="158" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="158" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a72e4c451abbfc42b4c2849afdc69e616" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::relevant_cpu_list_</definition>
+        <argsstring></argsstring>
+        <name>relevant_cpu_list_</name>
+        <briefdescription>
+<para>List of realistic CPU setups for the cloud (similar to relevant hardware list without memory, rememant of prototype version that just looked for optimal CPU) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="162" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="162" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1abd2ae81e4be03e4a8a94b315ba0d2e45" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::relevant_hardware_list_</definition>
+        <argsstring></argsstring>
+        <name>relevant_hardware_list_</name>
+        <briefdescription>
+<para>List of realistic CPU and memory setups for the cloud. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="166" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="166" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a2bccc848e89dd687f17b5c7fc8e1d4af" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_time_results_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_time_results_</name>
+        <briefdescription>
+<para>List storing results from time benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="170" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="170" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aa235e18513ab01cfc9e10ba16ef9f7ea" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_yaml_list_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_yaml_list_</name>
+        <briefdescription>
+<para>List of YAML files generated that will be used for Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="174" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="174" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aff7a271a0d938814ddd80e81e4f434c2" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_range_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_range_</name>
+        <briefdescription>
+<para>Number of benchmarks performed per feature (i.e we only do benchmarking for minimum CPU amount, maximum CPU amount, and middle CPU amount) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="178" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="178" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a8a78a143f3bbf921caee7a8c7df6cafd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_threads_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_threads_</name>
+        <briefdescription>
+<para>List of different threads running Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="182" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="182" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1af3d4713dd960e0b81364d2e462e72828" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_cost_substring_1_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_cost_substring_1_</name>
+        <briefdescription>
+<para>First identifier substring for cost benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="186" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="186" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1ae06bd5d1e4dfbb7b0b054ab0e4a2b78d" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_cost_substring_2_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_cost_substring_2_</name>
+        <briefdescription>
+<para>Second identifier substring for cost benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="190" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="190" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aca7b765b1d8f05bd3302c7afae7aa5be" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_time_substring_1_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_time_substring_1_</name>
+        <briefdescription>
+<para>First identifier substring for time benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="194" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="194" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a2eb84795b7dff16671b7131b7564edaf" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_time_substring_2_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_time_substring_2_</name>
+        <briefdescription>
+<para>Second identifier substring for time benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="198" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="198" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1ab9a547f76d882c185b085cd1ec103bed" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::min_gpu_substring_1_</definition>
+        <argsstring></argsstring>
+        <name>min_gpu_substring_1_</name>
+        <briefdescription>
+<para>First identifier substring for GPU identification. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="202" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="202" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a94504e90ae5fac73038d270cab17ba82" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::min_gpu_substring_2_</definition>
+        <argsstring></argsstring>
+        <name>min_gpu_substring_2_</name>
+        <briefdescription>
+<para>Second identifier substring for GPU identification. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="206" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="206" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aaec9bf157fa5a0e40b76770d0536a10c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::mem_to_cpu_ratio_for_gpu_</definition>
+        <argsstring></argsstring>
+        <name>mem_to_cpu_ratio_for_gpu_</name>
+        <briefdescription>
+<para>Initialization for memory:CPU ratio (used only when GPU type isn&apos;t None) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="210" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="210" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a538af45488bdf1a6114b5cbb38f09279" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::num_steps_and_duration_</definition>
+        <argsstring></argsstring>
+        <name>num_steps_and_duration_</name>
+        <briefdescription>
+<para>List containing step and startup time results for benchmarking (remmanat of prototype version where we tried to account for startup time. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="214" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="214" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a89cd90eb183761bd867f7563a2d93b2a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::average_setup_time_</definition>
+        <argsstring></argsstring>
+        <name>average_setup_time_</name>
+        <briefdescription>
+<para>Average setup time for cloud instance (remmenant of prototype version: see self.num_steps_and_duration_ for explanation) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="219" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="219" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aaf9a95af2f39d4d94783736c8290c82c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::got_cost_info_</definition>
+        <argsstring></argsstring>
+        <name>got_cost_info_</name>
+        <briefdescription>
+<para>Boolean indicating if we have receieved cost information from benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="223" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="223" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a020b2f2f2db34c9f80743631ed7e1685" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_cost_substring_cpu_index_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_cost_substring_cpu_index_</name>
+        <briefdescription>
+<para>Indiex where CPU information is located in benchmark cost string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="227" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="227" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a85fc9d5ae09d457a2f85352b3c930574" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_cost_substring_cost_index_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_cost_substring_cost_index_</name>
+        <briefdescription>
+<para>Index where Cost information is located in benchmark cost string. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="231" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="231" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a9c73c23a186529f9eccf043acac62560" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_cost_results_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_cost_results_</name>
+        <briefdescription>
+<para>List containng cost results from Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="235" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="235" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a054927efdf3272841445d020727ddf30" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::benchmark_objective_cost_results_</definition>
+        <argsstring></argsstring>
+        <name>benchmark_objective_cost_results_</name>
+        <briefdescription>
+<para>List containing objective cost results for Sky benchmarking (only relevant for Motion Planning) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="239" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="239" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1ad95886624b53afd9d435d8491584b184" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::yaml_file_contents_</definition>
+        <argsstring></argsstring>
+        <name>yaml_file_contents_</name>
+        <briefdescription>
+<para>String containing YAML file contents for Sky benchmark YAML. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="243" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="243" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a7f044a3da11dc7c692c5d6b6cd6fac8b" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cpu_start_index_</definition>
+        <argsstring></argsstring>
+        <name>cpu_start_index_</name>
+        <briefdescription>
+<para>Index containing information about where CPU information starts in YAML file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="247" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="247" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a7898ef8cbb1f7321cac96d983c1835b5" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cpu_candiate_index_</definition>
+        <argsstring></argsstring>
+        <name>cpu_candiate_index_</name>
+        <briefdescription>
+<para>Index containing information about where CPU candidate information starts in YAML file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="251" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="251" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a2e3b191fc23c2b66fc2133d4b641aec1" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cpu_str_offset_</definition>
+        <argsstring></argsstring>
+        <name>cpu_str_offset_</name>
+        <briefdescription>
+<para>Offset for index where we insert CPU information into the YAML file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="255" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="255" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a21f9f708df7b2680238b6c9e21aa55cd" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::seconds_per_step_index_</definition>
+        <argsstring></argsstring>
+        <name>seconds_per_step_index_</name>
+        <briefdescription>
+<para>Index containing seconds per step information during Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="259" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="259" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a19c2c066028c03bccf80ee9b1cd35776" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::num_steps_index_</definition>
+        <argsstring></argsstring>
+        <name>num_steps_index_</name>
+        <briefdescription>
+<para>Index containing number of steps information during Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="263" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="263" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a9870a41b8684ffc6a04a40ea269ec643" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::duration_min_index_</definition>
+        <argsstring></argsstring>
+        <name>duration_min_index_</name>
+        <briefdescription>
+<para>Index containing minute duration during Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="267" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="267" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a477634dc0a1b1d321060ee051bd7732f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::duration_sec_index_</definition>
+        <argsstring></argsstring>
+        <name>duration_sec_index_</name>
+        <briefdescription>
+<para>Index containing second duration during Sky benchmarking. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="271" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="271" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a0009686e4076ebb18c69172a7ed22ce3" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::solutions_in_constraints_</definition>
+        <argsstring></argsstring>
+        <name>solutions_in_constraints_</name>
+        <briefdescription>
+<para>List of solutions that are within constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="281" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="281" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aa822a8d8eacc84fc7d8a573cdc379543" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::solutions_outside_constraints_</definition>
+        <argsstring></argsstring>
+        <name>solutions_outside_constraints_</name>
+        <briefdescription>
+<para>List of solutions that are outside constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="285" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="285" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a45e3177b68d8b6517b6f08bfc7185422" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::data_file_</definition>
+        <argsstring></argsstring>
+        <name>data_file_</name>
+        <briefdescription>
+<para>String before relevant benchmarking data (Let&apos;s the program know which line to collect benchmarking data from) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="289" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="289" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1af92f40cf672de49e44b1f9a91da864d8" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::data_file_name_</definition>
+        <argsstring></argsstring>
+        <name>data_file_name_</name>
+        <briefdescription>
+<para>Data file we will save benchmark data results. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="293" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="293" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aea17908f35922783d4f70126c1a215fe" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::result_queue_</definition>
+        <argsstring></argsstring>
+        <name>result_queue_</name>
+        <briefdescription>
+<para>List containing info that will be outputted to data file. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="297" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="297" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aff5e77d41e90e5c0086e7b45b8383e96" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::possible_cpus_</definition>
+        <argsstring></argsstring>
+        <name>possible_cpus_</name>
+        <briefdescription>
+<para>List containing possible CPUs (current cloud setup could not do any other CPU amounts) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="301" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="301" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a5023aadf153a745b25f5e0581bdc6543" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::optimal_cost_instance_</definition>
+        <argsstring></argsstring>
+        <name>optimal_cost_instance_</name>
+        <briefdescription>
+<para>String stating the optimal cloud instance for cost optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="305" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="305" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a90d851d896937561c7d57abb73f7374f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::optimal_time_instance_</definition>
+        <argsstring></argsstring>
+        <name>optimal_time_instance_</name>
+        <briefdescription>
+<para>String stating the optimal cloud instance for time optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="309" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="309" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a0eb79188740bbf8fc64189061a7ed259" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::optimal_objective_cost_instance_</definition>
+        <argsstring></argsstring>
+        <name>optimal_objective_cost_instance_</name>
+        <briefdescription>
+<para>String stating the optimal cloud instance for objective cost optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="313" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="313" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a8550ff1cb98425540ee9728afb23873f" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::t4_map_</definition>
+        <argsstring></argsstring>
+        <name>t4_map_</name>
+        <briefdescription>
+<para>Map between hardware tuples (CPU, Memory) and T4 GPU cloud instances for AWS (Future Work: Will generate these maps online by parsing SkyPilot database CSV file) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="317" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="317" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a9d499f7e4971e08bf4ab977db66c1e01" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::no_gpu_map_</definition>
+        <argsstring></argsstring>
+        <name>no_gpu_map_</name>
+        <briefdescription>
+<para>Map between hardware tuples (CPU, Memory) and no GPU cloud instance (Future Work: Will generate these maps online by parsing SkyPilot database CSV file) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="325" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="325" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a7c9f64b012daa06c7442f257192a614a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::time_model_info_</definition>
+        <argsstring></argsstring>
+        <name>time_model_info_</name>
+        <briefdescription>
+<para>Time Regression Output containing model info and constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="348" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="348" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aa9a8a2d3819a40f03a8abe75c7361e27" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cost_model_info_</definition>
+        <argsstring></argsstring>
+        <name>cost_model_info_</name>
+        <briefdescription>
+<para>Cost Regression Output containing model info and constraints. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="352" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="352" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a0dc8ee5370d2528efc522faca4ff1e02" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::objective_cost_model_info_</definition>
+        <argsstring></argsstring>
+        <name>objective_cost_model_info_</name>
+        <briefdescription>
+<para>Objective Cost Regression Output containing model info and constraints (only motion planning) </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="356" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="356" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1acd19fecda0f7cc035a60fd99f18b6f21" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::timeModel_</definition>
+        <argsstring></argsstring>
+        <name>timeModel_</name>
+        <briefdescription>
+<para>Time Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="360" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="360" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a262ece4d7b758dea7bff41b1a57c2f04" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::time_model_coefficients_</definition>
+        <argsstring></argsstring>
+        <name>time_model_coefficients_</name>
+        <briefdescription>
+<para>Coefficients for Time Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="364" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="364" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a5b9ca760f548a0f9860fc34687a2c93c" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::costModel_</definition>
+        <argsstring></argsstring>
+        <name>costModel_</name>
+        <briefdescription>
+<para>Cost Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="368" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="368" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a631f5f6b49c5dd04a54318015d22677a" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cost_model_coefficients_</definition>
+        <argsstring></argsstring>
+        <name>cost_model_coefficients_</name>
+        <briefdescription>
+<para>Coefficients for Cost Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="372" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="372" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a3a4e5657cfb75a91141c4bdaf6cd03fb" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::objectiveCostModel_</definition>
+        <argsstring></argsstring>
+        <name>objectiveCostModel_</name>
+        <briefdescription>
+<para>Objective Cost Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="376" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="376" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1aeae970169c5c80e33ca0697d68c7caa6" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::objective_cost_model_coefficients_</definition>
+        <argsstring></argsstring>
+        <name>objective_cost_model_coefficients_</name>
+        <briefdescription>
+<para>Coefficients for Objective Cost Regression Model. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="380" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="380" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a3da0f8b7acda9f41346479d5a8ecb926" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::cost_optimization_results_</definition>
+        <argsstring></argsstring>
+        <name>cost_optimization_results_</name>
+        <briefdescription>
+<para>Scipy Output from Cost Optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="384" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="384" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1ac51449c1a9770907ee03b8ce2a117f96" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::time_optimization_results_</definition>
+        <argsstring></argsstring>
+        <name>time_optimization_results_</name>
+        <briefdescription>
+<para>Scipy Output from Time Optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="388" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="388" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="classsky__optimization_1_1SkyOptimization_1a5677bad01f1999a7437b45f084652d10" prot="public" static="no" mutable="no">
+        <type></type>
+        <definition>sky_optimization.SkyOptimization::objective_cost_optimization_results_</definition>
+        <argsstring></argsstring>
+        <name>objective_cost_optimization_results_</name>
+        <briefdescription>
+<para>Scipy Output from Objective Cost Optimization. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="392" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="392" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+      <sectiondef kind="public-func">
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a39a8f8caf861f46106c0a7aae4f7e2cd" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.__init__</definition>
+        <argsstring>(self, yaml_file, gpu_yaml_file, steps, max_cost, max_time, max_objective_cost, debug, gpu_type, count)</argsstring>
+        <name>__init__</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>yaml_file</type>
+          <defname>yaml_file</defname>
+        </param>
+        <param>
+          <type>gpu_yaml_file</type>
+          <defname>gpu_yaml_file</defname>
+        </param>
+        <param>
+          <type>steps</type>
+          <defname>steps</defname>
+        </param>
+        <param>
+          <type>max_cost</type>
+          <defname>max_cost</defname>
+        </param>
+        <param>
+          <type>max_time</type>
+          <defname>max_time</defname>
+        </param>
+        <param>
+          <type>max_objective_cost</type>
+          <defname>max_objective_cost</defname>
+        </param>
+        <param>
+          <type>debug</type>
+          <defname>debug</defname>
+        </param>
+        <param>
+          <type>gpu_type</type>
+          <defname>gpu_type</defname>
+        </param>
+        <param>
+          <type>count</type>
+          <defname>count</defname>
+        </param>
+        <briefdescription>
+<para>Sky Optimization Constructor. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>yaml_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>YAML file specifying Sky benchmarking setup for no GPU </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gpu_yaml_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>YAML file specifying Sky benchmarking setup for given GPU type (Tested only on T4) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>steps</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Number of steps the Sky benchmarking should run </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_cost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User provided cost constraint </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_time</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User provided time constraint </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>max_objective_cost</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>User provided objective cost constraint </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>debug</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Debug Mode (Lots of print statements) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>gpu_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The GPU type used in the Sky benchmarking (only tested on No GPU, T4) </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Index in list of <ref refid="classsky__optimization_1_1SkyOptimization" kindref="compound">SkyOptimization</ref> Problems being run (helps coordinate the multithreading) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="52" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="63" bodyend="393"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a267b44e102db28ce95c71e3015c2f60f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.fullOptimization</definition>
+        <argsstring>(self)</argsstring>
+        <name>fullOptimization</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Full Sky Optimization Function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>List containing Time and Cost Optimizations </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="397" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="397" bodyend="490"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1ab49a020cbddd3b21b5910da3e8abcb43" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.getObjectiveCost</definition>
+        <argsstring>(self, machine_name)</argsstring>
+        <name>getObjectiveCost</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>machine_name</type>
+          <defname>machine_name</defname>
+        </param>
+        <briefdescription>
+<para>Parses Sky benchmarking to get objective cost for given machine instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>machine_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of benchmarking machine instance </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Objective cost from instance </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="495" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="495" bodyend="516"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1ae2e79639f37155ca1ea96e0fbe10cb7a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.findInstance</definition>
+        <argsstring>(self, optimization_results, optimization_type)</argsstring>
+        <name>findInstance</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>optimization_results</type>
+          <defname>optimization_results</defname>
+        </param>
+        <param>
+          <type>optimization_type</type>
+          <defname>optimization_type</defname>
+        </param>
+        <briefdescription>
+<para>Given results of optimization, this will find the closest feasible hardware setup and its corresponding AWS Instance (Future Work: Build out to other cloud providers) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>optimization_results</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Scipy Output from optimization </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>optimization_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Optimization Type (Cost or Time) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="521" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="521" bodyend="574"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1ac56fe7d2cba6776d09ed8aceb83a325e" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.binarySearchRounding</definition>
+        <argsstring>(self, optimal_cpu_count)</argsstring>
+        <name>binarySearchRounding</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>optimal_cpu_count</type>
+          <defname>optimal_cpu_count</defname>
+        </param>
+        <briefdescription>
+<para>Rounds CPU output of optimization to nearest feasible CPU amount allowed in cloud instance. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>optimal_cpu_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>CPU output from optimization </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Feasible CPU amount closest to the optimal CPU amount </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="579" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="579" bodyend="603"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1aed0a897dd9d70289da9627c5f522a01f" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.findGpuValues</definition>
+        <argsstring>(self)</argsstring>
+        <name>findGpuValues</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Parses provided GPU benchmark file to determine possible hardware setups for given GPU. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="606" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="606" bodyend="703"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1abb929a2946778610f5fd2a5063fe9a71" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.findCpuValues</definition>
+        <argsstring>(self)</argsstring>
+        <name>findCpuValues</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Parses provided CPU benchmark file to determine edge case hardware setups. </para>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="706" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="706" bodyend="763"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a13f369d90ce3347bc1bd704ec2dfc5b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.createBenchmarks</definition>
+        <argsstring>(self, gpu_type)</argsstring>
+        <name>createBenchmarks</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>gpu_type</type>
+          <defname>gpu_type</defname>
+        </param>
+        <briefdescription>
+<para>Creates Yaml files for each benchmarking instance that will be run. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>gpu_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>The GPU type of this optimization instance (only tested on T4 and No GPU) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="766" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="766" bodyend="843"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a38deae1f7984a52a487d6dfbe9fc7562" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.runSkyBenchmarks</definition>
+        <argsstring>(self, count)</argsstring>
+        <name>runSkyBenchmarks</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>count</type>
+          <defname>count</defname>
+        </param>
+        <briefdescription>
+<para>Multithreads (Python-style) sky benchmarking instances. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Global count relative to other <ref refid="classsky__optimization_1_1SkyOptimization" kindref="compound">SkyOptimization</ref> instances to make sure each Sky benchmarking instance name is unique </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="847" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="847" bodyend="889"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1aa4f19dace05127352c5bf66ced3540a6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.skyBenchmark</definition>
+        <argsstring>(self, yaml_file, benchmark_name, hardware_count)</argsstring>
+        <name>skyBenchmark</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>yaml_file</type>
+          <defname>yaml_file</defname>
+        </param>
+        <param>
+          <type>benchmark_name</type>
+          <defname>benchmark_name</defname>
+        </param>
+        <param>
+          <type>hardware_count</type>
+          <defname>hardware_count</defname>
+        </param>
+        <briefdescription>
+<para>Runs sky benchmarking instance from bash script. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>yaml_file</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Yaml configuration file for benchmarking instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>benchmark_name</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Name of Sky benchmarking instance </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>hardware_count</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Tuple containing (CPU, Memory) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="895" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="895" bodyend="1056"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1abda685964081b0ca76af9a1a6e501f86" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.regressionSolver</definition>
+        <argsstring>(self, data, purpose)</argsstring>
+        <name>regressionSolver</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>data</type>
+          <defname>data</defname>
+        </param>
+        <param>
+          <type>purpose</type>
+          <defname>purpose</defname>
+        </param>
+        <briefdescription>
+<para>Finds best fitting model given benchmarking data. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>data</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Benchmarking data for either time, cost, or objective cost </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>purpose</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time, Cost, or Objective Cost </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Best fit model and its coefficients </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1078" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1078" bodyend="1123"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a133ced3a3b28b15b9ec884106324976a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.createBounds</definition>
+        <argsstring>(self)</argsstring>
+        <name>createBounds</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Bounds for CPU and Memory for optimization problem. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>SciPy Bounds object for optimization problem </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1127" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1127" bodyend="1148"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a43161ffa0faa9da8f154608cf3fa9d47" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.createConstraints</definition>
+        <argsstring>(self, constraint_function_type)</argsstring>
+        <name>createConstraints</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>constraint_function_type</type>
+          <defname>constraint_function_type</defname>
+        </param>
+        <briefdescription>
+<para>Constraints for Optimization Problem (includes time/cost along with memory/CPU ratio) </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>constraint_function_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Constraint function type, which is opposite of the optimization problem (Time Optimization -&gt; Cost Constraint and Cost Optimization -&gt; Time Constraint) </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>SciPy Constraints object for optimization problem </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1153" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1153" bodyend="1195"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1afcd54cc614b0ef5b91c479f415dd11f0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.getTimeOptimization</definition>
+        <argsstring>(self)</argsstring>
+        <name>getTimeOptimization</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Gets Time Optimization Results. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Time Optimization Results </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1199" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1199" bodyend="1201"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1ad74297d3b060c7506c3822e94c8af3bc" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.getCostOptimization</definition>
+        <argsstring>(self)</argsstring>
+        <name>getCostOptimization</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Gets Cost Optimization Results. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Cost Optimization Results </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1205" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1205" bodyend="1207"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a65212da61b559b4eda7273f7dc76fc60" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.createObjectiveFunction</definition>
+        <argsstring>(self, objective_function_type)</argsstring>
+        <name>createObjectiveFunction</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>objective_function_type</type>
+          <defname>objective_function_type</defname>
+        </param>
+        <briefdescription>
+<para>Optimization Loss Function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>objective_function_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time or Cost </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Optimization Loss Function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1212" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1212" bodyend="1222"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a292af0b8fc00695722a2dc2c87ccc629" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.memoryFunction</definition>
+        <argsstring>(self)</argsstring>
+        <name>memoryFunction</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Function for memory/CPU ratio constraint. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Memory:CPU Constraint Function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1226" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1226" bodyend="1231"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a9bae6ff64842af75b23394e1c6ad8074" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.costFunction</definition>
+        <argsstring>(self)</argsstring>
+        <name>costFunction</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Cost Function = $/second * seconds/step * # steps. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Function object for the Cost Function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1235" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1235" bodyend="1250"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a78ea3c762086394f44a5e6ab6f23e10a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.timeFunction</definition>
+        <argsstring>(self)</argsstring>
+        <name>timeFunction</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Time Function = seconds/step * # steps. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Function object for the Time Function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1254" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1254" bodyend="1265"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1ab1987bf7c8175c834941f86a24d33c57" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.objectiveCostFunction</definition>
+        <argsstring>(self)</argsstring>
+        <name>objectiveCostFunction</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <briefdescription>
+<para>Objective Cost Function. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><simplesect kind="return"><para>Function object for the Objective Cost Function </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1269" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1269" bodyend="1277"/>
+      </memberdef>
+      <memberdef kind="function" id="classsky__optimization_1_1SkyOptimization_1a2f45c1ac884c2446cc67144adb8adc8a" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>def</type>
+        <definition>def sky_optimization.SkyOptimization.solveOptimization</definition>
+        <argsstring>(self, objective_function_type, constraint_function_type)</argsstring>
+        <name>solveOptimization</name>
+        <param>
+          <type>self</type>
+          <defname>self</defname>
+        </param>
+        <param>
+          <type>objective_function_type</type>
+          <defname>objective_function_type</defname>
+        </param>
+        <param>
+          <type>constraint_function_type</type>
+          <defname>constraint_function_type</defname>
+        </param>
+        <briefdescription>
+<para>Optimization Problem Setup and Solver. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>objective_function_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Time or Cost </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>constraint_function_type</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Opposite of objective_function_type </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Optimization Result, Time Model Result, Cost Model Result </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="1283" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="1283" bodyend="1343"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>Sky Optimizer responsible for performing the cost and time optimizations based on problem type (Dexnet, VSLAM, Motion Planning) and GPU type (No GPU, T4, etc) </para>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" line="40" column="1" bodyfile="/home/kushtimusprime/FogROS2-sky/fogros2/scripts/sky_optimization.py" bodystart="40" bodyend="1344"/>
+    <listofallmembers>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a39a8f8caf861f46106c0a7aae4f7e2cd" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>__init__</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a89cd90eb183761bd867f7563a2d93b2a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>average_setup_time_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a9c73c23a186529f9eccf043acac62560" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_cost_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1af3d4713dd960e0b81364d2e462e72828" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_cost_substring_1_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ae06bd5d1e4dfbb7b0b054ab0e4a2b78d" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_cost_substring_2_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a85fc9d5ae09d457a2f85352b3c930574" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_cost_substring_cost_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a020b2f2f2db34c9f80743631ed7e1685" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_cost_substring_cpu_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a054927efdf3272841445d020727ddf30" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_objective_cost_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aff7a271a0d938814ddd80e81e4f434c2" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_range_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a8a78a143f3bbf921caee7a8c7df6cafd" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_threads_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a2bccc848e89dd687f17b5c7fc8e1d4af" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_time_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aca7b765b1d8f05bd3302c7afae7aa5be" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_time_substring_1_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a2eb84795b7dff16671b7131b7564edaf" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_time_substring_2_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aa235e18513ab01cfc9e10ba16ef9f7ea" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>benchmark_yaml_list_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ac56fe7d2cba6776d09ed8aceb83a325e" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>binarySearchRounding</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a631f5f6b49c5dd04a54318015d22677a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cost_model_coefficients_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aa9a8a2d3819a40f03a8abe75c7361e27" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cost_model_info_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a3da0f8b7acda9f41346479d5a8ecb926" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cost_optimization_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a9bae6ff64842af75b23394e1c6ad8074" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>costFunction</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a5b9ca760f548a0f9860fc34687a2c93c" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>costModel_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a045b07f0297cfa3e6c099a354c71a750" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>count_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a7898ef8cbb1f7321cac96d983c1835b5" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cpu_candiate_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a7f044a3da11dc7c692c5d6b6cd6fac8b" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cpu_start_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a2e3b191fc23c2b66fc2133d4b641aec1" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>cpu_str_offset_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a13f369d90ce3347bc1bd704ec2dfc5b0" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>createBenchmarks</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a133ced3a3b28b15b9ec884106324976a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>createBounds</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a43161ffa0faa9da8f154608cf3fa9d47" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>createConstraints</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a65212da61b559b4eda7273f7dc76fc60" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>createObjectiveFunction</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a45e3177b68d8b6517b6f08bfc7185422" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>data_file_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1af92f40cf672de49e44b1f9a91da864d8" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>data_file_name_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a49d85a35ddb0203bd65e5934ee8f1416" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>debug_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a9870a41b8684ffc6a04a40ea269ec643" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>duration_min_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a477634dc0a1b1d321060ee051bd7732f" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>duration_sec_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1abb929a2946778610f5fd2a5063fe9a71" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>findCpuValues</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aed0a897dd9d70289da9627c5f522a01f" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>findGpuValues</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ae2e79639f37155ca1ea96e0fbe10cb7a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>findInstance</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a267b44e102db28ce95c71e3015c2f60f" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>fullOptimization</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ad74297d3b060c7506c3822e94c8af3bc" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>getCostOptimization</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ab49a020cbddd3b21b5910da3e8abcb43" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>getObjectiveCost</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1afcd54cc614b0ef5b91c479f415dd11f0" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>getTimeOptimization</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aaf9a95af2f39d4d94783736c8290c82c" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>got_cost_info_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a34f4213616e8090576b333b24bddbaad" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>gpu_type_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a5efe23f6440de54800a26aeb4d68cf7b" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>gpu_yaml_file_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a68219ed58fc2c0257712429299f644e1" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>is_dexnet_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a1b3a8d2a6ed4e848a4e1b6478c88477b" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>is_motion_planning_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1add496d9356567dd5e3d4cea5c85cc995" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>is_slam_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1acefe65e600bb09fcb2c4d3e69dd76f11" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>max_cost_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a52a45c1c4260aa9f2f394d1f4c356815" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>max_cpu_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a40511625171cbc420bb30661c61ee476" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>max_memory_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1af2a885293ef2d18424926fc5ce2c5053" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>max_objective_cost_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a50d798eb763489929afd39b12d1949a0" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>max_time_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aaec9bf157fa5a0e40b76770d0536a10c" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>mem_to_cpu_ratio_for_gpu_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a292af0b8fc00695722a2dc2c87ccc629" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>memoryFunction</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ab9a547f76d882c185b085cd1ec103bed" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>min_gpu_substring_1_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a94504e90ae5fac73038d270cab17ba82" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>min_gpu_substring_2_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aa44cefc98e2a66fdf588216a1321ecac" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>MINUTES_PER_HOUR</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a9d499f7e4971e08bf4ab977db66c1e01" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>no_gpu_map_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a538af45488bdf1a6114b5cbb38f09279" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>num_steps_and_duration_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a19c2c066028c03bccf80ee9b1cd35776" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>num_steps_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aeae970169c5c80e33ca0697d68c7caa6" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>objective_cost_model_coefficients_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a0dc8ee5370d2528efc522faca4ff1e02" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>objective_cost_model_info_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a5677bad01f1999a7437b45f084652d10" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>objective_cost_optimization_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ab1987bf7c8175c834941f86a24d33c57" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>objectiveCostFunction</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a3a4e5657cfb75a91141c4bdaf6cd03fb" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>objectiveCostModel_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a5023aadf153a745b25f5e0581bdc6543" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>optimal_cost_instance_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a0eb79188740bbf8fc64189061a7ed259" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>optimal_objective_cost_instance_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a90d851d896937561c7d57abb73f7374f" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>optimal_time_instance_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1acc9b57033573a885212186b97dc99207" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>optimization_function_type_length_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aff5e77d41e90e5c0086e7b45b8383e96" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>possible_cpus_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1abda685964081b0ca76af9a1a6e501f86" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>regressionSolver</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a72e4c451abbfc42b4c2849afdc69e616" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>relevant_cpu_list_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1abd2ae81e4be03e4a8a94b315ba0d2e45" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>relevant_hardware_list_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aea17908f35922783d4f70126c1a215fe" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>result_queue_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a38deae1f7984a52a487d6dfbe9fc7562" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>runSkyBenchmarks</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1abce54906722787cd57c5471fbc57c1aa" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>SECONDS_PER_HOUR</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a35ecd4c7647030cde04a8a0c946b8c7e" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>SECONDS_PER_MINUTE</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a21f9f708df7b2680238b6c9e21aa55cd" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>seconds_per_step_index_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aa4f19dace05127352c5bf66ced3540a6" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>skyBenchmark</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a0009686e4076ebb18c69172a7ed22ce3" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>solutions_in_constraints_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aa822a8d8eacc84fc7d8a573cdc379543" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>solutions_outside_constraints_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a2f45c1ac884c2446cc67144adb8adc8a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>solveOptimization</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a0f868e7a0735257eb2ec31a5a8e7a464" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>steps_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a8550ff1cb98425540ee9728afb23873f" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>t4_map_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a262ece4d7b758dea7bff41b1a57c2f04" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>time_model_coefficients_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a7c9f64b012daa06c7442f257192a614a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>time_model_info_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ac51449c1a9770907ee03b8ce2a117f96" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>time_optimization_results_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a78ea3c762086394f44a5e6ab6f23e10a" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>timeFunction</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1acd19fecda0f7cc035a60fd99f18b6f21" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>timeModel_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1aeee01f861ccbc6de5f213b60238ef20c" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>yaml_file_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1ad95886624b53afd9d435d8491584b184" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>yaml_file_contents_</name></member>
+      <member refid="classsky__optimization_1_1SkyOptimization_1a17169c5c1e85810c5f3dc75dd59a738c" prot="public" virt="non-virtual"><scope>sky_optimization::SkyOptimization</scope><name>ZERO_EPSILON</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
