@@ -1,4 +1,4 @@
-# FogROS2
+# FogROS2-Sky
 
 FogROS2-Sky is a cost-efficient open source robotics platform that offloads unmodified ROS2 [[1]](#1) applications to multiple cloud providers and enables fine-grained cost analysis for ROS2 applications’ communication with multiple cloud providers. As each provider offers different options for CPU, GPU, memory, and latency, it can be very difficult for users to decide which to choose. FogROS2-Sky includes an optimization algorithm, which either finds the best available hardware specification that fulfills the user’s latency and cost constraints or reports that such a specification does not exist. We use FogROS2-Sky to perform time-cost analysis on three robotics applications: visual SLAM, grasp planning. and motion planning. We are able to sample different hardware setups at nearly half the cost while still create cost and latency functions suitable for the optimizer. We also evaluate the optimizer’s efficacy for these applications with the Pareto frontier and show that the optimizer selects efficient hardware configurations to balance cost and latency. Videos and code are available [here](https://sites.google.com/view/fogros2-sky).
 
