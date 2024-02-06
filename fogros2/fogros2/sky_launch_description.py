@@ -71,8 +71,9 @@ class SkyLaunchDescription():
                     resource_str = resource_str,
             ), self.logger)
 
-            thread = Thread(target=self.launch, args=[])
-            thread.start()
+            # thread = Thread(target=self.launch, args=[])
+            self.cluster.init_cluster()
+            # thread.start()
         elif self.mode == "benchmark":
             self.cluster = SkyCluster(get_sky_config_yaml(
                     workdir=workdir, 
@@ -91,11 +92,6 @@ class SkyLaunchDescription():
             f.write(dumped_node_str)
         
         # self.cluster.init_cluster()
-
-    def launch(self):
-        #TODO: create a separate thread for it
-        self.logger.info(f"launching the Sky cluster")
-        self.cluster.init_cluster()
 
     def benchmark(self):
         # TODO: benchmark the scheduler
@@ -120,13 +116,6 @@ class SkyCluster():
 
     def init_cluster(self):
         self.logger.info(f"Creating new Sky cluster {self._name}")
-        self.create_sky_instance()
-        self._is_created = True
-
-    def create_sky_instance(self):
-        '''Create Sky Instance with skypilot'''
-        user = subprocess.check_output('whoami', shell=True).decode().strip()
-
         with sky.Dag() as dag:
             t = sky.Task.from_yaml("/tmp/sky.yaml")
 
@@ -141,14 +130,21 @@ class SkyCluster():
         else:
             # run with the same cluster
             sky.exec(dag, cluster_name = "sky-fogros")
+        self.wait_for_cluster()
 
+    def wait_for_cluster(self):
+        user = subprocess.check_output('whoami', shell=True).decode().strip()
 
-        while (sky.status("sky-fogros") == []):
+        while (sky.status("sky-fogros") == [] or str(sky.status("sky-fogros")[0]["status"]) != "ClusterStatus.UP"):
+            if sky.status("sky-fogros") == []:
+                self.logger.info("Waiting for the cluster to be created")
+            else:
+                self.logger.info(f"Cluster status: {str(sky.status('sky-fogros')[0]['status'])}")
             sleep(1)
-        status = sky.status("sky-fogros")[0]
+
         # here we only need the ip address of the head node
         try:
-            self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
+            self._ip = sky.status["handle"].__dict__["stable_internal_external_ips"][0][1] 
             self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
         except:
             # TODO: placeholders

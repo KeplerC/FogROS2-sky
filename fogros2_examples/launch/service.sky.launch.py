@@ -36,55 +36,59 @@ from launch_ros.actions import Node
 
 import fogros2
 
+
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
-
-    talker_node = Node(
-        package="bench", executable="talker", output="screen"
-    )
+    talker_node = Node(package="bench", executable="talker", output="screen")
 
     service_node = Node(
-        package="bench", executable="add_three_ints_service",
+        package="bench",
+        executable="add_three_ints_service",
     )
 
     sgc_router = Node(
         package="sgc_launch",
-        executable="sgc_router", 
+        executable="sgc_router",
         output="screen",
-        emulate_tty = True,
-        parameters = [
+        emulate_tty=True,
+        parameters=[
             # find and add config file in ./sgc_launhc/configs
             # or use the `config_path` optional parameter
-            {"config_file_name": "service-client-topics.yaml"}, 
+            {"config_file_name": "service-client-topics.yaml"},
             {"whoami": "machine_server"},
-            {"release_mode": False}
-        ]
+            {"release_mode": False},
+        ],
     )
 
     fogros2.SkyLaunchDescription(
         nodes=[talker_node, service_node, sgc_router],
-        mode = "launch", # launch, benchmark
+        mode="launch",  # launch, benchmark
     )
 
-    return LaunchDescription([
-        Node(
-            package="fogros2_examples", executable="listener", output="screen", # listener
-        ), 
-        Node(
-        package="bench", executable="add_three_ints_client",
-        ),
-        Node(
-            package="sgc_launch",
-            executable="sgc_router", 
-            output="screen",
-            emulate_tty = True,
-            parameters = [
-                # find and add config file in ./sgc_launhc/configs
-                # or use the `config_path` optional parameter
-                {"config_file_name": "service-client-topics.yaml"}, 
-                {"whoami": "machine_client"},
-                {"release_mode": False}
-            ]
-        )
-    ])
+    return LaunchDescription(
+        [
+            Node(
+                package="fogros2_examples",
+                executable="listener",
+                output="screen",  # listener
+            ),
+            Node(
+                package="bench",
+                executable="add_three_ints_client",
+            ),
+            Node(
+                package="sgc_launch",
+                executable="sgc_router",
+                output="screen",
+                emulate_tty=True,
+                parameters=[
+                    # find and add config file in ./sgc_launhc/configs
+                    # or use the `config_path` optional parameter
+                    {"config_file_name": "service-client-topics.yaml"},
+                    {"whoami": "machine_client"},
+                    {"release_mode": False},
+                ],
+            ),
+        ]
+    )
