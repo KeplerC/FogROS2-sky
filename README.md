@@ -42,7 +42,6 @@ colcon build
 pip install skypilot
 pip3 install wgconfig boto3 paramiko scp
 sudo apt update
-sudo apt install wireguard-tools # TODO: remove dependency of VPN 
 ```
 
 4. Follow the installation instructions for SGC [here](https://github.com/KeplerC/fogros2-sgc).
