@@ -1,4 +1,20 @@
-setup_command_ros_node = """
+import os 
+
+
+EXECUTION_CMD = """
+run: |
+    source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py 
+"""
+
+DOCKER_SETUP_CMD = """
+setup: |
+    # sudo apt-get update && sudo apt-get install -y docker.io
+    # sudo systemctl reset-failed docker
+    # sleep 20
+    # sudo systemctl start docker
+"""
+
+SETUP_ENV_CMD = """
 setup: |
     # need to deactivate conda to install in system Python env
     conda deactivate
@@ -27,56 +43,83 @@ setup: |
     echo Install SGC dependencies 
     sudo apt install -y build-essential curl pkg-config libssl-dev protobuf-compiler clang
     curl https://sh.rustup.rs -sSf | sh -s -- -y && source "$HOME/.cargo/env"
+"""
 
+FILE_MOUNT_CMD = """
 file_mounts:
     /tmp/to_cloud_nodes : /tmp/to_cloud
     # TODO: make it as code
-    /tmp/crypto : ~/sky_ws/install/sgc_launch/share/sgc_launch/configs/crypto
+    /tmp/crypto : {}
 """
 
-execute_command_ros_node = """
-run: |
-    echo "hello"
-    source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py 
-"""
+class SkyYamlBuilder:
+    def __init__(
+        self, 
+        workdir, 
+        docker_cmd=[], 
+        resource_str="", 
+        benchmark_resource_str=""
+    ):
+        self.workdir = workdir
+        self.docker_cmd = docker_cmd
+        self.resource_str = resource_str
+        self.benchmark_resource_str = benchmark_resource_str
 
-setup_command_docker = """
-setup: |
-    # sudo apt-get update && sudo apt-get install -y docker.io
-    # sudo systemctl reset-failed docker
-    # sleep 20
-    # sudo systemctl start docker
-"""
+        self.workspace_path = os.environ["COLCON_PREFIX_PATH"]
 
-def get_sky_config_yaml(
-    workdir,
-    docker_cmd = [],
-    resource_str = "",
-    benchmark_resource_str = "",
-):
-    config = """
-name: fogros2-sky-cluster
-num_nodes: 1  # Number of VMs to launch
-"""
-    if workdir:
-        config += "\nworkdir: " + workdir + "\n"
+        self.config = {}
+
+
+    def get_file_mount_command(self):
+        crypto_path = os.path.join(self.workspace_path, "sgc_launch/share/sgc_launch/configs/crypto")
+        return FILE_MOUNT_CMD.format(
+            crypto_path
+        )
     
-    if docker_cmd:
-        config += setup_command_docker + "\n"
-        config += "run: |\n"
-        for cmd in docker_cmd:
-            config += "    " + cmd + "\n"
-    else: #TODO: need to handle the cast that both nodes and containers exist
-        config += setup_command_ros_node + "\n"
-        config += execute_command_ros_node + "\n"
+    def get_setup_command(self):
+        if self.docker_cmd:
+            return DOCKER_SETUP_CMD
+        else:
+            return SETUP_ENV_CMD
+        
+    def get_execution_command(self):
+        if self.docker_cmd:
+            config += "run: |\n"
+            for cmd in self.docker_cmd:
+                config += "    " + cmd + "\n"
+            return config
+        else:
+            return EXECUTION_CMD
+
+    def output_yaml_config(self, config_path):
+        pass 
     
-    config += resource_str
-    config += benchmark_resource_str
-    return config 
+# def get_sky_config_yaml(
+#     workdir,
+#     docker_cmd=[],
+#     resource_str="",
+#     benchmark_resource_str="",
+# ):
+#     config = """
+# name: fogros2-sky-cluster
+# num_nodes: 1  # Number of VMs to launch
+# """
+#     if workdir:
+#         config += "\nworkdir: " + workdir + "\n"
+
+# if docker_cmd:
+    
+# else:  # TODO: need to handle the cast that both nodes and containers exist
+#     config += setup_command_ros_node + "\n"
+#     config += execute_command_ros_node + "\n"
+
+# config += resource_str
+# config += benchmark_resource_str
+# return config
 
 
 # get_sky_config_yaml(
-#     workdir="~/sky_ws/", 
+#     workdir="~/sky_ws/",
 #     docker_cmd=[
 #     "sudo docker run -d --net=host -v --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros client.launch.py",
 #     "sudo docker run --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/gqcnn_ros:skybench ros2 launch gqcnn_ros planner.launch.py"]

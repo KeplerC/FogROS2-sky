@@ -35,6 +35,8 @@ from threading import Thread
 from rclpy.node import Node
 from rclpy import logging
 from .sky_yaml_builder import get_sky_config_yaml
+from .sky_cluster_manager import SkyCluster
+from .sky_yaml_builder import SkyYamlBuilder
 
 resource_str = '''
 resources:
@@ -64,12 +66,13 @@ class SkyLaunchDescription():
         if self.nodes:
             self._generate_to_cloud_nodes()
 
+        self.yaml_builder = SkyYamlBuilder(workdir=workdir, docker_cmd=containers)
+
+        config_path = "/tmp/sky.yaml"
+        self.yaml_builder.output_yaml_config(config_path)
+
         if self.mode == "launch":
-            self.cluster = SkyCluster(get_sky_config_yaml(
-                    workdir=workdir, 
-                    docker_cmd=containers,
-                    resource_str = resource_str,
-            ), self.logger)
+            self.cluster = SkyCluster(config_path, self.logger)
 
             self.cluster.init_cluster()
         elif self.mode == "benchmark":
@@ -103,75 +106,3 @@ class SkyLaunchDescription():
         pass
 
 
-
-# TODO: later separate to another file
-import sky 
-import subprocess
-from time import sleep
-import os 
-from .name_generator import get_unique_name
-class SkyCluster():
-    def __init__(self, sky_yaml_config, logger) -> None:
-        self.sky_yaml_config = sky_yaml_config
-        self.logger = logger
-        self._name = get_unique_name()
-        with open("/tmp/sky.yaml", "w+") as f:
-            f.write(sky_yaml_config)
-        self.logger.info(f"Creating new Sky cluster {self._name} with config: {self.sky_yaml_config}")
-
-    def init_cluster(self):
-        self.logger.info(f"Creating new Sky cluster {self._name}")
-        with sky.Dag() as dag:
-            t = sky.Task.from_yaml("/tmp/sky.yaml")
-
-        if sky.status("sky-fogros") == []:
-            # create a new cluster
-            # sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-            pid = os.fork()
-            if pid == 0:
-                # child process, just launch the yaml cloud node
-                sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-                exit(0)
-        else:
-            # run with the same cluster
-            sky.exec(dag, cluster_name = "sky-fogros")
-        self.wait_for_cluster()
-
-    def init_spot_cluster(self):
-        # run command sky spot launch -f /tmp/sky.yaml
-        # p = subprocess.Popen("sky spot launch /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
-        pid = os.fork()
-        if pid == 0:
-            os.execvp("sky", ["sky", "spot", "launch", "--yes", "--detach-run", "/tmp/sky.yaml"])
-        else:
-            cluster_name = self.get_spot_cluster_name()
-            self.wait_for_cluster(cluster_name)
-    
-    def get_spot_cluster_name(self):
-        while True:
-            try:
-                for cluster in sky.status():
-                    if cluster["name"].startswith("sky-spot-controller"):
-                        return cluster["name"]
-            except:
-                sleep(1)
-
-    def wait_for_cluster(self, cluster_name = "sky-fogros"):
-        user = subprocess.check_output('whoami', shell=True).decode().strip()
-
-        while (sky.status(cluster_name) == [] or str(sky.status(cluster_name)[0]["status"]) != "ClusterStatus.UP"):
-            if sky.status(cluster_name) == []:
-                self.logger.info("Waiting for the cluster to be created")
-            else:
-                self.logger.info(f"Cluster status: {str(sky.status(cluster_name)[0]['status'])}")
-            sleep(1)
-
-        # here we only need the ip address of the head node
-        try:
-            self._ip = sky.status["handle"].__dict__["stable_internal_external_ips"][0][1] 
-            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
-        except:
-            # TODO: placeholders
-            self._ip = None
-            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
-        self._is_created = True
