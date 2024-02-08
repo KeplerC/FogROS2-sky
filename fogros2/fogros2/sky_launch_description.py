@@ -142,7 +142,7 @@ class SkyCluster():
 
     def init_spot_cluster(self):
         # run command sky spot launch -f /tmp/sky.yaml
-        p = subprocess.Popen(["sky spot launch -f /tmp/sky.yaml".split()], stdout=subprocess.PIPE)
+        p = subprocess.Popen("sky spot launch -f /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
 
     def wait_for_cluster(self):
         user = subprocess.check_output('whoami', shell=True).decode().strip()
