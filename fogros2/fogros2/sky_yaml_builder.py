@@ -2,7 +2,7 @@ setup_command_ros_node = """
 setup: |
     # need to deactivate conda to install in system Python env
     conda deactivate
-    install ROS
+    # install ROS
     echo Installing ROS... It takes a while... 
     sudo apt-get update > /dev/null 2>&1
     sudo apt-get install -y software-properties-common gnupg lsb-release > /dev/null 2>&1
@@ -19,17 +19,19 @@ setup: |
     # install sky callback
     # pip install "git+https://github.com/skypilot-org/skypilot.git#egg=sky-callback&subdirectory=sky/callbacks/" > /dev/null 2>&1
     mkdir -p ~/fog_ws
-    ln -s ~/sky_workdir/src ~/fog_ws/src
-    ln -s ~/sky_workdir/install ~/fog_ws/install
+    ln -s ~/sky_workdir ~/fog_ws/src
     echo cloud dependencies installed.
     echo Building ROS2 workspace...
     source /opt/ros/humble/setup.bash && cd ~/fog_ws && colcon build 
+    cp -r /tmp/crypto ~/fog_ws/install/sgc_launch/share/sgc_launch/configs/crypto/
     echo Install SGC dependencies 
     sudo apt install -y build-essential curl pkg-config libssl-dev protobuf-compiler clang
     curl https://sh.rustup.rs -sSf | sh -s -- -y && source "$HOME/.cargo/env"
 
 file_mounts:
     /tmp/to_cloud_nodes : /tmp/to_cloud
+    # TODO: make it as code
+    /tmp/crypto : ~/sky_ws/install/sgc_launch/share/sgc_launch/configs/crypto
 """
 
 execute_command_ros_node = """

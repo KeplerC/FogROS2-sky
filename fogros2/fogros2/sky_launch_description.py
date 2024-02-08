@@ -52,7 +52,7 @@ resources:
 '''
 class SkyLaunchDescription():
     def __init__(self, 
-                 workdir = "~/sky_ws",
+                 workdir = "~/sky_ws/src",
                  nodes = [], 
                  containers = [],
                  mode = "launch"):
@@ -140,27 +140,30 @@ class SkyCluster():
     def init_spot_cluster(self):
         # run command sky spot launch -f /tmp/sky.yaml
         # p = subprocess.Popen("sky spot launch /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
-        def launch_cluster():
-            command = ["sky", "spot", "launch", "-f", "/tmp/sky.yaml"]
+        pid = os.fork()
+        if pid == 0:
+            os.execvp("sky", ["sky", "spot", "launch", "--yes", "--detach-run", "/tmp/sky.yaml"])
+        else:
+            cluster_name = self.get_spot_cluster_name()
+            self.wait_for_cluster(cluster_name)
+    
+    def get_spot_cluster_name(self):
+        while True:
             try:
-                result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
-                print("Cluster launched successfully:", result.stdout)
-            except subprocess.CalledProcessError as e:
-                print("Failed to launch cluster:", e.stderr)
-            
-        # Start the subprocess in a new thread
-        thread = Thread(target=launch_cluster)
-        thread.start()
-        self.wait_for_cluster()
+                for cluster in sky.status():
+                    if cluster["name"].startswith("sky-spot-controller"):
+                        return cluster["name"]
+            except:
+                sleep(1)
 
-    def wait_for_cluster(self):
+    def wait_for_cluster(self, cluster_name = "sky-fogros"):
         user = subprocess.check_output('whoami', shell=True).decode().strip()
 
-        while (sky.status("sky-fogros") == [] or str(sky.status("sky-fogros")[0]["status"]) != "ClusterStatus.UP"):
-            if sky.status("sky-fogros") == []:
+        while (sky.status(cluster_name) == [] or str(sky.status(cluster_name)[0]["status"]) != "ClusterStatus.UP"):
+            if sky.status(cluster_name) == []:
                 self.logger.info("Waiting for the cluster to be created")
             else:
-                self.logger.info(f"Cluster status: {str(sky.status('sky-fogros')[0]['status'])}")
+                self.logger.info(f"Cluster status: {str(sky.status(cluster_name)[0]['status'])}")
             sleep(1)
 
         # here we only need the ip address of the head node
