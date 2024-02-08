@@ -41,7 +41,7 @@ resources:
     cloud: aws 
     disk_size: 128
     region: us-west-1
-    image_id: ami-03c44768198d7e3fe
+    image_id: ami-0ce2cb35386fc22e9
 '''
 
 benchmark_resource_str = '''
@@ -52,7 +52,7 @@ resources:
 '''
 class SkyLaunchDescription():
     def __init__(self, 
-                 workdir = "~/sky_ws/",
+                 workdir = "~/sky_ws",
                  nodes = [], 
                  containers = [],
                  mode = "launch"):
@@ -81,6 +81,14 @@ class SkyLaunchDescription():
                     benchmark_resource_str=benchmark_resource_str,
             ), self.logger)
             thread = Thread(target=self.benchmark, args=[])
+            thread.start()
+        elif self.mode == "spot":
+            self.cluster = SkyCluster(get_sky_config_yaml(
+                    workdir=workdir, 
+                    docker_cmd=containers,
+                    resource_str = resource_str,
+            ), self.logger)
+            thread = Thread(target=self.cluster.init_spot_cluster, args=[])
             thread.start()
         else:
             pass
@@ -131,6 +139,10 @@ class SkyCluster():
             # run with the same cluster
             sky.exec(dag, cluster_name = "sky-fogros")
         self.wait_for_cluster()
+
+    def init_spot_cluster(self):
+        # run command sky spot launch -f /tmp/sky.yaml
+        p = subprocess.Popen(["sky spot launch -f /tmp/sky.yaml".split()], stdout=subprocess.PIPE)
 
     def wait_for_cluster(self):
         user = subprocess.check_output('whoami', shell=True).decode().strip()

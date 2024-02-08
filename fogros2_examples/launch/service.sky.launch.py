@@ -63,7 +63,7 @@ def generate_launch_description():
 
     fogros2.SkyLaunchDescription(
         nodes=[talker_node, service_node, sgc_router],
-        mode="launch",  # launch, benchmark
+        mode="spot",  # launch, benchmark, spot
     )
 
     return LaunchDescription(
