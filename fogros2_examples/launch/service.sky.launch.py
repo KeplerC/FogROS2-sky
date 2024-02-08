@@ -40,7 +40,7 @@ import fogros2
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
-    talker_node = Node(package="bench", executable="talker", output="screen")
+    # talker_node = Node(package="bench", executable="talker", output="screen")
 
     service_node = Node(
         package="bench",
@@ -62,17 +62,17 @@ def generate_launch_description():
     )
 
     fogros2.SkyLaunchDescription(
-        nodes=[talker_node, service_node, sgc_router],
+        nodes=[service_node, sgc_router],
         mode="spot",  # launch, benchmark, spot
     )
 
     return LaunchDescription(
         [
-            Node(
-                package="fogros2_examples",
-                executable="listener",
-                output="screen",  # listener
-            ),
+            # Node(
+            #     package="fogros2_examples",
+            #     executable="listener",
+            #     output="screen",  # listener
+            # ),
             Node(
                 package="bench",
                 executable="add_three_ints_client",

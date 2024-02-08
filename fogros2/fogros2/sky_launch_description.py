@@ -71,9 +71,7 @@ class SkyLaunchDescription():
                     resource_str = resource_str,
             ), self.logger)
 
-            # thread = Thread(target=self.launch, args=[])
             self.cluster.init_cluster()
-            # thread.start()
         elif self.mode == "benchmark":
             self.cluster = SkyCluster(get_sky_config_yaml(
                     workdir=workdir, 
@@ -88,8 +86,7 @@ class SkyLaunchDescription():
                     docker_cmd=containers,
                     resource_str = resource_str,
             ), self.logger)
-            thread = Thread(target=self.cluster.init_spot_cluster, args=[])
-            thread.start()
+            self.cluster.init_spot_cluster()
         else:
             pass
 
@@ -142,7 +139,19 @@ class SkyCluster():
 
     def init_spot_cluster(self):
         # run command sky spot launch -f /tmp/sky.yaml
-        p = subprocess.Popen("sky spot launch -f /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
+        # p = subprocess.Popen("sky spot launch /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
+        def launch_cluster():
+            command = ["sky", "spot", "launch", "-f", "/tmp/sky.yaml"]
+            try:
+                result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True, text=True)
+                print("Cluster launched successfully:", result.stdout)
+            except subprocess.CalledProcessError as e:
+                print("Failed to launch cluster:", e.stderr)
+            
+        # Start the subprocess in a new thread
+        thread = Thread(target=launch_cluster)
+        thread.start()
+        self.wait_for_cluster()
 
     def wait_for_cluster(self):
         user = subprocess.check_output('whoami', shell=True).decode().strip()
