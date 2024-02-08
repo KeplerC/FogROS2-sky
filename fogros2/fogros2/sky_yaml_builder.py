@@ -1,13 +1,7 @@
 import os 
-
-
-EXECUTION_CMD = """
-run: |
-    source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py 
-"""
+import yaml
 
 DOCKER_SETUP_CMD = """
-setup: |
     # sudo apt-get update && sudo apt-get install -y docker.io
     # sudo systemctl reset-failed docker
     # sleep 20
@@ -15,7 +9,6 @@ setup: |
 """
 
 SETUP_ENV_CMD = """
-setup: |
     # need to deactivate conda to install in system Python env
     conda deactivate
     # install ROS
@@ -45,36 +38,30 @@ setup: |
     curl https://sh.rustup.rs -sSf | sh -s -- -y && source "$HOME/.cargo/env"
 """
 
-FILE_MOUNT_CMD = """
-file_mounts:
-    /tmp/to_cloud_nodes : /tmp/to_cloud
-    # TODO: make it as code
-    /tmp/crypto : {}
-"""
-
 class SkyYamlBuilder:
-    def __init__(
-        self, 
-        workdir, 
-        docker_cmd=[], 
-        resource_str="", 
-        benchmark_resource_str=""
-    ):
+    def __init__(self, workdir, num_replica=1, job_name="fogros2-sky-spot", docker_cmd=[], resource_str="", benchmark_resource_str=""):
         self.workdir = workdir
         self.docker_cmd = docker_cmd
         self.resource_str = resource_str
         self.benchmark_resource_str = benchmark_resource_str
-
-        self.workspace_path = os.environ["COLCON_PREFIX_PATH"]
-
-        self.config = {}
-
+        self.workspace_path = os.getenv("COLCON_PREFIX_PATH", "")
+        self.config = {
+            "name": job_name,
+            "num_nodes": num_replica,
+            "workdir": self.workdir,
+            "setup": self.get_setup_command(),
+            "run": self.get_execution_command(),
+            "file_mounts": self.get_file_mount_command(),
+            "resources": self.get_resources(),
+        }
 
     def get_file_mount_command(self):
         crypto_path = os.path.join(self.workspace_path, "sgc_launch/share/sgc_launch/configs/crypto")
-        return FILE_MOUNT_CMD.format(
-            crypto_path
-        )
+        file_mounts = {
+            "/tmp/to_cloud_nodes": "/tmp/to_cloud",
+            "/tmp/crypto": crypto_path,
+        }
+        return file_mounts
     
     def get_setup_command(self):
         if self.docker_cmd:
@@ -84,15 +71,28 @@ class SkyYamlBuilder:
         
     def get_execution_command(self):
         if self.docker_cmd:
-            config += "run: |\n"
-            for cmd in self.docker_cmd:
-                config += "    " + cmd + "\n"
-            return config
+            return ["run: "] + ["    " + cmd for cmd in self.docker_cmd]
         else:
-            return EXECUTION_CMD
+            return "source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py"
+            
+    
+    def get_resources(self,
+                      cloud = "aws", 
+                      disk_size = 128,
+                      region = "us-west-1",
+                      ami = "ami-0ce2cb35386fc22e9",):
+        resource = {}
+        resource["cloud"] = cloud
+        resource["disk_size"] = disk_size
+        resource["region"] = region
+        resource["image_id"] = ami
+        return resource
 
     def output_yaml_config(self, config_path):
-        pass 
+        print(self.config)
+        with open(config_path, 'w') as file:
+            yaml.dump(self.config, file, sort_keys=False, default_style="|")
+
     
 # def get_sky_config_yaml(
 #     workdir,

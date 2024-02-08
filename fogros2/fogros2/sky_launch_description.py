@@ -34,7 +34,6 @@ import pickle
 from threading import Thread
 from rclpy.node import Node
 from rclpy import logging
-from .sky_yaml_builder import get_sky_config_yaml
 from .sky_cluster_manager import SkyCluster
 from .sky_yaml_builder import SkyYamlBuilder
 
@@ -76,19 +75,11 @@ class SkyLaunchDescription():
 
             self.cluster.init_cluster()
         elif self.mode == "benchmark":
-            self.cluster = SkyCluster(get_sky_config_yaml(
-                    workdir=workdir, 
-                    docker_cmd=containers,
-                    benchmark_resource_str=benchmark_resource_str,
-            ), self.logger)
+            self.cluster = SkyCluster(config_path, self.logger)
             thread = Thread(target=self.benchmark, args=[])
             thread.start()
         elif self.mode == "spot":
-            self.cluster = SkyCluster(get_sky_config_yaml(
-                    workdir=workdir, 
-                    docker_cmd=containers,
-                    resource_str = resource_str,
-            ), self.logger)
+            self.cluster = SkyCluster(config_path, self.logger)
             self.cluster.init_spot_cluster()
         else:
             pass
