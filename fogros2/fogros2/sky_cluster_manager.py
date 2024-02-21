@@ -11,6 +11,7 @@ class SkyCluster():
         self.config_path = config_path
         self.logger = logger
         self._name = get_unique_name()
+        self._is_created = False
         
     def init_cluster(self):
         self.logger.info(f"Creating new Sky cluster {self._name}")
@@ -30,25 +31,10 @@ class SkyCluster():
             sky.exec(dag, cluster_name = "sky-fogros")
         self.wait_for_cluster()
 
-    def init_spot_cluster(self):
-        # run command sky spot launch -f /tmp/sky.yaml
-        # p = subprocess.Popen("sky spot launch /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
-        pid = os.fork()
-        if pid == 0:
-            os.execvp("sky", ["sky", "spot", "launch", "--yes", "--detach-run", "/tmp/sky.yaml"])
-        else:
-            cluster_name = self.get_spot_cluster_name()
-            self.wait_for_cluster(cluster_name)
+    def get_cluster_status(self):
+        cluster_name = self.get_spot_cluster_name()
+        return sky.status(cluster_name)
     
-    def get_spot_cluster_name(self):
-        while True:
-            try:
-                for cluster in sky.status():
-                    if cluster["name"].startswith("sky-spot-controller"):
-                        return cluster["name"]
-            except:
-                sleep(1)
-
     def wait_for_cluster(self, cluster_name = "sky-fogros"):
         user = subprocess.check_output('whoami', shell=True).decode().strip()
 
@@ -68,3 +54,48 @@ class SkyCluster():
             self._ip = None
             self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
         self._is_created = True
+
+class SkySpotCluster(SkyCluster):
+    def __init__(self, config_path, logger) -> None:
+        super().__init__(config_path, logger)
+
+    def init_cluster(self):
+        # run command sky spot launch -f /tmp/sky.yaml
+        # p = subprocess.Popen("sky spot launch /tmp/sky.yaml", stdout=subprocess.PIPE, shell=True)
+        pid = os.fork()
+        if pid == 0:
+            os.execvp("sky", ["sky", "spot", "launch", "--yes", "--detach-run", self.config_path])
+        else:
+            cluster_name = self.get_spot_cluster_name()
+            self.wait_for_cluster(cluster_name)
+
+    def get_spot_cluster_name(self):
+        while True:
+            try:
+                for cluster in sky.status():
+                    if cluster["name"].startswith("sky-spot-controller"):
+                        return cluster["name"]
+            except:
+                sleep(1)
+    
+    def scale_up(self, num_nodes):
+        # run command sky spot scale-up -n 2 <cluster_name>
+        cluster_name = self.get_spot_cluster_name()
+        p = subprocess.Popen(f"sky spot launch --num-nodes {num_nodes} -n {self.config_path}", stdout=subprocess.PIPE, shell=True)
+        p.wait()
+        self.wait_for_cluster(cluster_name)
+    
+    def scale_down(self, num_nodes):
+        # run command sky spot scale-down -n 2 <cluster_name>
+        cluster_name = self.get_spot_cluster_name()
+        p = subprocess.Popen(f"sky spot scale-down --num-nodes {num_nodes} {self.config_path}", stdout=subprocess.PIPE, shell=True)
+        p.wait()
+        self.wait_for_cluster(cluster_name)
+    
+    def delete_cluster(self):
+        # run command sky spot delete <cluster_name>
+        cluster_name = self.get_spot_cluster_name()
+        p = subprocess.Popen(f"sky spot delete {cluster_name}", stdout=subprocess.PIPE, shell=True)
+        p.wait()
+        self._is_created = False
+    
