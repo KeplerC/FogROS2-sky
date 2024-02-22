@@ -27,8 +27,8 @@ FogROS2-Sky is a cost-efficient open source robotics platform that offloads unmo
 ```
 mkdir -p ~/sky_ws/src
 cd ~/sky_ws/src
-git clone https://github.com/KeplerC/FogROS2-sky.git
-git clone https://github.com/KeplerC/fogros2-sgc
+git clone https://github.com/KeplerC/FogROS2-sky.git -b spotcost
+git clone https://github.com/KeplerC/rt-fogROS2 -b docker
 ```
 
 2. Build the packages in the `sky_ws` directory.
@@ -56,9 +56,17 @@ sky check # to make sure AWS is enabled
 1. To ensure Sky was set up successfully, try running the provided examples.
 ```
 source install/setup.bash
-ros2 launch fogros2_examples talker.sky.launch.py 
+ros2 launch fogros2_examples service.sky.launch.py 
 ```
 
+
+### Adapt your application
+1. copy and modify configuration file at `./rt-fogros2/sgc_launch/configs/service-client.yaml` (four places to edit)
+2. modify the launch script at `FogROS2-sky/fogros2_examples/launch/service.sky.launch.py`  (4 steps to edit)
+3. `colcon build` and launch it 
+
+
+### Other useful commands
 2. Check the status. 
 ```
 sky status 
@@ -69,21 +77,8 @@ sky status
 sky down sky-fogros
 ```
 
-4. Build the benchmark. A normal benchmark does not need to run the entire FogROS pipeline. 
-```
-sky bench launch benchmark.yaml -b BENCHMARK_NAME
-```
 
-5. Wait for a few minutes (10 minutes? it needs time to init dexnet) before showing the benchmark results. Note that this will stop logging the current benchmark (yes, I confirmed this with Sky team, their scenario is different from ours), so only do it if you are confident the numbers are generated. We should modify it and do it our way later. 
-```
-sky bench show BENCHMARK_NAME
-``` 
 
-7. To turn off everything, run:
-```
-sky bench down BENCHMARK_NAME
-```
-TODO: in the future, integrate this (and the algorithm) with the main FogROS pipeline. 
 
 ## Installation
 ### Quickstart

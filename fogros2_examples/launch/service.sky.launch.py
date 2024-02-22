@@ -40,8 +40,7 @@ import fogros2
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
-    # talker_node = Node(package="bench", executable="talker", output="screen")
-
+    # step 1: your service (cloud) node 
     service_node = Node(
         package="bench",
         executable="add_three_ints_service",
@@ -53,9 +52,7 @@ def generate_launch_description():
         output="screen",
         emulate_tty=True,
         parameters=[
-            # find and add config file in ./sgc_launhc/configs
-            # or use the `config_path` optional parameter
-            {"config_file_name": "service-client.yaml"},
+            {"config_file_name": "service-client.yaml"}, # step 2: your yaml file name 
             {"whoami": "machine_server"},
             {"release_mode": True},
         ],
@@ -69,11 +66,7 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
-            # Node(
-            #     package="fogros2_examples",
-            #     executable="listener",
-            #     output="screen",  # listener
-            # ),
+            # step 3: your client node
             Node(
                 package="bench",
                 executable="add_three_ints_client",
@@ -84,9 +77,7 @@ def generate_launch_description():
                 output="screen",
                 emulate_tty=True,
                 parameters=[
-                    # find and add config file in ./sgc_launhc/configs
-                    # or use the `config_path` optional parameter
-                    {"config_file_name": "service-client.yaml"},
+                    {"config_file_name": "service-client.yaml"}, # step 4: your yaml file name
                     {"whoami": "machine_client"},
                     {"release_mode": True},
                 ],
