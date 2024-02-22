@@ -47,22 +47,22 @@ def generate_launch_description():
         executable="add_three_ints_service",
     )
 
-    sgc_router = Node(
-        package="sgc_launch",
-        executable="sgc_router",
-        output="screen",
-        emulate_tty=True,
-        parameters=[
-            # find and add config file in ./sgc_launhc/configs
-            # or use the `config_path` optional parameter
-            {"config_file_name": "service-client.yaml"},
-            {"whoami": "machine_server"},
-            {"release_mode": True},
-        ],
-    )
+    # sgc_router = Node(
+    #     package="sgc_launch",
+    #     executable="sgc_router",
+    #     output="screen",
+    #     emulate_tty=True,
+    #     parameters=[
+    #         # find and add config file in ./sgc_launhc/configs
+    #         # or use the `config_path` optional parameter
+    #         {"config_file_name": "service-client.yaml"},
+    #         {"whoami": "machine_server"},
+    #         {"release_mode": True},
+    #     ],
+    # )
 
     fogros2.SkyLaunchDescription(
-        nodes=[service_node, sgc_router],
+        nodes=[service_node],
         mode="spot",  # launch, benchmark, spot
     )
 

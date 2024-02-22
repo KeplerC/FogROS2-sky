@@ -14,7 +14,7 @@ SETUP_ENV_CMD = """
     # install ROS
     echo Installing ROS... It takes a while... 
     sudo apt-get update > /dev/null 2>&1
-    sudo apt-get install -y software-properties-common gnupg lsb-release > /dev/null 2>&1
+    sudo apt-get install -y software-properties-common gnupg lsb-release docker.io > /dev/null 2>&1
     sudo add-apt-repository universe > /dev/null 2>&1
     sudo curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key -o /usr/share/keyrings/ros-archive-keyring.gpg
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/ros-archive-keyring.gpg] http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME) main" | sudo tee /etc/apt/sources.list.d/ros2.list > /dev/null
@@ -71,9 +71,11 @@ class SkyYamlBuilder:
         
     def get_execution_command(self):
         if self.docker_cmd:
-            return ["run: "] + ["    " + cmd for cmd in self.docker_cmd]
+            return "\n".join( ["    " + cmd for cmd in self.docker_cmd])
         else:
-            return "source ~/fog_ws/install/setup.bash && ros2 launch fogros2 cloud.launch.py"
+            sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
+            cloud_cmd = "source ~/fog_ws/install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch fogros2 cloud.launch.py"
+            return "\n".join(["    " + sgc_docker_cmd, "    " + cloud_cmd])
             
     
     def get_resources(self,
