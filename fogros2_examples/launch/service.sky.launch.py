@@ -64,6 +64,7 @@ def generate_launch_description():
     fogros2.SkyLaunchDescription(
         nodes=[service_node, sgc_router],
         mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
     )
 
     return LaunchDescription(

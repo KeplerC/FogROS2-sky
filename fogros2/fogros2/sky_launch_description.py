@@ -56,7 +56,8 @@ class SkyLaunchDescription():
                  workdir = "~/sky_ws/src",
                  nodes = [], 
                  containers = [],
-                 mode = "launch"):
+                 mode = "launch", 
+                 ami = "ami-0ce2cb35386fc22e9"):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -65,7 +66,11 @@ class SkyLaunchDescription():
         if self.nodes:
             self._generate_to_cloud_nodes()
 
-        self.yaml_builder = SkyYamlBuilder(workdir=workdir, docker_cmd=containers)
+        self.yaml_builder = SkyYamlBuilder(
+            workdir=workdir, 
+            docker_cmd=containers,
+            ami = ami
+            )
 
         config_path = "/tmp/sky.yaml"
         self.yaml_builder.output_yaml_config(config_path)

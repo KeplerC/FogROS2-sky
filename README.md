@@ -40,7 +40,7 @@ colcon build
 3. Install `skypilot` and dependencies.
 ```
 pip install skypilot
-pip3 install wgconfig boto3 paramiko scp
+pip3 install boto3 
 sudo apt update
 ```
 

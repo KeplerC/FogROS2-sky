@@ -1,4 +1,4 @@
-import os 
+import os
 import yaml
 
 DOCKER_SETUP_CMD = """
@@ -38,8 +38,21 @@ SETUP_ENV_CMD = """
     curl https://sh.rustup.rs -sSf | sh -s -- -y && source "$HOME/.cargo/env"
 """
 
+
 class SkyYamlBuilder:
-    def __init__(self, workdir, num_replica=1, job_name="fogros2-sky-spot", docker_cmd=[], resource_str="", benchmark_resource_str=""):
+    def __init__(
+        self,
+        workdir,
+        num_replica=1,
+        job_name="fogros2-sky-spot",
+        docker_cmd=[],
+        resource_str="",
+        benchmark_resource_str="",
+        cloud="aws",
+        disk_size=128,
+        region="us-west-1",
+        ami="ami-0ce2cb35386fc22e9",
+    ):
         self.workdir = workdir
         self.docker_cmd = docker_cmd
         self.resource_str = resource_str
@@ -52,38 +65,46 @@ class SkyYamlBuilder:
             "setup": self.get_setup_command(),
             "run": self.get_execution_command(),
             "file_mounts": self.get_file_mount_command(),
-            "resources": self.get_resources(),
+            "resources": self.get_resources(
+                cloud=cloud,
+                disk_size=disk_size,
+                region=region,
+                ami=ami,
+            ),
         }
 
     def get_file_mount_command(self):
-        crypto_path = os.path.join(self.workspace_path, "sgc_launch/share/sgc_launch/configs/crypto")
+        crypto_path = os.path.join(
+            self.workspace_path, "sgc_launch/share/sgc_launch/configs/crypto"
+        )
         file_mounts = {
             "/tmp/to_cloud_nodes": "/tmp/to_cloud",
             "/tmp/crypto": crypto_path,
         }
         return file_mounts
-    
+
     def get_setup_command(self):
         if self.docker_cmd:
             return DOCKER_SETUP_CMD
         else:
             return SETUP_ENV_CMD
-        
+
     def get_execution_command(self):
         if self.docker_cmd:
-            return "\n".join( ["    " + cmd for cmd in self.docker_cmd])
+            return "\n".join(["    " + cmd for cmd in self.docker_cmd])
         else:
             # sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
             sgc_docker_cmd = ""
             cloud_cmd = "source ~/fog_ws/install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch fogros2 cloud.launch.py"
             return "\n".join(["    " + sgc_docker_cmd, "    " + cloud_cmd])
-            
-    
-    def get_resources(self,
-                      cloud = "aws", 
-                      disk_size = 128,
-                      region = "us-west-1",
-                      ami = "ami-0ce2cb35386fc22e9",):
+
+    def get_resources(
+        self,
+        cloud,
+        disk_size,
+        region,
+        ami,
+    ):
         resource = {}
         resource["cloud"] = cloud
         resource["disk_size"] = disk_size
@@ -93,10 +114,10 @@ class SkyYamlBuilder:
 
     def output_yaml_config(self, config_path):
         print(self.config)
-        with open(config_path, 'w') as file:
+        with open(config_path, "w") as file:
             yaml.dump(self.config, file, sort_keys=False, default_style="|")
 
-    
+
 # def get_sky_config_yaml(
 #     workdir,
 #     docker_cmd=[],
@@ -111,7 +132,7 @@ class SkyYamlBuilder:
 #         config += "\nworkdir: " + workdir + "\n"
 
 # if docker_cmd:
-    
+
 # else:  # TODO: need to handle the cast that both nodes and containers exist
 #     config += setup_command_ros_node + "\n"
 #     config += execute_command_ros_node + "\n"
