@@ -73,7 +73,8 @@ class SkyYamlBuilder:
         if self.docker_cmd:
             return "\n".join( ["    " + cmd for cmd in self.docker_cmd])
         else:
-            sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
+            # sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
+            sgc_docker_cmd = ""
             cloud_cmd = "source ~/fog_ws/install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch fogros2 cloud.launch.py"
             return "\n".join(["    " + sgc_docker_cmd, "    " + cloud_cmd])
             
