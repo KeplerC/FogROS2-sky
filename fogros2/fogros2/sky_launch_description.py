@@ -57,7 +57,9 @@ class SkyLaunchDescription():
                  nodes = [], 
                  containers = [],
                  mode = "launch", 
-                 ami = "ami-0ce2cb35386fc22e9"):
+                 ami = "ami-0ce2cb35386fc22e9", 
+                 additional_setup_commands = [],
+                 additional_run_commands = []):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -69,7 +71,9 @@ class SkyLaunchDescription():
         self.yaml_builder = SkyYamlBuilder(
             workdir=workdir, 
             docker_cmd=containers,
-            ami = ami
+            ami = ami, 
+            additional_setup_commands = additional_setup_commands,
+            additional_run_commands = additional_run_commands
             )
 
         config_path = "/tmp/sky.yaml"
