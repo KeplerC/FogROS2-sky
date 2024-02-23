@@ -102,6 +102,7 @@ class SkyYamlBuilder:
         run_command = ""
         if additional_run_commands:
             run_command += "\n".join(["    " + cmd for cmd in additional_run_commands])
+            run_command += "\n"
 
         if self.docker_cmd:
             run_command += "\n".join(["    " + cmd for cmd in self.docker_cmd])
