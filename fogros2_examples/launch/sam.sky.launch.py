@@ -42,8 +42,8 @@ def generate_launch_description():
 
     # step 1: your service (cloud) node 
     service_node = Node(
-        package="yolo",
-        executable="yolo_service",
+        package="sam",
+        executable="sam_service",
     )
 
     sgc_router = Node(
@@ -52,7 +52,7 @@ def generate_launch_description():
         output="screen",
         emulate_tty=True,
         parameters=[
-            {"config_file_name": "service-yolo.yaml"}, # step 2: your yaml file name 
+            {"config_file_name": "service-sam.yaml"}, # step 2: your yaml file name 
             {"whoami": "machine_server"},
             {"release_mode": True},
         ],
@@ -61,16 +61,23 @@ def generate_launch_description():
     fogros2.SkyLaunchDescription(
         nodes=[service_node, sgc_router],
         mode="launch",  # launch, benchmark, spot
-        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
-        additional_setup_commands = ["pip3 install ultralytics"],
+        ami="ami-0f46a78a2a898da35", # ubuntu 22.04 image + gpu driver
+        additional_setup_commands = [
+            # "curl -fSsl -O https://us.download.nvidia.com/tesla/535.161.07/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
+            # "sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
+            "pip3 install git+https://github.com/facebookresearch/segment-anything.git",
+            "wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth", 
+            "mv sam_vit_h_4b8939.pth /tmp/sam_vit_h_4b8939.pth",
+            ],
+        accelerators="T4:1",
     )
 
     return LaunchDescription(
         [
             # step 3: your client node
             Node(
-                package="yolo",
-                executable="yolo_client",
+                package="sam",
+                executable="sam_client",
             ),
             Node(
                 package="sgc_launch",
@@ -78,7 +85,7 @@ def generate_launch_description():
                 output="screen",
                 emulate_tty=True,
                 parameters=[
-                    {"config_file_name": "service-yolo.yaml"}, # step 4: your yaml file name
+                    {"config_file_name": "service-sam.yaml"}, # step 4: your yaml file name
                     {"whoami": "machine_client"},
                     {"release_mode": True},
                 ],

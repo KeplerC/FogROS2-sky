@@ -54,6 +54,8 @@ class SkyYamlBuilder:
         ami="ami-0ce2cb35386fc22e9",
         additional_setup_commands=[],
         additional_run_commands=[],
+        accelerator="",
+        cpus="",
     ):
         self.workdir = workdir
         self.docker_cmd = docker_cmd
@@ -72,6 +74,8 @@ class SkyYamlBuilder:
                 disk_size=disk_size,
                 region=region,
                 ami=ami,
+                accelerator=accelerator,
+                cpus=cpus,
             ),
         }
 
@@ -96,14 +100,15 @@ class SkyYamlBuilder:
 
     def get_execution_command(self, additional_run_commands):
         run_command = ""
+        if additional_run_commands:
+            run_command += "\n".join(["    " + cmd for cmd in additional_run_commands])
+
         if self.docker_cmd:
-            run_command = "\n".join(["    " + cmd for cmd in self.docker_cmd])
+            run_command += "\n".join(["    " + cmd for cmd in self.docker_cmd])
         else:
             # sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
-            sgc_docker_cmd = ""
-            cloud_cmd = "source ~/fog_ws/install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch fogros2 cloud.launch.py"
-            run_command = "\n".join(["    " + sgc_docker_cmd, "    " + cloud_cmd])
-        run_command += "\n".join(["    " + cmd for cmd in additional_run_commands])
+            cloud_cmd = "source ~/fog_ws/install/setup.bash && export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp && ros2 launch fogros2 cloud.launch.py"
+            run_command += cloud_cmd
         return run_command
 
     def get_resources(
@@ -112,12 +117,18 @@ class SkyYamlBuilder:
         disk_size,
         region,
         ami,
+        accelerator="",
+        cpus = "",
     ):
         resource = {}
         resource["cloud"] = cloud
         resource["disk_size"] = disk_size
         resource["region"] = region
         resource["image_id"] = ami
+        if accelerator:
+            resource["accelerators"] = accelerator
+        if cpus:
+            resource["cpus"] = cpus
         return resource
 
     def output_yaml_config(self, config_path):

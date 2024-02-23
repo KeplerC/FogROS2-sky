@@ -37,20 +37,6 @@ from rclpy import logging
 from .sky_cluster_manager import SkyCluster, SkySpotCluster
 from .sky_yaml_builder import SkyYamlBuilder
 
-resource_str = '''
-resources:
-    cloud: aws 
-    disk_size: 128
-    region: us-west-1
-    image_id: ami-0ce2cb35386fc22e9
-'''
-
-benchmark_resource_str = '''
-resources:
-    cloud: aws 
-    candidates:
-    - {cpus: 8}
-'''
 class SkyLaunchDescription():
     def __init__(self, 
                  workdir = "~/sky_ws/src",
@@ -59,7 +45,9 @@ class SkyLaunchDescription():
                  mode = "launch", 
                  ami = "ami-0ce2cb35386fc22e9", 
                  additional_setup_commands = [],
-                 additional_run_commands = []):
+                 additional_run_commands = [],
+                 accelerators = "",
+                 cpus = "",):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -73,7 +61,9 @@ class SkyLaunchDescription():
             docker_cmd=containers,
             ami = ami, 
             additional_setup_commands = additional_setup_commands,
-            additional_run_commands = additional_run_commands
+            additional_run_commands = additional_run_commands,
+            accelerator=accelerators,
+            cpus=cpus,
             )
 
         config_path = "/tmp/sky.yaml"

@@ -14,22 +14,29 @@ class SkyCluster():
         self._is_created = False
         
     def init_cluster(self):
-        self.logger.info(f"Creating new Sky cluster {self._name}")
-        with sky.Dag() as dag:
-            t = sky.Task.from_yaml(self.config_path)
+        # self.logger.info(f"Creating new Sky cluster {self._name}")
+        # with sky.Dag() as dag:
+        #     t = sky.Task.from_yaml(self.config_path)
 
-        if sky.status("sky-fogros") == []:
-            # create a new cluster
-            # sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-            pid = os.fork()
-            if pid == 0:
-                # child process, just launch the yaml cloud node
-                sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-                exit(0)
-        else:
-            # run with the same cluster
-            sky.exec(dag, cluster_name = "sky-fogros")
-        self.wait_for_cluster()
+        # if sky.status("sky-fogros") == []:
+        #     # create a new cluster
+        #     # sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
+        #     pid = os.fork()
+        #     if pid == 0:
+        #         # child process, just launch the yaml cloud node
+        #         sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
+        #         exit(0)
+        # else:
+        #     # run with the same cluster
+        #     sky.exec(dag, cluster_name = "sky-fogros")
+        # self.wait_for_cluster()
+
+        pid = os.fork()
+        if pid == 0:
+            os.execvp("sky", ["sky", "launch", "--yes", "-n", "sky-fogros" , "--detach-run", self.config_path])
+        # else:
+        #     self.wait_for_cluster()
+
 
     def get_cluster_status(self):
         cluster_name = self.get_spot_cluster_name()
@@ -43,7 +50,7 @@ class SkyCluster():
                 self.logger.info("Waiting for the cluster to be created")
             else:
                 self.logger.info(f"Cluster status: {str(sky.status(cluster_name)[0]['status'])}")
-            sleep(1)
+            sleep(10)
 
         # here we only need the ip address of the head node
         try:
