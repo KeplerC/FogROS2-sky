@@ -33,7 +33,7 @@ class SkyCluster():
 
         pid = os.fork()
         if pid == 0:
-            os.execvp("sky", ["sky", "launch", "--yes", "-n", "sky-fogros" , "--detach-run", self.config_path])
+            os.execvp("sky", ["sky", "launch", "--yes", "--no-setup", "-n", "sky-fogros" , "--detach-run", self.config_path])
         # else:
         #     self.wait_for_cluster()
 

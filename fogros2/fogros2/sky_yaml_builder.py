@@ -45,7 +45,7 @@ class SkyYamlBuilder:
         workdir,
         num_replica=1,
         job_name="fogros2-sky-spot",
-        docker_cmd=[],
+        skip_setup=False,
         resource_str="",
         benchmark_resource_str="",
         cloud="aws",
@@ -58,7 +58,7 @@ class SkyYamlBuilder:
         cpus="",
     ):
         self.workdir = workdir
-        self.docker_cmd = docker_cmd
+        self.skip_setup = skip_setup
         self.resource_str = resource_str
         self.benchmark_resource_str = benchmark_resource_str
         self.workspace_path = os.getenv("COLCON_PREFIX_PATH", "")
@@ -91,7 +91,7 @@ class SkyYamlBuilder:
 
     def get_setup_command(self, additional_setup_commands):
         setup_cmd = ""
-        if self.docker_cmd:
+        if self.skip_setup:
             setup_cmd = DOCKER_SETUP_CMD
         else:
             setup_cmd = SETUP_ENV_CMD
@@ -104,12 +104,9 @@ class SkyYamlBuilder:
             run_command += "\n".join(["    " + cmd for cmd in additional_run_commands])
             run_command += "\n"
 
-        if self.docker_cmd:
-            run_command += "\n".join(["    " + cmd for cmd in self.docker_cmd])
-        else:
-            # sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
-            cloud_cmd = "source ~/fog_ws/install/setup.bash && export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp && ros2 launch fogros2 cloud.launch.py"
-            run_command += cloud_cmd
+        # sgc_docker_cmd = '''sudo docker run -d --net=host -it keplerc/fogros2-rt-router:latest bash -c ". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-client.yaml -p whoami:=machine_server -p release_mode:=True"'''
+        cloud_cmd = "source /opt/ros/humble/setup.bash && source ~/fog_ws/install/setup.bash && export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp && ros2 launch fogros2 cloud.launch.py"
+        run_command += cloud_cmd
         return run_command
 
     def get_resources(

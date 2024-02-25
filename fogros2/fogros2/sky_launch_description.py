@@ -49,7 +49,8 @@ class SkyLaunchDescription():
                  additional_run_commands = [],
                  accelerators = "",
                  cpus = "",
-                 num_replica = 1):
+                 num_replica = 1, 
+                 skip_setup = False):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -60,7 +61,6 @@ class SkyLaunchDescription():
 
         self.yaml_builder = SkyYamlBuilder(
             workdir=workdir, 
-            docker_cmd=containers,
             ami = ami, 
             additional_setup_commands = additional_setup_commands,
             additional_run_commands = additional_run_commands,
@@ -68,6 +68,7 @@ class SkyLaunchDescription():
             region = region,
             cpus=cpus,
             num_replica = num_replica,
+            skip_setup = skip_setup,
             )
 
         config_path = "/tmp/sky.yaml"

@@ -54,15 +54,35 @@ def generate_launch_description():
         ],
     )
 
+
     fogros2.SkyLaunchDescription(
-        nodes=[sgc_router],
+        nodes=[],
         mode="launch",  # launch, benchmark, spot
         # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
-        additional_setup_commands = [],
-        additional_run_commands = ["sudo docker run -d --net=host -ti keplerc/mpt:service ros2 run mpt_ros motion_plan_server"],
+        additional_setup_commands = ["sudo apt-get update", "sudo apt-get install -y docker.io"],
+        additional_run_commands = [
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-mpt.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run --net=host keplerc/mpt:service ros2 run mpt_ros motion_plan_server"
+            ],
         cpus= "32+",
-        num_replica = 3,
+        num_replica = 1,
+        skip_setup = True,
     )
+
+
+    # fogros2.SkyLaunchDescription(
+    #     nodes=[sgc_router],
+    #     mode="launch",  # launch, benchmark, spot
+    #     # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+    #     additional_setup_commands = [],
+    #     additional_run_commands = [
+    #         "sudo docker run --net=host keplerc/mpt:service ros2 run mpt_ros motion_plan_server"
+    #         ],
+    #     cpus= "32+",
+    #     num_replica = 1,
+    # )
 
     return LaunchDescription(
         [
