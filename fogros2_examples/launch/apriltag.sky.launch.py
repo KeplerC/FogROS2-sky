@@ -54,10 +54,11 @@ def generate_launch_description():
 
     fogros2.SkyLaunchDescription(
         nodes=[sgc_router],
-        mode="launch",  # launch, benchmark, spot
+        mode="spot",  # launch, benchmark, spot
         # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
         additional_setup_commands = [],
-        additional_run_commands = ["docker run --net=host -ti keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\""],
+        additional_run_commands = ["sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\""],
+        num_replica = 2,
     )
 
     return LaunchDescription(
@@ -70,7 +71,7 @@ def generate_launch_description():
                 parameters=[
                     {"config_file_name": "service-apriltag.yaml"}, # step 4: your yaml file name
                     {"whoami": "machine_client"},
-                    {"release_mode": True},
+                    {"release_mode": False},
                 ],
             ),
         ]

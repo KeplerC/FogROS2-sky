@@ -60,10 +60,22 @@ def generate_launch_description():
 
     fogros2.SkyLaunchDescription(
         nodes=[service_node, sgc_router],
-        mode="launch",  # launch, benchmark, spot
+        mode="spot",  # launch, benchmark, spot
         # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        ami = "ami-0ce2cb35386fc22e9", # standard 22.04
+        region = "us-west-1",
         additional_setup_commands = ["pip3 install ultralytics"],
     )
+
+    fogros2.SkyLaunchDescription(
+        nodes=[service_node, sgc_router],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        ami = "ami-0c7217cdde317cfec", # standard 22.04
+        region = "us-east-1",
+        additional_setup_commands = ["pip3 install ultralytics"],
+    )
+
 
     return LaunchDescription(
         [

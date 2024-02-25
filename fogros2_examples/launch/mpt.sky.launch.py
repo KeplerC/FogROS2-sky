@@ -60,7 +60,8 @@ def generate_launch_description():
         # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
         additional_setup_commands = [],
         additional_run_commands = ["sudo docker run -d --net=host -ti keplerc/mpt:service ros2 run mpt_ros motion_plan_server"],
-        cpus= "16+",
+        cpus= "32+",
+        num_replica = 3,
     )
 
     return LaunchDescription(

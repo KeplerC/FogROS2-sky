@@ -44,10 +44,12 @@ class SkyLaunchDescription():
                  containers = [],
                  mode = "launch", 
                  ami = "ami-0ce2cb35386fc22e9", 
+                 region = "us-west-1",
                  additional_setup_commands = [],
                  additional_run_commands = [],
                  accelerators = "",
-                 cpus = "",):
+                 cpus = "",
+                 num_replica = 1):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -63,7 +65,9 @@ class SkyLaunchDescription():
             additional_setup_commands = additional_setup_commands,
             additional_run_commands = additional_run_commands,
             accelerator=accelerators,
+            region = region,
             cpus=cpus,
+            num_replica = num_replica,
             )
 
         config_path = "/tmp/sky.yaml"
