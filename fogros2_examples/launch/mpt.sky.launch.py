@@ -63,7 +63,7 @@ def generate_launch_description():
         additional_run_commands = [
             "sudo apt-get update", 
             "sudo apt-get install -y docker.io",
-            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \". ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-mpt.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-mpt.yaml -p whoami:=machine_server -p release_mode:=False\"",
             "sudo docker run --net=host keplerc/mpt:service ros2 run mpt_ros motion_plan_server"
             ],
         cpus= "32+",
@@ -86,16 +86,5 @@ def generate_launch_description():
 
     return LaunchDescription(
         [
-            Node(
-                package="sgc_launch",
-                executable="sgc_router",
-                output="screen",
-                emulate_tty=True,
-                parameters=[
-                    {"config_file_name": "service-mpt.yaml"}, # step 4: your yaml file name
-                    {"whoami": "machine_client"},
-                    {"release_mode": False},
-                ],
-            ),
         ]
     )
