@@ -40,41 +40,24 @@ import fogros2
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
-    sgc_router = Node(
-        package="sgc_launch",
-        executable="sgc_router",
-        output="screen",
-        emulate_tty=True,
-        parameters=[
-            {"config_file_name": "service-apriltag.yaml"}, # step 2: your yaml file name 
-            {"whoami": "machine_server"},
-            {"release_mode": True},
-        ],
-    )
 
-    # method 1: build sgc from source: 
+    # method 2: use dockerized sgc 
     fogros2.SkyLaunchDescription(
-        nodes=[sgc_router],
+        nodes=[],
         mode="spot",  # launch, benchmark, spot
         # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
         additional_setup_commands = [],
-        additional_run_commands = ["sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\""],
+        additional_run_commands = [
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-apriltag.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\"",
+            ],
         num_replica = 2,
-    )
-
+        skip_setup = True,
+    ) # gpu option available (see SAM example)
 
     return LaunchDescription(
         [
-            Node(
-                package="sgc_launch",
-                executable="sgc_router",
-                output="screen",
-                emulate_tty=True,
-                parameters=[
-                    {"config_file_name": "service-apriltag.yaml"}, # step 4: your yaml file name
-                    {"whoami": "machine_client"},
-                    {"release_mode": False},
-                ],
-            ),
         ]
     )
