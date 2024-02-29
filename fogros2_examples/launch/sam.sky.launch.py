@@ -39,56 +39,23 @@ import fogros2
 
 def generate_launch_description():
     """Talker example that launches everything locally."""
-
-    # step 1: your service (cloud) node 
-    service_node = Node(
-        package="sam",
-        executable="sam_service",
-    )
-
-    sgc_router = Node(
-        package="sgc_launch",
-        executable="sgc_router",
-        output="screen",
-        emulate_tty=True,
-        parameters=[
-            {"config_file_name": "service-sam.yaml"}, # step 2: your yaml file name 
-            {"whoami": "machine_server"},
-            {"release_mode": True},
-        ],
-    )
-
     fogros2.SkyLaunchDescription(
-        nodes=[service_node, sgc_router],
+        nodes=[],
         mode="launch",  # launch, benchmark, spot
         ami="ami-0f46a78a2a898da35", # ubuntu 22.04 image + gpu driver
-        additional_setup_commands = [
+        additional_run_commands = [
             # "curl -fSsl -O https://us.download.nvidia.com/tesla/535.161.07/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
             # "sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
-            "pip3 install git+https://github.com/facebookresearch/segment-anything.git",
-            "wget https://dl.fbaipublicfiles.com/segment_anything/sam_vit_h_4b8939.pth", 
-            "mv sam_vit_h_4b8939.pth /tmp/sam_vit_h_4b8939.pth",
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-sam.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run --gpus=all --net=host keplerc/fogros-ft-examples:latest bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sam sam_service\"",
             ],
         accelerators="T4:1",
+        num_replica = 1,
+        skip_setup = True,
     )
 
     return LaunchDescription(
-        [
-            # step 3: your client node
-            Node(
-                package="sam",
-                executable="sam_client",
-            ),
-            Node(
-                package="sgc_launch",
-                executable="sgc_router",
-                output="screen",
-                emulate_tty=True,
-                parameters=[
-                    {"config_file_name": "service-sam.yaml"}, # step 4: your yaml file name
-                    {"whoami": "machine_client"},
-                    {"release_mode": True},
-                ],
-            ),
-        ]
+        []
     )
