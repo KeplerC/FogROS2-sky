@@ -22,7 +22,7 @@ sudo apt-get update > /dev/null 2>&1
 sudo apt-get install -y ros-humble-desktop > /dev/null 2>&1
 # install cloud dependencies 
 echo Installing other dependencies...
-sudo apt-get install -y python3-pip unzip python3-pip ros-humble-rmw-cyclonedds-cpp python3-colcon-common-extensions
+sudo apt-get update && sudo apt-get install -y python3-pip unzip python3-pip ros-humble-rmw-cyclonedds-cpp python3-colcon-common-extensions
 pip3 install boto3 paramiko scp skypilot-nightly[aws] #> /dev/null 2>&1
 pip3 install pyopenssl --upgrade # > /dev/null 2>&1
 # install sky callback
@@ -62,22 +62,37 @@ class SkyYamlBuilder:
         self.resource_str = resource_str
         self.benchmark_resource_str = benchmark_resource_str
         self.workspace_path = os.getenv("COLCON_PREFIX_PATH", "")
-        self.config = {
-            "name": job_name,
-            "num_nodes": num_replica,
-            "workdir": self.workdir,
-            "setup": self.get_setup_command(additional_setup_commands),
-            "run": self.get_execution_command(additional_run_commands),
-            "file_mounts": self.get_file_mount_command(),
-            "resources": self.get_resources(
-                cloud=cloud,
-                disk_size=disk_size,
-                region=region,
-                ami=ami,
-                accelerator=accelerator,
-                cpus=cpus,
-            ),
-        }
+        if skip_setup:
+            self.config = {
+                "name": job_name,
+                "num_nodes": num_replica,
+                "run": self.get_execution_command(additional_run_commands),
+                "resources": self.get_resources(
+                    cloud=cloud,
+                    disk_size=disk_size,
+                    region=region,
+                    ami=ami,
+                    accelerator=accelerator,
+                    cpus=cpus,
+                ),
+            }
+        else:
+            self.config = {
+                "name": job_name,
+                "num_nodes": num_replica,
+                "workdir": self.workdir,
+                "setup": self.get_setup_command(additional_setup_commands),
+                "run": self.get_execution_command(additional_run_commands),
+                "file_mounts": self.get_file_mount_command(),
+                "resources": self.get_resources(
+                    cloud=cloud,
+                    disk_size=disk_size,
+                    region=region,
+                    ami=ami,
+                    accelerator=accelerator,
+                    cpus=cpus,
+                ),
+            }
 
     def get_file_mount_command(self):
         crypto_path = os.path.join(

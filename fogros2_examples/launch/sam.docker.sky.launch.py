@@ -39,40 +39,40 @@ import fogros2
 
 def generate_launch_description():
     """Talker example that launches everything locally."""
-
-
-    # method 2: use dockerized sgc 
     fogros2.SkyLaunchDescription(
         nodes=[],
-        mode="spot",  # launch, benchmark, spot
-        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
-        additional_setup_commands = [],
+        mode="launch",  # launch, benchmark, spot
+        ami="ami-0f46a78a2a898da35", # ubuntu 22.04 image + gpu driver
         additional_run_commands = [
+            # "curl -fSsl -O https://us.download.nvidia.com/tesla/535.161.07/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
+            # "sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
             "sudo apt-get update", 
             "sudo apt-get install -y docker.io",
-            "sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\"",
-            "sudo docker run --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-apriltag.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-sam.yaml -p whoami:=machine_server -p release_mode:=True\"",
+            "sudo docker run --gpus=all --net=host keplerc/fogros-ft-examples:latest bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sam sam_service\"",
             ],
+        accelerators="T4:1",
         num_replica = 1,
         skip_setup = True,
-    ) # gpu option available (see SAM example)
+    )
 
     fogros2.SkyLaunchDescription(
         nodes=[],
-        mode="spot",  # launch, benchmark, spot
-        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
-        additional_setup_commands = [],
+        mode="launch",  # launch, benchmark, spot
+        ami="ami-0f46a78a2a898da35", # ubuntu 22.04 image + gpu driver
         additional_run_commands = [
+            # "curl -fSsl -O https://us.download.nvidia.com/tesla/535.161.07/NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
+            # "sudo sh NVIDIA-Linux-x86_64-$DRIVER_VERSION.run",
             "sudo apt-get update", 
             "sudo apt-get install -y docker.io",
-            "sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\"",
-            "sudo docker run --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-apriltag.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-sam.yaml -p whoami:=machine_server -p release_mode:=True\"",
+            "sudo docker run --gpus=all --net=host keplerc/fogros-ft-examples:latest bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sam sam_service\"",
             ],
+        accelerators="T4:1",
         num_replica = 1,
         skip_setup = True,
-    ) # gpu option available (see SAM example)
+    )
 
     return LaunchDescription(
-        [
-        ]
+        []
     )
