@@ -36,48 +36,43 @@ from launch_ros.actions import Node
 
 import fogros2
 
+
 def generate_launch_description():
     """Talker example that launches everything locally."""
 
 
-    talker_node = Node(
-        package="fogros2_examples", executable="talker", output="screen"
-    )
-
-    sgc_node = Node(
-            package="sgc_launch",
-            executable="sgc_router", 
-            output="screen",
-            emulate_tty = True,
-            parameters = [
-                # find and add config file in ./sgc_launhc/configs
-                # or use the `config_path` optional parameter
-                {"config_file_name": "talker-listener.yaml"}, 
-                {"whoami": "machine_talker"},
-                {"release_mode": False}
-            ]
-        )
+    # method 2: use dockerized sgc 
+    fogros2.SkyLaunchDescription(
+        nodes=[],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        additional_setup_commands = [],
+        additional_run_commands = [
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\"",
+            "sudo docker run --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-apriltag.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            ],
+        num_replica = 1,
+        skip_setup = True,
+    ) # gpu option available (see SAM example)
 
     fogros2.SkyLaunchDescription(
-        nodes=[talker_node, sgc_node],
-        mode = "launch", # launch, benchmark
-    )
+        nodes=[],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        additional_setup_commands = [],
+        additional_run_commands = [
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\"",
+            "sudo docker run --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-apriltag.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            ],
+        num_replica = 1,
+        skip_setup = True,
+    ) # gpu option available (see SAM example)
 
-    return LaunchDescription([
-        Node(
-            package="fogros2_examples", executable="listener", output="screen", # listener
-        ), 
-        Node(
-            package="sgc_launch",
-            executable="sgc_router", 
-            output="screen",
-            emulate_tty = True,
-            parameters = [
-                # find and add config file in ./sgc_launhc/configs
-                # or use the `config_path` optional parameter
-                {"config_file_name": "talker-listener.yaml"}, 
-                {"whoami": "machine_listener"},
-                {"release_mode": False}
-            ]
-        )
-    ])
+    return LaunchDescription(
+        [
+        ]
+    )

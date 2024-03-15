@@ -31,47 +31,56 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
+from launch import LaunchDescription
 from launch_ros.actions import Node
 
 import fogros2
 
 
-def ami_image():
-    # An AMI is an Amazon Web Services virtual machine image with a
-    # pre-installed OS and dependencies.  We match the AMI in the
-    # cloud to have the same OS release as the robot.  Currently we
-    # support Ubuntu 20.04 and 22.04.
-
-    import lsb_release
-
-    ubuntu_release = lsb_release.get_os_release()["RELEASE"]
-
-    if ubuntu_release == "20.04":
-        return "ami-00f25057ddc9b310b"
-    if ubuntu_release == "22.04":
-        # "ami-034160df82745c454" is custom AMI
-        return "ami-034160df82745c454"  # "ami-0b6030c78f8b2f076"
-
-    raise ValueError(f"No AMI for {ubuntu_release}")
-
-
 def generate_launch_description():
-    """Talker example that launches the listener on AWS."""
-    ld = fogros2.FogROSLaunchDescription()
-    machine1 = fogros2.AWSCloudInstance(
-        region="us-west-1", ec2_instance_type="c5.4xlarge", ami_image=ami_image()
+    """Talker example that launches everything locally."""
+
+    # step 1: your service (cloud) node 
+    service_node = Node(
+        package="bench",
+        executable="add_three_ints_service",
     )
 
-    listener_node = Node(
-        package="fogros2_examples", executable="listener", output="screen"
-    )
-
-    talker_node = fogros2.CloudNode(
-        package="fogros2_examples",
-        executable="talker",
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router",
         output="screen",
-        machine=machine1,
+        emulate_tty=True,
+        parameters=[
+            {"config_file_name": "service-client.yaml"}, # step 2: your yaml file name 
+            {"whoami": "machine_server"},
+            {"release_mode": True},
+        ],
     )
-    ld.add_action(talker_node)
-    ld.add_action(listener_node)
-    return ld
+
+    fogros2.SkyLaunchDescription(
+        nodes=[service_node, sgc_router],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+    )
+
+    return LaunchDescription(
+        [
+            # step 3: your client node
+            Node(
+                package="bench",
+                executable="add_three_ints_client",
+            ),
+            Node(
+                package="sgc_launch",
+                executable="sgc_router",
+                output="screen",
+                emulate_tty=True,
+                parameters=[
+                    {"config_file_name": "service-client.yaml"}, # step 4: your yaml file name
+                    {"whoami": "machine_client"},
+                    {"release_mode": True},
+                ],
+            ),
+        ]
+    )

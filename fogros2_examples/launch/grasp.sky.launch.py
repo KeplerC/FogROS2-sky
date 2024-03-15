@@ -31,26 +31,49 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
+from launch import LaunchDescription
 from launch_ros.actions import Node
 
 import fogros2
 
 
 def generate_launch_description():
-    """Talker example that launches the listener on GCP Kube."""
-    ld = fogros2.FogROSLaunchDescription()
-    machine1 = fogros2.KubeInstance()
+    """Talker example that launches everything locally."""
 
-    listener_node = Node(
-        package="fogros2_examples", executable="listener", output="screen"
-    )
+    # step 1: your service (cloud) node 
 
-    talker_node = fogros2.CloudNode(
-        package="fogros2_examples",
-        executable="talker",
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router",
         output="screen",
-        machine=machine1,
+        emulate_tty=True,
+        parameters=[
+            {"config_file_name": "service-gqcnn.yaml"}, # step 2: your yaml file name 
+            {"whoami": "machine_server"},
+            {"release_mode": False},
+        ],
     )
-    ld.add_action(talker_node)
-    ld.add_action(listener_node)
-    return ld
+
+    fogros2.SkyLaunchDescription(
+        nodes=[sgc_router],
+        mode="launch",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        additional_setup_commands = [],
+        additional_run_commands = ["sudo docker run -d --net=host -ti keplerc/gqcnn_ros::service ros2 run gqcnn_ros grasp_service.py"],
+    )
+
+    return LaunchDescription(
+        [
+            Node(
+                package="sgc_launch",
+                executable="sgc_router",
+                output="screen",
+                emulate_tty=True,
+                parameters=[
+                    {"config_file_name": "service-gqcnn.yaml"}, # step 4: your yaml file name
+                    {"whoami": "machine_client"},
+                    {"release_mode": False},
+                ],
+            ),
+        ]
+    )

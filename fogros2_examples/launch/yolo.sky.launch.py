@@ -31,46 +31,69 @@
 # PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION TO PROVIDE
 # MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
+from launch import LaunchDescription
 from launch_ros.actions import Node
+
 import fogros2
-from utils import region_ami_selection, ec2_instance_type_selection
-
-
-def generic_ubuntu_ami():
-    return {
-        "us-west-1": {"ami_image": "ami-02ea247e531eb3ce6"},
-        "us-west-2": {"ami_image": "ami-017fecd1353bcc96e"},
-        "us-east-1": {"ami_image": "ami-08c40ec9ead489470"},
-        "us-east-2": {"ami_image": "ami-097a2df4ac947655f"},
-        "ap-northeast-1": {"ami_image": "ami-03f4fa076d2981b45"},
-        "ap-northeast-2": {"ami_image": "ami-0e9bfdb247cc8de84"},
-        "ap-northeast-3": {"ami_image": "ami-08c2ee02329b72f26"},
-    }
 
 
 def generate_launch_description():
-    """Talker example that launches the listener on AWS."""
-    ld = fogros2.FogROSLaunchDescription()
+    """Talker example that launches everything locally."""
 
-    region, ami = region_ami_selection.find_nearest_region_and_ami(generic_ubuntu_ami())
-
-    ec2_instance_type = ec2_instance_type_selection.find_cheapest_ec2_instance_type(region)
-
-    print(region, ami, ec2_instance_type)
-    machine1 = fogros2.AWSCloudInstance(
-        region=region, ec2_instance_type=ec2_instance_type, ami_image=ami
+    # step 1: your service (cloud) node 
+    service_node = Node(
+        package="yolo",
+        executable="yolo_service",
     )
 
-    listener_node = Node(
-        package="fogros2_examples", executable="listener", output="screen"
-    )
-
-    talker_node = fogros2.CloudNode(
-        package="fogros2_examples",
-        executable="talker",
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router",
         output="screen",
-        machine=machine1,
+        emulate_tty=True,
+        parameters=[
+            {"config_file_name": "service-yolo.yaml"}, # step 2: your yaml file name 
+            {"whoami": "machine_server"},
+            {"release_mode": True},
+        ],
     )
-    ld.add_action(talker_node)
-    ld.add_action(listener_node)
-    return ld
+
+    fogros2.SkyLaunchDescription(
+        nodes=[service_node, sgc_router],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        ami = "ami-0ce2cb35386fc22e9", # standard 22.04
+        region = "us-west-1",
+        additional_setup_commands = ["pip3 install ultralytics"],
+    )
+
+    fogros2.SkyLaunchDescription(
+        nodes=[service_node, sgc_router],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        ami = "ami-0c7217cdde317cfec", # standard 22.04
+        region = "us-east-1",
+        additional_setup_commands = ["pip3 install ultralytics"],
+    )
+
+
+    return LaunchDescription(
+        [
+            # step 3: your client node
+            Node(
+                package="yolo",
+                executable="yolo_client",
+            ),
+            Node(
+                package="sgc_launch",
+                executable="sgc_router",
+                output="screen",
+                emulate_tty=True,
+                parameters=[
+                    {"config_file_name": "service-yolo.yaml"}, # step 4: your yaml file name
+                    {"whoami": "machine_client"},
+                    {"release_mode": True},
+                ],
+            ),
+        ]
+    )

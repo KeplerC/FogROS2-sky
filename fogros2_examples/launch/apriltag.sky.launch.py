@@ -36,22 +36,45 @@ from launch_ros.actions import Node
 
 import fogros2
 
-def generate_launch_description():
 
-    fogros2.SkyLaunchDescription(
-        workdir = "~/rgbd_dataset_freiburg1_xyz", 
-        containers = [
-                "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/camera/color/image -p response_topic_name:=/RGBD/pose -p heuristic_mode:=first_request",
-                "sudo docker run -d --net=host --rm -it -v /home/ubuntu/sky_workdir:/dataset -v $(pwd)/output:/output simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_client_launch.py dataset:=/dataset compress:=0 fps:=1",
-                "sudo docker run -d --net=host --rm simeonoa/orbslam-ros ros2 launch orb_slam2_ros orb_slam2_d435_rgbd_launch.py compress:=0"
-                ],
-        mode = "benchmark", # launch, benchmark
+def generate_launch_description():
+    """Talker example that launches everything locally."""
+
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router",
+        output="screen",
+        emulate_tty=True,
+        parameters=[
+            {"config_file_name": "service-apriltag.yaml"}, # step 2: your yaml file name 
+            {"whoami": "machine_server"},
+            {"release_mode": True},
+        ],
     )
 
-    # this is to prevent the launch description from exiting 
-    # TODO: a better way 
-    return LaunchDescription([
-        Node(
-            package="fogros2_examples", executable="listener", output="screen", # listener
-        ), 
-    ])
+    # method 1: build sgc from source: 
+    fogros2.SkyLaunchDescription(
+        nodes=[sgc_router],
+        mode="spot",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        additional_setup_commands = [],
+        additional_run_commands = ["sudo docker run -d --net=host keplerc/apriltag:service bash -c \"source install/setup.bash && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 launch apriltag_ros_fork srv_server.launch.py\""],
+        num_replica = 2,
+    )
+
+
+    return LaunchDescription(
+        [
+            Node(
+                package="sgc_launch",
+                executable="sgc_router",
+                output="screen",
+                emulate_tty=True,
+                parameters=[
+                    {"config_file_name": "service-apriltag.yaml"}, # step 4: your yaml file name
+                    {"whoami": "machine_client"},
+                    {"release_mode": False},
+                ],
+            ),
+        ]
+    )

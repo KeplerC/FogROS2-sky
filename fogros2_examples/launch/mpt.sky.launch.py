@@ -36,22 +36,55 @@ from launch_ros.actions import Node
 
 import fogros2
 
-def generate_launch_description():
 
-    fogros2.SkyLaunchDescription(
-        workdir = "", 
-        containers = [
-                "sudo docker run -d --net=host -v ~/.sky:/root/.sky -v ~/sky_benchmark_dir:/root/sky_benchmark_dir --rm keplerc/fogros-sky-latency:latest ros2 run fogros2 latency --ros-args -p request_topic_name:=/robot_mesh -p request_topic_type:=std_msgs/msg/UInt8MultiArray -p response_topic_name:=/motion_plan -p response_topic_type:=std_msgs/msg/Float64MultiArray  -p heuristic_mode:=first_request",
-                "sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros node",
-                "sudo docker run -d --net=host -ti keplerc/mpt:latest ros2 run mpt_ros client"
-                ],
-        mode = "benchmark", # launch, benchmark
+def generate_launch_description():
+    """Talker example that launches everything locally."""
+
+    # step 1: your service (cloud) node 
+
+    sgc_router = Node(
+        package="sgc_launch",
+        executable="sgc_router",
+        output="screen",
+        emulate_tty=True,
+        parameters=[
+            {"config_file_name": "service-mpt.yaml"}, # step 2: your yaml file name 
+            {"whoami": "machine_server"},
+            {"release_mode": False},
+        ],
     )
 
-    # this is to prevent the launch description from exiting 
-    # TODO: a better way 
-    return LaunchDescription([
-        Node(
-            package="fogros2_examples", executable="listener", output="screen", # listener
-        ), 
-    ])
+
+    fogros2.SkyLaunchDescription(
+        nodes=[],
+        mode="launch",  # launch, benchmark, spot
+        # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+        additional_setup_commands = ["sudo apt-get update", "sudo apt-get install -y docker.io"],
+        additional_run_commands = [
+            "sudo apt-get update", 
+            "sudo apt-get install -y docker.io",
+            "sudo docker run -d --net=host keplerc/fogros2-rt-router:latest bash -c \"echo 'hello'>install/sgc_launch/share/sgc_launch/configs/crypto/test_cert/test_cert-private.pem  &&  source ./install/setup.sh && RMW_IMPLEMENTATION=rmw_cyclonedds_cpp ros2 run sgc_launch sgc_router --ros-args -p config_file_name:=service-mpt.yaml -p whoami:=machine_server -p release_mode:=False\"",
+            "sudo docker run --net=host keplerc/mpt:service ros2 run mpt_ros motion_plan_server"
+            ],
+        cpus= "32+",
+        num_replica = 1,
+        skip_setup = True,
+    )
+
+
+    # fogros2.SkyLaunchDescription(
+    #     nodes=[sgc_router],
+    #     mode="launch",  # launch, benchmark, spot
+    #     # ami="ami-0f43c97344dd92658", # default parameter is a ubuntu 22.04 image
+    #     additional_setup_commands = [],
+    #     additional_run_commands = [
+    #         "sudo docker run --net=host keplerc/mpt:service ros2 run mpt_ros motion_plan_server"
+    #         ],
+    #     cpus= "32+",
+    #     num_replica = 1,
+    # )
+
+    return LaunchDescription(
+        [
+        ]
+    )

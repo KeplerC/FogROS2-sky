@@ -34,28 +34,23 @@ import pickle
 from threading import Thread
 from rclpy.node import Node
 from rclpy import logging
-from .sky_yaml_builder import get_sky_config_yaml
+from .sky_cluster_manager import SkyCluster, SkySpotCluster
+from .sky_yaml_builder import SkyYamlBuilder
 
-resource_str = '''
-resources:
-    cloud: aws 
-    disk_size: 128
-    region: us-west-1
-    image_id: ami-03c44768198d7e3fe
-'''
-
-benchmark_resource_str = '''
-resources:
-    cloud: aws 
-    candidates:
-    - {cpus: 8}
-'''
 class SkyLaunchDescription():
     def __init__(self, 
-                 workdir = "~/sky_ws/",
+                 workdir = "~/sky_ws/src",
                  nodes = [], 
                  containers = [],
-                 mode = "launch"):
+                 mode = "launch", 
+                 ami = "ami-0ce2cb35386fc22e9", 
+                 region = "us-west-1",
+                 additional_setup_commands = [],
+                 additional_run_commands = [],
+                 accelerators = "",
+                 cpus = "",
+                 num_replica = 1, 
+                 skip_setup = False):
         self.logger = logging.get_logger(__name__)
         
         self.mode = mode
@@ -64,23 +59,32 @@ class SkyLaunchDescription():
         if self.nodes:
             self._generate_to_cloud_nodes()
 
-        if self.mode == "launch":
-            self.cluster = SkyCluster(get_sky_config_yaml(
-                    workdir=workdir, 
-                    docker_cmd=containers,
-                    resource_str = resource_str,
-            ), self.logger)
+        self.yaml_builder = SkyYamlBuilder(
+            workdir=workdir, 
+            ami = ami, 
+            additional_setup_commands = additional_setup_commands,
+            additional_run_commands = additional_run_commands,
+            accelerator=accelerators,
+            region = region,
+            cpus=cpus,
+            num_replica = num_replica,
+            skip_setup = skip_setup,
+            )
 
-            thread = Thread(target=self.launch, args=[])
-            thread.start()
+        config_path = "/tmp/sky.yaml"
+        self.yaml_builder.output_yaml_config(config_path)
+
+        if self.mode == "launch":
+            self.cluster = SkyCluster(config_path, self.logger)
+
+            self.cluster.init_cluster()
         elif self.mode == "benchmark":
-            self.cluster = SkyCluster(get_sky_config_yaml(
-                    workdir=workdir, 
-                    docker_cmd=containers,
-                    benchmark_resource_str=benchmark_resource_str,
-            ), self.logger)
+            self.cluster = SkyCluster(config_path, self.logger)
             thread = Thread(target=self.benchmark, args=[])
             thread.start()
+        elif self.mode == "spot":
+            self.cluster = SkySpotCluster(config_path, self.logger)
+            self.cluster.init_cluster()
         else:
             pass
 
@@ -92,66 +96,8 @@ class SkyLaunchDescription():
         
         # self.cluster.init_cluster()
 
-    def launch(self):
-        #TODO: create a separate thread for it
-        self.logger.info(f"launching the Sky cluster")
-        self.cluster.init_cluster()
-
     def benchmark(self):
         # TODO: benchmark the scheduler
         pass
 
 
-
-# TODO: later separate to another file
-import sky 
-import subprocess
-from time import sleep
-import os 
-from .name_generator import get_unique_name
-class SkyCluster():
-    def __init__(self, sky_yaml_config, logger) -> None:
-        self.sky_yaml_config = sky_yaml_config
-        self.logger = logger
-        self._name = get_unique_name()
-        with open("/tmp/sky.yaml", "w+") as f:
-            f.write(sky_yaml_config)
-        self.logger.info(f"Creating new Sky cluster {self._name} with config: {self.sky_yaml_config}")
-
-    def init_cluster(self):
-        self.logger.info(f"Creating new Sky cluster {self._name}")
-        self.create_sky_instance()
-        self._is_created = True
-
-    def create_sky_instance(self):
-        '''Create Sky Instance with skypilot'''
-        user = subprocess.check_output('whoami', shell=True).decode().strip()
-
-        with sky.Dag() as dag:
-            t = sky.Task.from_yaml("/tmp/sky.yaml")
-
-        if sky.status("sky-fogros") == []:
-            # create a new cluster
-            # sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-            pid = os.fork()
-            if pid == 0:
-                # child process, just launch the yaml cloud node
-                sky.launch(dag, cluster_name = "sky-fogros", idle_minutes_to_autostop=100)
-                exit(0)
-        else:
-            # run with the same cluster
-            sky.exec(dag, cluster_name = "sky-fogros")
-
-
-        while (sky.status("sky-fogros") == []):
-            sleep(1)
-        status = sky.status("sky-fogros")[0]
-        # here we only need the ip address of the head node
-        try:
-            self._ip = status["handle"].__dict__["stable_internal_external_ips"][0][1] 
-            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
-        except:
-            # TODO: placeholders
-            self._ip = None
-            self._ssh_key_path = f"/home/{user}/.ssh/sky-key"
-        self._is_created = True
